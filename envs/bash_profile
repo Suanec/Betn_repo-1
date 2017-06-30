@@ -1,9 +1,8 @@
-# Betn_repo
 # EXPORTS
 export SCALA_HOME="/Users/enzhao/suanec/libs/scala-2.11.8"
 export HADOOP_HOME=/Users/enzhao/suanec/libs/hadoop-2.7.3
 export SPARK_HOME=/Users/enzhao/suanec/libs/spark-2.0.2-bin-hadoop2.7
-export PATH=$PATH:$SCALA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PATH=$PATH:$SCALA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin 
 export ENV_HOME=/Users/enzhao/suanec/libs/envs
 
 
@@ -18,3 +17,7 @@ alias suaneclt1="sh $ENV_HOME/LT1-channel.sh"
 alias suaneclt2="sh $ENV_HOME/LT2-channel.sh"
 alias suanecdx1="sh $ENV_HOME/DX1-channel.sh"
 alias suanecdx2="sh $ENV_HOME/DX2-channel.sh"
+alias ll="ls -lstra"
+
+# added by Anaconda2 4.4.0 installer
+export PATH="/Users/enzhao/suanec/libs/anaconda2/bin:$PATH"

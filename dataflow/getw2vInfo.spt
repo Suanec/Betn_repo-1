@@ -1,0 +1,16 @@
+val model = org.apache.spark.ml.feature.Word2VecModel.load("/user/suanec/dataflow/w2v/model/20170711-1")
+model.getVectors
+val dft = df.select("word").toDF("text")
+df.select("word").map(_.getString(0)).collect.map(model.findSynonyms(_,3))
+
+import org.apache.spark.ml.linalg.Vector
+import org.apache.spark.ml.feature.{Word2Vec,Word2VecModel}
+import org.apache.spark.mllib.feature.{
+  Word2Vec => libWord2Vec,
+  Word2VecModel => libWord2VecModel
+}
+val model = org.apache.spark.ml.feature.Word2VecModel.load("/user/suanec/dataflow/w2v/model/20170711-1")
+val vec = model.getVectors
+val lm = new libWord2VecModel(model.getVectors.map(line => line.getString(0) -> line.getAs[org.apache.spark.ml.linalg.Vector](1).toArray.map(_.toFloat)).collect.toMap)
+def genJson(word : String, vector : Array[Double]) : String = s"""{"word":"${word}","vector":[${vector.mkString(",")}]}"""
+

@@ -1,0 +1,4 @@
+val model = org.apache.spark.ml.feature.Word2VecModel.load("/user/suanec/dataflow/w2v/model/20170711-1")
+model.getVectors
+val dft = df.select("word").toDF("text")
+df.select("word").map(_.getString(0)).collect.map(model.findSynonyms(_,3))

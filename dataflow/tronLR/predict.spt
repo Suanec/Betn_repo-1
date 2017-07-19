@@ -1,0 +1,22 @@
+def predict(rdd : RDD[_]) : RDD[Product with Serializable] = rdd.map{
+      case lp:LabeledPoint =>
+        val score:Double = model.predict(
+          org.apache.spark.mllib.linalg.Vectors.dense(
+            lp.features.toArray
+          )
+        )
+        b_showScore.value match {
+          case false =>
+            if(lp.label == -1d) Tuple2.apply(score,0d)
+            else Tuple2.apply(score,lp.label)
+          case true =>
+            if(score >= threshold) {
+              if(lp.label == -1d) Tuple3.apply(1d, score, 0d)
+              else Tuple3.apply(1d, score, lp.label)
+            }
+            else {
+              if(lp.label == -1d) Tuple3.apply(1d, score, 0d)
+              else Tuple3.apply(0d, score, lp.label)
+            }
+        }
+    }

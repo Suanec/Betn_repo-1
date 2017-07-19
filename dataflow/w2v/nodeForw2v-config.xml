@@ -1,65 +1,65 @@
-     <node name="TrainW2V">
-      <!-- 运行环境配置 -->
-      <env>
-        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
-        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
-      </env>
-      <!-- 运行时配置，包括DAGNode参数和engine for spark参数配置 -->
-      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
-        <binPath>/usr/local/spark/bin/spark-submit</binPath>
-        <sparkArgs>
-          --master yarn
-          --deploy-mode client
-          --executor-cores 4
-          --num-executors 60
-          --driver-memory 25G
-          --executor-memory 20G
-        </sparkArgs>
-      </runtime>
-      <execute>
-        <type>pipeline</type>
-      </execute>
-      <!-- 输入node节点，作为w2v模型训练节点依赖节点，进行数据读入 -->
-      <input name="input7">
-        <!-- 读入语料数据className -->
-        <className>com.weibo.datasys.engine.spark.input.InputSparkCorpus</className>
-        <!-- 预料数据存储路径，默认由hdfs读入 -->
-        <dataPath>/user/suanec/dataflow/w2v/cut_words</dataPath>
-        <!-- 数据读入格式，默认text -->
-        <format>text</format>
-      </input>
-      <output name="output7">
-        <!-- Word2Vec模型训练className -->
-        <className>com.weibo.datasys.engine.spark.output.OutputSparkWord2Vec.Train</className>
-        <!-- 依赖节点，读入数据由依赖节点提供 -->
-        <dependency>input7</dependency>
-        <!-- 数据路径，w2v中此项不起作用，为将来需要独立配置文件预留,但需要配置，可为空 -->
-        <dataPath>/user/suanec/dataflow/w2v/cut_words</dataPath>
-        <!--  -->
-        <!-- 模型训练参数 begin -->
-        <!-- stepSize，必须项 -->
-        <stepSize>0.025</stepSize>
-        <!-- window，必须项 -->
-        <window>5</window>
-        <!-- vectorSize，必须项 -->
-        <vectorSize>100</vectorSize>
-        <!-- numIterations，必须项 -->
-        <numIterations>10</numIterations>
-        <!-- minCoun，非必须项 -->
-        <minCount>5</minCount>
-        <!-- maxSentenceLength，必须项 -->
-        <maxSentenceLength>5</maxSentenceLength>
-        <!-- numPartitions，必须项，如不配置，将自动由数据分片情况动态读取 -->
-        <numPartitions>0</numPartitions>
-        <!-- seed，非必须项，如不配置，将会有系统自动配置随机种子并分发，默认类型Long -->
-        <seed>0</seed>
-        <!-- 模型训练参数 end -->
-        <!--  -->
-        <!-- readable，非必须项，为随后若模型需要上线，重新定义模型文件协议的情况预留。默认为false -->
-        <readable>0</readable>
-        <!-- modelVersion，非必须项，为随后若模型需要上线，重新定义模型文件协议的情况预留。无默认值 -->
-        <modelVersion>20170711-1</modelVersion>
-        <!-- modelPath，模型文件输出路径，默认写入hdfs，如需保存到本地，请添加“file://”前缀，必须项 -->
-        <modelPath>file:////home/suanec/ksp/dataflow/model/w2v/20170711-1</modelPath>
-      </output>
-    </node>
+<node name="TrainW2V">
+  <!-- 运行环境配置 -->
+  <env>
+    <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+    <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+  </env>
+  <!-- 运行时配置，包括DAGNode参数和engine for spark参数配置 -->
+  <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+    <binPath>/usr/local/spark/bin/spark-submit</binPath>
+    <sparkArgs>
+      --master yarn
+      --deploy-mode client
+      --executor-cores 4
+      --num-executors 60
+      --driver-memory 25G
+      --executor-memory 20G
+    </sparkArgs>
+  </runtime>
+  <execute>
+    <type>pipeline</type>
+  </execute>
+  <!-- 输入node节点，作为w2v模型训练节点依赖节点，进行数据读入 -->
+  <input name="input7">
+    <!-- 读入语料数据className -->
+    <className>com.weibo.datasys.engine.spark.input.InputSparkCorpus</className>
+    <!-- 预料数据存储路径，默认由hdfs读入 -->
+    <dataPath>/user/suanec/dataflow/w2v/cut_words</dataPath>
+    <!-- 数据读入格式，默认text -->
+    <format>text</format>
+  </input>
+  <output name="output7">
+    <!-- Word2Vec模型训练className -->
+    <className>com.weibo.datasys.engine.spark.output.OutputSparkWord2Vec.Train</className>
+    <!-- 依赖节点，读入数据由依赖节点提供 -->
+    <dependency>input7</dependency>
+    <!-- 数据路径，w2v中此项不起作用，为将来需要独立配置文件预留,但需要配置，可为空 -->
+    <dataPath>/user/suanec/dataflow/w2v/cut_words</dataPath>
+    <!--  -->
+    <!-- 模型训练参数 begin -->
+    <!-- stepSize，必须项 -->
+    <stepSize>0.025</stepSize>
+    <!-- window，必须项 -->
+    <window>5</window>
+    <!-- vectorSize，必须项 -->
+    <vectorSize>100</vectorSize>
+    <!-- numIterations，必须项 -->
+    <numIterations>10</numIterations>
+    <!-- minCoun，非必须项 -->
+    <minCount>5</minCount>
+    <!-- maxSentenceLength，必须项 -->
+    <maxSentenceLength>5</maxSentenceLength>
+    <!-- numPartitions，必须项，如不配置，将自动由数据分片情况动态读取 -->
+    <numPartitions>0</numPartitions>
+    <!-- seed，非必须项，如不配置，将会有系统自动配置随机种子并分发，默认类型Long -->
+    <seed>0</seed>
+    <!-- 模型训练参数 end -->
+    <!--  -->
+    <!-- readable，非必须项，为随后若模型需要上线，重新定义模型文件协议的情况预留。默认为false -->
+    <readable>false</readable>
+    <!-- modelVersion，非必须项，为随后若模型需要上线，重新定义模型文件协议的情况预留。无默认值 -->
+    <modelVersion>20170711-1</modelVersion>
+    <!-- modelPath，模型文件输出路径，默认写入hdfs，如需保存到本地，请添>加“file://”前缀，必须项 -->
+    <modelPath>file:///home/suanec/ksp/dataflow/model/w2v/20170711-2</modelPath>
+  </output>
+</node>

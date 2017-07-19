@@ -13,4 +13,5 @@ val model = org.apache.spark.ml.feature.Word2VecModel.load("/user/suanec/dataflo
 val vec = model.getVectors
 val lm = new libWord2VecModel(model.getVectors.map(line => line.getString(0) -> line.getAs[org.apache.spark.ml.linalg.Vector](1).toArray.map(_.toFloat)).collect.toMap)
 def genJson(word : String, vector : Array[Double]) : String = s"""{"word":"${word}","vector":[${vector.mkString(",")}]}"""
+def genLineStr(word : String, vector : Array[Double]) : String = s"""${word}\t${vector.mkString("|")}"""
 

@@ -1,0 +1,44 @@
+    <node name="findSynonyms">
+        <!-- 运行环境配置 -->
+        <env>
+            <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+            <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+        </env>
+        <!-- 运行时配置，包括DAGNode参数和engine for spark参数配置 -->
+        <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+            <binPath>/usr/local/spark/bin/spark-submit</binPath>
+            <sparkArgs>
+                --master yarn
+                --deploy-mode client
+                --executor-cores 4
+                --num-executors 60
+                --driver-memory 25G
+                --executor-memory 20G
+            </sparkArgs>
+        </runtime>
+        <execute>
+            <type>pipeline</type>
+        </execute>
+        <output name="output8">
+            <!-- Word2Vec模型训练className -->
+            <className>com.weibo.datasys.engine.spark.output.OutputSparkWord2Vec.CalcSimilar</className>
+            <!-- 数据路径，w2v中此项不起作用，为将来需要独立配置文件预留,但需要配置，可为空 -->
+            <dataPath>/user/suanec/dataflow/w2v/cut_words</dataPath>
+            <!--  -->
+            <!-- 相似度计算参数 begin -->
+            <!-- dataPath，选填项，当前版本中未使用  -->
+            <dataPath></dataPath>
+            <!-- modelPath，必填项，模型文件储存路径 -->
+            <modelPath></modelPath>
+            <!-- rstPath，必填项，计算结果文件储存路径 -->
+            <rstPath></rstPath>
+            <!-- readable，模型文件是否可读，默认为true，请根据训练配置结合模型文件格式使用 -->
+            <readable></readable>
+            <!-- nSimilar，寻找相似词语n值，默认为5. -->
+            <nSimilar></nSimilar>
+            <!-- threshold，相似度阈值，默认为0，0代表不配置相似度阈值 -->
+            <threshold></threshold>
+            <!-- 相似度计算参数 end -->
+            <!--  -->
+        </output>
+    </node>

@@ -1,0 +1,49 @@
+@version MISSING VERSION #
+@type fold
+@flag:
+
+#fuu_ia_num_month	enum	log	
+%{"globalStart":"1","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_expo_num_month	enum	loge	
+%{"globalStart":"4","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_fwd_num_month	enum	log10	
+%{"globalStart":"7","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#m_is_inner_service	enum	intlog	
+%{"globalStart":"10","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_lk_num_month	enum	intlog10	
+%{"globalStart":"13","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_iar_week	enum	int	
+%{"globalStart":"16","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_ia_degree_week	enum	long	
+%{"globalStart":"19","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_iar_month	enum	multiple	3
+%{"globalStart":"22","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fuu_ia_degree_month	enum	multiply	4
+%{"globalStart":"25","localStart":"0","localEnd":"1","orderEnumList":"","hasOther":"1"}
+
+#fum_interest_tag1_match_cala	enum	piecewise	{"0":"0,1","1":"1,2","2":"2,3","3":"3,4","4":"4,5","5":"5,6","6":"6,7","7":"7,8","8":"8,9","9":"9,10","10":"10,11","11":"11,12","12":"12,13","13":"13,14","14":"14,15","15":"15,16","16":"16,17","17":"17,18","18":"18,19","19":"19,20","20":"20,50","21":"50,100","22":"100,200","23":"200,250"}
+%{"globalStart":"28","localStart":"0","localEnd":"24","orderEnumList":"","hasOther":"1"}
+
+#fum_interest_tag2_match_cala	enum	pickcat	{"category":"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23"}
+%{"globalStart":"54","localStart":"0","localEnd":"23","orderEnumList":"","hasOther":"1"}
+
+#fum_interest_tag3_match_cala	enum	pickcat	{"category":"20,50,300,400"}
+%{"globalStart":"79","localStart":"0","localEnd":"3","orderEnumList":"","hasOther":"1"}
+
+#fum_interest_tag3_match_cala1	enum	combinehash	{"features":"fuu_lk_num_month,fuu_iar_week,fuu_ia_degree_week","hashbucket":"1000","hashfun":"BKDR","connector":"_"}
+%{"globalStart":"84","localStart":"0","localEnd":"24","orderEnumList":"","hasOther":"1"}
+
+#m_u_uid	enum	descartes	{"features":"fuu_expo_num_month,fuu_fwd_num_month","coeff":"m_is_inner_service"}
+%{"globalStart":"110","localStart":"0","localEnd":"24","orderEnumList":"","hasOther":"1"}
+
+#fuu_ia_num_week	enum	descartes	{"features":"fuu_expo_num_month,fuu_fwd_num_month","coeff":""}
+%{"globalStart":"136","localStart":"0","localEnd":"10","orderEnumList":"","hasOther":"1"}
+

@@ -1,0 +1,156 @@
+import scala.collection._
+import scala.collection.mutable.HashMap
+import scala.sys.process._
+
+import com.weibo.datasys.common.Params
+import com.weibo.datasys.engine.spark._
+import com.weibo.datasys.engine.spark.algorithm._
+import com.weibo.datasys.engine.spark.function._
+import com.weibo.datasys.engine.spark.input._
+import com.weibo.datasys.engine.spark.node._
+import com.weibo.datasys.engine.spark.output._
+import com.weibo.datasys.engine.spark.process._
+import com.weibo.datasys.common.filesystem.File2DataFrame
+import com.weibo.datasys.dataflow.classbase.input.InputSpark
+import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql._
+
+
+val paramMap: scala.collection.mutable.HashMap[String, String] = scala.collection.mutable.HashMap[String, String]()
+val pm = paramMap
+// paramMap += "textDataPath" -> "/user/suanec/dataflow/libsvm/testSample/1w-txt"
+// paramMap += "parquetDataPath" -> "/user/suanec/dataflow/libsvm/testSample/1w-parquet"
+// paramMap += "format" -> "text"
+// paramMap += "dataPath" -> """/user/suanec/dataflow/littleSample/1w"""
+// paramMap += "fieldDelimiter" -> """\t"""
+// paramMap += "metaPath" -> """meta"""
+// paramMap += "sql" -> """meta"""
+
+
+/**
+ * test com.weibo.datasys.engine.spark.input.InputSparkText
+ *
+ */
+// InputSparkText.init(paramMap.toMap)
+// val input = InputSparkText.read(spark)
+// input.isInstanceOf[WeiDataFrame]
+// input.asInstanceOf[WeiDataFrame].get
+
+
+/**
+ * test ProcessSparkDataStatistics init failed.
+ *
+ */
+// ProcessSparkDataStatistics.init(paramMap.toMap)
+
+/**
+ * test OutputSparkText output without fieldDelimiter.
+ *
+ */
+// InputSparkText.init(paramMap.toMap)
+// val input = InputSparkText.read(spark)
+// input.isInstanceOf[WeiDataFrame]
+// val singleOutput = input.asInstanceOf[WeiDataFrame].get
+// OutputSparkText.init(paramMap.toMap)
+
+/**
+ * test ProcessSparFeatureMapping output without fieldDelimiter.
+ *
+ */
+pm += "dataPath" -> "/user/suanec/dataflow/littleSample/1w"
+pm += "metaPath" -> "meta"
+// val input3 = com.weibo.datasys.engine.spark.input.InputSparkText.init(pm.toMap)
+// pm += "dataPath" -> "data.conf.featureDoesNotExist"
+// val process3-1 = com.weibo.datasys.engine.spark.process.ProcessSparkDataClean.init(pm.toMap)
+pm += "dataPath" -> "data.conf.featureDoesNotExist"
+val process32 = com.weibo.datasys.engine.spark.process.ProcessSparkDataExtract.init(pm.toMap)
+pm += "dataPath" -> "feature.conf.featureDoesNotExist"
+val process33 = com.weibo.datasys.engine.spark.process.ProcessSparkFeatureMapping.init(pm.toMap)
+// pm += "dataPath" -> ""
+// pm += "format" -> "parquet"
+// val output = com.weibo.datasys.engine.spark.output.OutputSparkLibsvm.init(pm.toMap)
+
+/**
+ * test ProcessSparkDataFilter assert failure.
+ *
+ */
+pm += "dataPath" -> "/home/suanec/ksp/dataflow/testing/data_noNull"
+pm += "metaPath" -> "data.meta"
+pm += "fieldDelimiter" -> """\t"""
+com.weibo.datasys.engine.spark.input.InputSparkText.init(pm.toMap)
+val input = com.weibo.datasys.engine.spark.input.InputSparkText.read(spark)
+
+/**
+ * test ProcessSparkFeatureMapping data output double.
+ *
+ */
+pm += "dataPath" -> "/user/suanec/dataflow/littleSample/1w"
+pm += "metaPath" -> "data.meta"
+pm += "fieldDelimiter" -> "\t"
+com.weibo.datasys.engine.spark.input.InputSparkText.init(pm.toMap)
+val inputDouble1 = com.weibo.datasys.engine.spark.input.InputSparkText.read(spark).asInstanceOf[WeiDataFrame]
+
+pm += "dataPath" -> "data.conf"
+com.weibo.datasys.engine.spark.process.ProcessSparkDataClean.init(pm.toMap)
+val inputDouble2 = com.weibo.datasys.engine.spark.process.ProcessSparkDataClean.transform(spark,Array(inputDouble1))
+com.weibo.datasys.engine.spark.process.ProcessSparkDataExtract.init(pm.toMap)
+
+val classSimpleName: String = ProcessSparkDataExtract.getClass.getSimpleName
+val df = Array(inputDouble2)
+val dataConfPath = "data.conf"
+val singleDataFrame: DataFrame = df.head match {
+  case df: WeiDataFrame => df.get
+}
+assert(singleDataFrame.isInstanceOf[DataFrame],
+  s"Class: ${classSimpleName} " +
+    s"requires either DataFrame or RDD, you need to check your implementation.\n")
+
+val splitsNum: Int = singleDataFrame.rdd.getNumPartitions
+val dataSchema: Array[String] = singleDataFrame.schema.fieldNames
+val dataConf: Array[Row] = InputSparkDataConf.parseDataConf(spark, dataConfPath) match {
+  case df: WeiDataFrame => df.get.collect
+}
+val sortedDataConf: Array[DataConf] = dataConf.map(DataConf(_))
+
+val sortedLabels: Array[String] = sortedDataConf.filter(_.maptype.equals("persist")).sortBy(_.index).map(_.name)
+val sortedFeatures: String = sortedDataConf.filter{
+  case conf =>
+    !conf.maptype.equals("persist") &&
+    dataSchema.contains(conf.name)
+}.sortBy(_.index).map(_.name).mkString(",")
+assert(sortedLabels.size != 0 && sortedFeatures.size != 0,
+  s"Class: ${classSimpleName} " +
+    s"requires maptype equals 'persist', you need to check your data and DataConf.\n")
+
+val table: String = "table1"
+
+val posLabelWhere: String = sortedLabels.map{
+  case label: String =>
+    s"${label} > 0"
+}.mkString(" or ")
+val negLabelWhere: String = sortedLabels.map{
+  case label: String =>
+    s"${label} <= 0"
+}.mkString(" and ")
+
+singleDataFrame.createOrReplaceTempView(table)
+val posSamples: String = s"select ${sortedFeatures}, 1 as label " + s"from ${table} where ${posLabelWhere}"
+val negSamples: String = s"select ${sortedFeatures}, 0 as label " + s"from ${table} where ${negLabelWhere}"
+
+val unionDF: DataFrame = spark.sql(posSamples).union(spark.sql(negSamples))
+WeiDataFrame(unionDF.coalesce(splitsNum))
+
+
+
+
+
+
+
+
+
+
+
+
+

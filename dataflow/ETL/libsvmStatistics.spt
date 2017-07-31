@@ -80,7 +80,7 @@ val supportedSparsities = Array(
   "meanSparsity",
   "modeSparsity",
   "allSparsity",
-  "distributeSparsites")
+  "distributeSparsities")
 val strDS = input.map(_.getString(0))
 val ard = strDS.mapPartitions(readLibSVM.parseLibSVMIter)
 val numFeatures = ard.
@@ -133,7 +133,7 @@ sparsity = sparsityCategory match {
         .getLong(0)
     val modeSparsity = idxCount.where(s"count = ${modeCount}").head.getInt(0)
     Array(minSparsity,maxSparsity,meanSparsity,modeSparsity).mkString(",")
-  case "distributeSparsites" =>
+  case "distributeSparsities" =>
     val countSparsity = arrTypeData
         .mapPartitions(iter => iter.map(_._2.size))
     val idxCount = countSparsity

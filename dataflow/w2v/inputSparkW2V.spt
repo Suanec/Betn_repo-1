@@ -1,0 +1,61 @@
+modelParam.map{
+  line =>
+    val splits = line.getString(0).split('\t')
+    val word = splits.head
+    val vec = splits.last.split('|').map(_.toFloat)
+    word -> vec
+}
+mps.map{
+  case x if(x.getString(0).startsWith("#")) => println(x)
+  case _ =>
+}
+
+
+  def df2model(modelParams : WeiDataFrame,
+               readable : Boolean,
+               wordDelimiter : String = "\t",
+               vectorDelimiter : String = "|"
+              ) : libWord2VecModel = {
+    val spark = modelParams.get.sparkSession
+    val b_wordDelimiter = spark.sparkContext.broadcast(wordDelimiter)
+    val b_vectorDelimiter = spark.sparkContext.broadcast(vectorDelimiter)
+    val mps = modelParams
+      .get
+      .map(_.getString(0))// DataSet
+      .filter(!_.startsWith("#"))
+      .map{
+        line => 
+            val splits = line.split(b_wordDelimiter.value)
+            val word = splits.head
+            val vec = splits.last.split(b_vectorDelimiter.value).map(_.toFloat)
+            word -> vec
+          }//.toDF("word","vector").where("word != 'WeiFlowFilterTarget_w2v_df2model'")
+    val modelParam = mps.collect.toMap
+    new libWord2VecModel(modelParam)
+  }
+
+
+val schema = StructType(List("id","f1","f2").map(x => StructField(x,StringType)))
+val rdd = """张三 语文
+张三 数学
+李四 语文
+李四 英语
+""".split('\n').map{
+  line => 
+    val splits = line.split(' ')
+    val word = splits.head
+    val feature = splits.last
+    word -> feature
+}.groupByKey.map{
+  line => 
+    Row.fromSeq(Array(line._1) ++ line._2)
+}
+val df = spark.createDataFrame(rdd,schema)
+
+df.show
++---+---+---+
+| id| f1| f2|
++---+---+---+
+| 张三| 语文| 数学|
+| 李四| 英语| 语文|
++---+---+---+

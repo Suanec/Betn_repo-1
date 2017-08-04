@@ -11,7 +11,7 @@ export ENV_HOME=/Users/enzhao/suanec/libs/envs
 
 
 # ALIAS
-alias suanec175="sh $ENV_HOME/suanec@175.sh"
+alias suanec="sh $ENV_HOME/suanec@175.sh"
 alias root175="sh $ENV_HOME/Zroot@175.sh"
 alias hadoop175="sh $ENV_HOME/hadoop@175.sh"
 alias root176="sh $ENV_HOME/Zroot@176.sh"
@@ -22,6 +22,44 @@ alias suaneclt2="sh $ENV_HOME/LT2-channel.sh"
 alias suanecdx="sh $ENV_HOME/DX1-channel.sh"
 alias suanecdx2="sh $ENV_HOME/DX2-channel.sh"
 alias ll="ls -lstra"
+
+
+# Linux Alias
+alias ll="ls -lstra"
+alias wsp="cd ~/suanec/ksp"
+alias ckd="cd ~/suanec/ksp/dataflow"
+alias ecp="cp -rvfp"
+alias ldir='ls -lh|grep ^d'
+alias h5='head -5'
+alias h1='head -1'
+alias jj="jobs -l"
+alias tf="tail -f"
+alias lduh='du --max-depth=1 -h'
+
+
+# git ALIASES
+alias gclone="git clone"
+alias ginit="git init"
+alias gadd="git add"
+alias gmv="git mv"
+alias greset="git reset"
+alias grm="git rm"
+alias gbisect="git bisect"
+alias ggrep="git grep"
+alias glog="git log"
+alias gshow="git show"
+alias gstatus="git status"
+alias gbranch="git branch"
+alias gcheckout="git checkout"
+alias gcommit="git commit"
+alias gdiff="git diff"
+alias gmerge="git merge"
+alias grebase="git rebase"
+alias gtag="git tag"
+alias gfetch="git fetch"
+alias gpull="git pull"
+alias gpush="git push"
+
 
 # added by Anaconda2 4.4.0 installer
 export PATH="/Users/enzhao/suanec/libs/anaconda2/bin:$PATH"

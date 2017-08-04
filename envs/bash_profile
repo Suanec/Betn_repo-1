@@ -38,6 +38,13 @@ alias lduh='du --max-depth=1 -h'
 
 
 # git ALIASES
+
+alias ga="git add"
+alias gs="git status"
+alias gc="git commit"
+alias gp="git push"
+alias gpp="git pull"
+
 alias gclone="git clone"
 alias ginit="git init"
 alias gadd="git add"

@@ -32,6 +32,7 @@ alias h1='head -1'
 alias jj="jobs -l"
 alias tf="tail -f"
 alias lduh='du --max-depth=1 -h'
+alias rmr="rm -rvf"
 
 
 # git ALIASES

@@ -31,7 +31,7 @@ alias h5='head -5'
 alias h1='head -1'
 alias jj="jobs -l"
 alias tf="tail -f"
-alias lduh='du --max-depth=1 -h'
+alias lduh="du -d 1 -h"
 alias rmr="rm -rvf"
 
 

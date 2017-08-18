@@ -1,0 +1,53 @@
+<configuration>
+  <weiflow>
+    <node id="1" preid="-1">testShell</node>
+    <node id="5" preid="1">testDataConf</node>
+  </weiflow>
+  <nodes>
+     <node name="testShell">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.shell.node.NodeShellImpl">
+        <binPath>/bin/bash</binPath>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+       <process name="process1">
+        <className>com.weibo.datasys.engine.shell.process.ProcessShellCmd</className>
+        <shell>echo 'hello world'</shell>
+        <script>./weiflow-client/echoHello.sh</script>
+      </process>
+    </node>
+    <node name="testDataConf">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>spark-submit</binPath>
+        <sparkArgs>
+          --master local[*]
+          --deploy-mode client
+          --total-executor-cores 20
+          --executor-cores 2
+          --executor-memory 8g
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input1">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkDataMeta</className>
+        <dataPath>./weiflow-client/push.meta</dataPath>
+      </input>
+      <output name="output1">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkDataConf</className>
+        <dependency>input1</dependency>
+        <dataPath>./weiflow-client/push.data.conf.test</dataPath>
+      </output>
+    </node>
+   </nodes>
+</configuration>

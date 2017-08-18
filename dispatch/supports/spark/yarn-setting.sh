@@ -1,0 +1,14 @@
+YARN_SETTING_DIR="$( cd "$( dirname "$0" )" && pwd )"
+YARN_SETTING_YARN_SETTINGS=$YARN_SETTING_DIR/etc
+YARN_SETTING_HADOOP_HOME=$YARN_SETTING_DIR/hadoop-2.7.3
+YARN_SETTING_JAVA_HOME=$YARN_SETTING_DIR/jdk1.8.0_131
+YARN_SETTING_SPARK_HOME=$YARN_SETTING_DIR/spark-2.0.2-bin-hadoop2.7
+echo $YARN_SETTING_DIR
+sudo cat $YARN_SETTING_DIR/etc/hosts >> /etc/hosts
+echo "export JAVA_HOME=$YARN_SETTING_JAVA_HOME" >> ~/.bashrc
+echo "export HADOOP_HOME=$YARN_SETTING_HADOOP_HOME" >> ~/.bashrc
+echo "export SPARK_HOME=$YARN_SETTING_SPARK_HOME" >> ~/.bashrc
+echo "export HADOOP_CONF_DIR=$YARN_SETTING_YARN_SETTINGS" >> ~/.bashrc
+echo "export PATH=$YARN_SETTING_JAVA_HOME/bin:$YARN_SETTING_HADOOP_HOME/bin:$YARN_SETTING_SPARK_HOME/bin:$PATH" >> ~/.bashrc
+source ~/.bashrc
+

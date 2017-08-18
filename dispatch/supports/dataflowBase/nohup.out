@@ -1,0 +1,868 @@
+jar: dataflow-Tron.jar
+xml: pipeline.xml
+nodeID: 4
+app args: --class=com.weibo.datasys.engine.spark.node.NodeSparkRunner dataflow-Tron.jar pipeline.xml 4
+/home/suanec/ksp/dataflow
+work dir: 0/usr/local/spark/bin/spark-submit 
+          --master yarn
+          --deploy-mode client
+          --executor-cores 4
+          --num-executors 60
+          --driver-memory 25G
+          --executor-memory 20G
+         --class=com.weibo.datasys.engine.spark.node.NodeSparkRunner dataflow-Tron.jar pipeline.xml 417/07/10 16:51:42 INFO spark.SparkContext: Running Spark version 2.0.2
+17/07/10 16:51:42 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/07/10 16:51:42 INFO spark.SecurityManager: Changing view acls to: suanec
+17/07/10 16:51:42 INFO spark.SecurityManager: Changing modify acls to: suanec
+17/07/10 16:51:42 INFO spark.SecurityManager: Changing view acls groups to: 
+17/07/10 16:51:42 INFO spark.SecurityManager: Changing modify acls groups to: 
+17/07/10 16:51:42 INFO spark.SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(suanec); groups with view permissions: Set(); users  with modify permissions: Set(suanec); groups with modify permissions: Set()
+17/07/10 16:51:42 INFO util.Utils: Successfully started service 'sparkDriver' on port 35552.
+17/07/10 16:51:42 INFO spark.SparkEnv: Registering MapOutputTracker
+17/07/10 16:51:42 INFO spark.SparkEnv: Registering BlockManagerMaster
+17/07/10 16:51:42 INFO storage.DiskBlockManager: Created local directory at /tmp/blockmgr-4c6b45ce-bbc3-4864-97b1-71835c0a48d8
+17/07/10 16:51:42 INFO memory.MemoryStore: MemoryStore started with capacity 13.2 GB
+17/07/10 16:51:43 INFO spark.SparkEnv: Registering OutputCommitCoordinator
+17/07/10 16:51:43 INFO util.log: Logging initialized @1844ms
+17/07/10 16:51:43 INFO server.Server: jetty-9.2.z-SNAPSHOT
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@60cf80e7{/jobs,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@302fec27{/jobs/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@770d0ea6{/jobs/job,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@48c40605{/jobs/job/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@54107f42{/stages,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@1b11ef33{/stages/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@476aac9{/stages/stage,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@6cea706c{/stages/stage/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@3bd7f8dc{/stages/pool,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@2f2bf0e2{/stages/pool/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@1eba372c{/storage,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@21ec5d87{/storage/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@25f9407e{/storage/rdd,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@552518c3{/storage/rdd/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@1a69561c{/environment,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@59aa20b3{/environment/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@363f6148{/executors,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@4b21844c{/executors/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@1b28f282{/executors/threadDump,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@138fe6ec{/executors/threadDump/json,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@5e77f0f4{/static,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@19b30c92{/,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@455351c4{/api,null,AVAILABLE}
+17/07/10 16:51:43 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@29876704{/stages/stage/kill,null,AVAILABLE}
+17/07/10 16:51:43 INFO server.ServerConnector: Started ServerConnector@16fb356{HTTP/1.1}{0.0.0.0:4040}
+17/07/10 16:51:43 INFO server.Server: Started @1971ms
+17/07/10 16:51:43 INFO util.Utils: Successfully started service 'SparkUI' on port 4040.
+17/07/10 16:51:43 INFO ui.SparkUI: Bound SparkUI to 0.0.0.0, and started at http://10.85.125.175:4040
+17/07/10 16:51:43 INFO spark.SparkContext: Added JAR file:/home/suanec/ksp/dataflow/dataflow-Tron.jar at spark://10.85.125.175:35552/jars/dataflow-Tron.jar with timestamp 1499676703227
+17/07/10 16:51:43 INFO client.RMProxy: Connecting to ResourceManager at iZ2zeh3rmvn71widtik73gZ/10.85.125.175:8032
+17/07/10 16:51:44 INFO yarn.Client: Requesting a new application from cluster with 2 NodeManagers
+17/07/10 16:51:44 INFO yarn.Client: Verifying our application has not requested more than the maximum memory capability of the cluster (22528 MB per container)
+17/07/10 16:51:44 INFO yarn.Client: Will allocate AM container, with 896 MB memory including 384 MB overhead
+17/07/10 16:51:44 INFO yarn.Client: Setting up container launch context for our AM
+17/07/10 16:51:44 INFO yarn.Client: Setting up the launch environment for our AM container
+17/07/10 16:51:44 INFO yarn.Client: Preparing resources for our AM container
+17/07/10 16:51:44 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
+17/07/10 16:51:48 INFO yarn.Client: Uploading resource file:/tmp/spark-62da74b9-1ded-4aa7-9b98-ebd64db89c9f/__spark_libs__1777328664943393309.zip -> hdfs://iZ2zeh3rmvn71widtik73gZ:9000/user/suanec/.sparkStaging/application_1499088318559_0113/__spark_libs__1777328664943393309.zip
+17/07/10 16:51:49 INFO yarn.Client: Uploading resource file:/tmp/spark-62da74b9-1ded-4aa7-9b98-ebd64db89c9f/__spark_conf__6576875115722409259.zip -> hdfs://iZ2zeh3rmvn71widtik73gZ:9000/user/suanec/.sparkStaging/application_1499088318559_0113/__spark_conf__.zip
+17/07/10 16:51:49 INFO spark.SecurityManager: Changing view acls to: suanec
+17/07/10 16:51:49 INFO spark.SecurityManager: Changing modify acls to: suanec
+17/07/10 16:51:49 INFO spark.SecurityManager: Changing view acls groups to: 
+17/07/10 16:51:49 INFO spark.SecurityManager: Changing modify acls groups to: 
+17/07/10 16:51:49 INFO spark.SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(suanec); groups with view permissions: Set(); users  with modify permissions: Set(suanec); groups with modify permissions: Set()
+17/07/10 16:51:49 INFO yarn.Client: Submitting application application_1499088318559_0113 to ResourceManager
+17/07/10 16:51:49 INFO impl.YarnClientImpl: Submitted application application_1499088318559_0113
+17/07/10 16:51:49 INFO cluster.SchedulerExtensionServices: Starting Yarn extension services with app application_1499088318559_0113 and attemptId None
+17/07/10 16:51:50 INFO yarn.Client: Application report for application_1499088318559_0113 (state: ACCEPTED)
+17/07/10 16:51:50 INFO yarn.Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: N/A
+	 ApplicationMaster RPC port: -1
+	 queue: default
+	 start time: 1499676709466
+	 final status: UNDEFINED
+	 tracking URL: http://iZ2zeh3rmvn71widtik73gZ:8088/proxy/application_1499088318559_0113/
+	 user: suanec
+17/07/10 16:51:51 INFO yarn.Client: Application report for application_1499088318559_0113 (state: ACCEPTED)
+17/07/10 16:51:52 INFO yarn.Client: Application report for application_1499088318559_0113 (state: ACCEPTED)
+17/07/10 16:51:52 INFO cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: ApplicationMaster registered as NettyRpcEndpointRef(null)
+17/07/10 16:51:52 INFO cluster.YarnClientSchedulerBackend: Add WebUI Filter. org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter, Map(PROXY_HOSTS -> iZ2zeh3rmvn71widtik73gZ, PROXY_URI_BASES -> http://iZ2zeh3rmvn71widtik73gZ:8088/proxy/application_1499088318559_0113), /proxy/application_1499088318559_0113
+17/07/10 16:51:52 INFO ui.JettyUtils: Adding filter: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+17/07/10 16:51:53 INFO yarn.Client: Application report for application_1499088318559_0113 (state: RUNNING)
+17/07/10 16:51:53 INFO yarn.Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: 10.85.125.175
+	 ApplicationMaster RPC port: 0
+	 queue: default
+	 start time: 1499676709466
+	 final status: UNDEFINED
+	 tracking URL: http://iZ2zeh3rmvn71widtik73gZ:8088/proxy/application_1499088318559_0113/
+	 user: suanec
+17/07/10 16:51:53 INFO cluster.YarnClientSchedulerBackend: Application application_1499088318559_0113 has started running.
+17/07/10 16:51:53 INFO util.Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 46781.
+17/07/10 16:51:53 INFO netty.NettyBlockTransferService: Server created on 10.85.125.175:46781
+17/07/10 16:51:53 INFO storage.BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 10.85.125.175, 46781)
+17/07/10 16:51:53 INFO storage.BlockManagerMasterEndpoint: Registering block manager 10.85.125.175:46781 with 13.2 GB RAM, BlockManagerId(driver, 10.85.125.175, 46781)
+17/07/10 16:51:53 INFO storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.85.125.175, 46781)
+17/07/10 16:51:53 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@6d11ceef{/metrics/json,null,AVAILABLE}
+17/07/10 16:51:55 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.175:60034) with ID 2
+17/07/10 16:51:55 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik73gZ:46678 with 10.5 GB RAM, BlockManagerId(2, iZ2zeh3rmvn71widtik73gZ, 46678)
+17/07/10 16:51:56 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.176:41418) with ID 1
+17/07/10 16:51:56 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik72kZ:33880 with 10.5 GB RAM, BlockManagerId(1, iZ2zeh3rmvn71widtik72kZ, 33880)
+17/07/10 16:51:59 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.176:41422) with ID 3
+17/07/10 16:51:59 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik72kZ:45812 with 10.5 GB RAM, BlockManagerId(3, iZ2zeh3rmvn71widtik72kZ, 45812)
+17/07/10 16:51:59 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.175:60046) with ID 4
+17/07/10 16:51:59 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik73gZ:45015 with 10.5 GB RAM, BlockManagerId(4, iZ2zeh3rmvn71widtik73gZ, 45015)
+17/07/10 16:52:01 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.176:41428) with ID 5
+17/07/10 16:52:01 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik72kZ:41166 with 10.5 GB RAM, BlockManagerId(5, iZ2zeh3rmvn71widtik72kZ, 41166)
+17/07/10 16:52:01 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.176:41430) with ID 7
+17/07/10 16:52:01 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.175:60050) with ID 6
+17/07/10 16:52:01 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik72kZ:41025 with 10.5 GB RAM, BlockManagerId(7, iZ2zeh3rmvn71widtik72kZ, 41025)
+17/07/10 16:52:01 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik73gZ:33252 with 10.5 GB RAM, BlockManagerId(6, iZ2zeh3rmvn71widtik73gZ, 33252)
+17/07/10 16:52:04 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(null) (10.85.125.175:60054) with ID 8
+17/07/10 16:52:04 INFO storage.BlockManagerMasterEndpoint: Registering block manager iZ2zeh3rmvn71widtik73gZ:35242 with 10.5 GB RAM, BlockManagerId(8, iZ2zeh3rmvn71widtik73gZ, 35242)
+17/07/10 16:52:13 INFO cluster.YarnClientSchedulerBackend: SchedulerBackend is ready for scheduling beginning after waiting maxRegisteredResourcesWaitingTime: 30000(ms)
+17/07/10 16:52:13 WARN spark.SparkContext: Use an existing SparkContext, some configuration may not take effect.
+17/07/10 16:52:13 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@65f651eb{/SQL,null,AVAILABLE}
+17/07/10 16:52:13 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@1f1ff879{/SQL/json,null,AVAILABLE}
+17/07/10 16:52:13 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@7f1ef916{/SQL/execution,null,AVAILABLE}
+17/07/10 16:52:13 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@64aad809{/SQL/execution/json,null,AVAILABLE}
+17/07/10 16:52:13 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@75a0c890{/static/sql,null,AVAILABLE}
+17/07/10 16:52:13 INFO internal.SharedState: Warehouse path is 'file:/home/suanec/ksp/dataflow/spark-warehouse'.
+17/07/10 16:52:14 INFO spark.SparkContext: Starting job: parquet at InputSparkLibsvm.scala:38
+17/07/10 16:52:14 INFO scheduler.DAGScheduler: Got job 0 (parquet at InputSparkLibsvm.scala:38) with 1 output partitions
+17/07/10 16:52:14 INFO scheduler.DAGScheduler: Final stage: ResultStage 0 (parquet at InputSparkLibsvm.scala:38)
+17/07/10 16:52:14 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:14 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:14 INFO scheduler.DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at parquet at InputSparkLibsvm.scala:38), which has no missing parents
+17/07/10 16:52:15 INFO memory.MemoryStore: Block broadcast_0 stored as values in memory (estimated size 71.0 KB, free 13.2 GB)
+17/07/10 16:52:15 INFO memory.MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 25.6 KB, free 13.2 GB)
+17/07/10 16:52:15 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.85.125.175:46781 (size: 25.6 KB, free: 13.2 GB)
+17/07/10 16:52:15 INFO spark.SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:15 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at parquet at InputSparkLibsvm.scala:38)
+17/07/10 16:52:15 INFO cluster.YarnScheduler: Adding task set 0.0 with 1 tasks
+17/07/10 16:52:15 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, iZ2zeh3rmvn71widtik73gZ, partition 0, PROCESS_LOCAL, 5706 bytes)
+17/07/10 16:52:15 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 0 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:15 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 25.6 KB, free: 10.5 GB)
+17/07/10 16:52:16 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 1495 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:16 INFO cluster.YarnScheduler: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+17/07/10 16:52:16 INFO scheduler.DAGScheduler: ResultStage 0 (parquet at InputSparkLibsvm.scala:38) finished in 1.505 s
+17/07/10 16:52:16 INFO scheduler.DAGScheduler: Job 0 finished: parquet at InputSparkLibsvm.scala:38, took 1.828669 s
+17/07/10 16:52:17 INFO datasources.FileSourceStrategy: Pruning directories with: 
+17/07/10 16:52:17 INFO datasources.FileSourceStrategy: Post-Scan Filters: 
+17/07/10 16:52:17 INFO datasources.FileSourceStrategy: Pruned Data Schema: struct<label: int, features: string>
+17/07/10 16:52:17 INFO datasources.FileSourceStrategy: Pushed Filters: 
+17/07/10 16:52:17 INFO memory.MemoryStore: Block broadcast_1 stored as values in memory (estimated size 282.3 KB, free 13.2 GB)
+17/07/10 16:52:17 INFO memory.MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 24.6 KB, free 13.2 GB)
+17/07/10 16:52:17 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on 10.85.125.175:46781 (size: 24.6 KB, free: 13.2 GB)
+17/07/10 16:52:17 INFO spark.SparkContext: Created broadcast 1 from rdd at Utils.scala:17
+17/07/10 16:52:17 INFO datasources.FileSourceStrategy: Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+17/07/10 16:52:17 INFO codegen.CodeGenerator: Code generated in 225.684698 ms
+17/07/10 16:52:17 INFO Train$: train: start...
+17/07/10 16:52:17 INFO spark.SparkContext: Starting job: first at GeneralizedLinearAlgorithm.scala:204
+17/07/10 16:52:17 INFO scheduler.DAGScheduler: Got job 1 (first at GeneralizedLinearAlgorithm.scala:204) with 1 output partitions
+17/07/10 16:52:17 INFO scheduler.DAGScheduler: Final stage: ResultStage 1 (first at GeneralizedLinearAlgorithm.scala:204)
+17/07/10 16:52:17 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:17 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:17 INFO scheduler.DAGScheduler: Submitting ResultStage 1 (MapPartitionsRDD[13] at map at GeneralizedLinearAlgorithm.scala:204), which has no missing parents
+17/07/10 16:52:17 INFO memory.MemoryStore: Block broadcast_2 stored as values in memory (estimated size 12.8 KB, free 13.2 GB)
+17/07/10 16:52:17 INFO memory.MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 6.4 KB, free 13.2 GB)
+17/07/10 16:52:17 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on 10.85.125.175:46781 (size: 6.4 KB, free: 13.2 GB)
+17/07/10 16:52:17 INFO spark.SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:17 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (MapPartitionsRDD[13] at map at GeneralizedLinearAlgorithm.scala:204)
+17/07/10 16:52:17 INFO cluster.YarnScheduler: Adding task set 1.0 with 1 tasks
+17/07/10 16:52:17 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6115 bytes)
+17/07/10 16:52:17 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 1 on executor id: 8 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:18 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:35242 (size: 6.4 KB, free: 10.5 GB)
+17/07/10 16:52:18 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:35242 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:19 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 2027 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:19 INFO cluster.YarnScheduler: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: ResultStage 1 (first at GeneralizedLinearAlgorithm.scala:204) finished in 2.028 s
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Job 1 finished: first at GeneralizedLinearAlgorithm.scala:204, took 2.046753 s
+17/07/10 16:52:19 WARN algorithm.WeiBoLogisticRegression: The input data is not directly cached, which may hurt performance if its parent RDDs are also uncached.
+17/07/10 16:52:19 INFO spark.SparkContext: Starting job: count at DataValidators.scala:40
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Got job 2 (count at DataValidators.scala:40) with 1 output partitions
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Final stage: ResultStage 2 (count at DataValidators.scala:40)
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Submitting ResultStage 2 (MapPartitionsRDD[14] at filter at DataValidators.scala:40), which has no missing parents
+17/07/10 16:52:19 INFO memory.MemoryStore: Block broadcast_3 stored as values in memory (estimated size 12.5 KB, free 13.2 GB)
+17/07/10 16:52:19 INFO memory.MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 6.2 KB, free 13.2 GB)
+17/07/10 16:52:19 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on 10.85.125.175:46781 (size: 6.2 KB, free: 13.2 GB)
+17/07/10 16:52:19 INFO spark.SparkContext: Created broadcast 3 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:19 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 2 (MapPartitionsRDD[14] at filter at DataValidators.scala:40)
+17/07/10 16:52:19 INFO cluster.YarnScheduler: Adding task set 2.0 with 1 tasks
+17/07/10 16:52:19 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 2.0 (TID 2, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6032 bytes)
+17/07/10 16:52:19 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 2 on executor id: 1 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:20 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:33880 (size: 6.2 KB, free: 10.5 GB)
+17/07/10 16:52:20 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:33880 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:21 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 2.0 (TID 2) in 2066 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:21 INFO cluster.YarnScheduler: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+17/07/10 16:52:21 INFO scheduler.DAGScheduler: ResultStage 2 (count at DataValidators.scala:40) finished in 2.068 s
+17/07/10 16:52:21 INFO scheduler.DAGScheduler: Job 2 finished: count at DataValidators.scala:40, took 2.074856 s
+17/07/10 16:52:21 INFO Tron: set ITERATIONS = 1000. 
+17/07/10 16:52:21 INFO Tron: initialWeight...
+17/07/10 16:52:22 INFO storage.BlockManagerInfo: Removed broadcast_3_piece0 on 10.85.125.175:46781 in memory (size: 6.2 KB, free: 13.2 GB)
+17/07/10 16:52:22 INFO storage.BlockManagerInfo: Removed broadcast_3_piece0 on iZ2zeh3rmvn71widtik72kZ:33880 in memory (size: 6.2 KB, free: 10.5 GB)
+17/07/10 16:52:22 INFO storage.BlockManagerInfo: Removed broadcast_2_piece0 on 10.85.125.175:46781 in memory (size: 6.4 KB, free: 13.2 GB)
+17/07/10 16:52:22 INFO storage.BlockManagerInfo: Removed broadcast_2_piece0 on iZ2zeh3rmvn71widtik73gZ:35242 in memory (size: 6.4 KB, free: 10.5 GB)
+17/07/10 16:52:22 INFO TronLR: calculating funcionValue.
+17/07/10 16:52:22 INFO spark.SparkContext: Starting job: foreach at Tron.scala:80
+17/07/10 16:52:22 INFO scheduler.DAGScheduler: Got job 3 (foreach at Tron.scala:80) with 1 output partitions
+17/07/10 16:52:22 INFO scheduler.DAGScheduler: Final stage: ResultStage 3 (foreach at Tron.scala:80)
+17/07/10 16:52:22 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:22 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:22 INFO scheduler.DAGScheduler: Submitting ResultStage 3 (MapPartitionsRDD[16] at map at Tron.scala:278), which has no missing parents
+17/07/10 16:52:22 INFO memory.MemoryStore: Block broadcast_4 stored as values in memory (estimated size 15.4 KB, free 13.2 GB)
+17/07/10 16:52:22 INFO memory.MemoryStore: Block broadcast_4_piece0 stored as bytes in memory (estimated size 6.8 KB, free 13.2 GB)
+17/07/10 16:52:22 INFO storage.BlockManagerInfo: Added broadcast_4_piece0 in memory on 10.85.125.175:46781 (size: 6.8 KB, free: 13.2 GB)
+17/07/10 16:52:22 INFO spark.SparkContext: Created broadcast 4 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:22 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 3 (MapPartitionsRDD[16] at map at Tron.scala:278)
+17/07/10 16:52:22 INFO cluster.YarnScheduler: Adding task set 3.0 with 1 tasks
+17/07/10 16:52:22 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 3.0 (TID 3, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:22 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 3 on executor id: 6 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:22 INFO storage.BlockManagerInfo: Added broadcast_4_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:33252 (size: 6.8 KB, free: 10.5 GB)
+17/07/10 16:52:23 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:33252 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:24 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 3.0 (TID 3) in 2470 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:24 INFO cluster.YarnScheduler: Removed TaskSet 3.0, whose tasks have all completed, from pool 
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: ResultStage 3 (foreach at Tron.scala:80) finished in 2.470 s
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Job 3 finished: foreach at Tron.scala:80, took 2.479140 s
+17/07/10 16:52:24 WARN netlib.BLAS: Failed to load implementation from: com.github.fommil.netlib.NativeSystemBLAS
+17/07/10 16:52:24 WARN netlib.BLAS: Failed to load implementation from: com.github.fommil.netlib.NativeRefBLAS
+17/07/10 16:52:24 INFO TronLR: calculating gradient... (accross mapPartition)
+17/07/10 16:52:24 INFO spark.SparkContext: Starting job: reduce at Tron.scala:114
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Got job 4 (reduce at Tron.scala:114) with 1 output partitions
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Final stage: ResultStage 4 (reduce at Tron.scala:114)
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Submitting ResultStage 4 (MapPartitionsRDD[17] at mapPartitions at Tron.scala:102), which has no missing parents
+17/07/10 16:52:24 INFO memory.MemoryStore: Block broadcast_5 stored as values in memory (estimated size 15.5 KB, free 13.2 GB)
+17/07/10 16:52:24 INFO memory.MemoryStore: Block broadcast_5_piece0 stored as bytes in memory (estimated size 6.7 KB, free 13.2 GB)
+17/07/10 16:52:24 INFO storage.BlockManagerInfo: Added broadcast_5_piece0 in memory on 10.85.125.175:46781 (size: 6.7 KB, free: 13.2 GB)
+17/07/10 16:52:24 INFO spark.SparkContext: Created broadcast 5 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:24 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 4 (MapPartitionsRDD[17] at mapPartitions at Tron.scala:102)
+17/07/10 16:52:24 INFO cluster.YarnScheduler: Adding task set 4.0 with 1 tasks
+17/07/10 16:52:24 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 4.0 (TID 4, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:24 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 4 on executor id: 3 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:25 INFO storage.BlockManagerInfo: Added broadcast_5_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:45812 (size: 6.7 KB, free: 10.5 GB)
+17/07/10 16:52:26 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:45812 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:27 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 4.0 (TID 4) in 2567 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:27 INFO cluster.YarnScheduler: Removed TaskSet 4.0, whose tasks have all completed, from pool 
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: ResultStage 4 (reduce at Tron.scala:114) finished in 2.567 s
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Job 4 finished: reduce at Tron.scala:114, took 2.575032 s
+17/07/10 16:52:27 INFO Tron: start cIter...
+17/07/10 16:52:27 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:27 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Got job 5 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Final stage: ResultStage 5 (reduce at Tron.scala:137)
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Submitting ResultStage 5 (MapPartitionsRDD[18] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:27 INFO memory.MemoryStore: Block broadcast_6 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:27 INFO memory.MemoryStore: Block broadcast_6_piece0 stored as bytes in memory (estimated size 7.3 KB, free 13.2 GB)
+17/07/10 16:52:27 INFO storage.BlockManagerInfo: Added broadcast_6_piece0 in memory on 10.85.125.175:46781 (size: 7.3 KB, free: 13.2 GB)
+17/07/10 16:52:27 INFO spark.SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:27 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 5 (MapPartitionsRDD[18] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:27 INFO cluster.YarnScheduler: Adding task set 5.0 with 1 tasks
+17/07/10 16:52:27 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 5.0 (TID 5, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:27 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 5 on executor id: 5 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:27 INFO storage.BlockManagerInfo: Added broadcast_6_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41166 (size: 7.3 KB, free: 10.5 GB)
+17/07/10 16:52:28 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41166 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:29 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 5.0 (TID 5) in 2465 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:29 INFO cluster.YarnScheduler: Removed TaskSet 5.0, whose tasks have all completed, from pool 
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: ResultStage 5 (reduce at Tron.scala:137) finished in 2.465 s
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Job 5 finished: reduce at Tron.scala:137, took 2.473232 s
+17/07/10 16:52:29 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:29 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Got job 6 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Final stage: ResultStage 6 (reduce at Tron.scala:137)
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Submitting ResultStage 6 (MapPartitionsRDD[19] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:29 INFO memory.MemoryStore: Block broadcast_7 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:29 INFO memory.MemoryStore: Block broadcast_7_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:29 INFO storage.BlockManagerInfo: Added broadcast_7_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:29 INFO spark.SparkContext: Created broadcast 7 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:29 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 6 (MapPartitionsRDD[19] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:29 INFO cluster.YarnScheduler: Adding task set 6.0 with 1 tasks
+17/07/10 16:52:29 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 6.0 (TID 6, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:29 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 6 on executor id: 7 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:30 INFO storage.BlockManagerInfo: Added broadcast_7_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41025 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:31 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41025 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:32 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 6.0 (TID 6) in 2470 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:32 INFO cluster.YarnScheduler: Removed TaskSet 6.0, whose tasks have all completed, from pool 
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: ResultStage 6 (reduce at Tron.scala:137) finished in 2.471 s
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Job 6 finished: reduce at Tron.scala:137, took 2.477753 s
+17/07/10 16:52:32 INFO Tron: dnrm2 <= cgtol, break.
+17/07/10 16:52:32 INFO Tron: cgIter : 2, s : DenseVector(-0.2610774560417457, -0.11139892354594295, 0.017963852621125237, 0.10628951054593408, 0.05171654389829895, -0.1841002104638412, -0.009398266057553742, 0.04769844077594841, 0.021168912728053546, 0.004783963886011607, -0.006350050791698575, 0.0, -3.185505448787885E-4, -0.05019698364315593, -0.02463576709813691, -0.030968601434411255, -0.038758626840038814, -0.05194649350658743, 0.10980501430334932, -0.11306588346378704, -0.04267893117314215, -0.16853732749150063, 0.04649499485506059, -0.014141635662970168, 0.003983038209745834, -0.02080699782583558, -0.02801291871487031, -0.013092780284774218, 0.0729417932020382, -0.008324365904165382, -0.0293819698330757, 0.03298506979547618, -0.018857534624941, -0.005816037908938224, -0.1669715362697426, -0.16853732749150063, -0.11306588346378704, -0.010158597453224335, 0.2622268721559243, 0.3937750676915794, -0.12328686385612986, -0.38406242486100534, -0.03610893439085115, -0.03554985009214146, -0.013055461424032074, 0.00178199441025014, 0.002510970399558641, -0.039542893892599976, -0.11459909124596791, -0.00690478576567837, 0.1423993929759182, 0.09561161963234889, -0.04218284280691777, -0.03571958636338994, -0.07487182429152592, -0.032882352419243574, -0.01736534648921195, -0.006028702109860374, 0.003686475989976211, -3.0824353648612054E-4, 0.044396723317133346, -0.20488889877452449, 0.35860068992993294, -0.2295727775423762, -0.04792180237704, -0.11712040707545586, -0.08067153581917166, -0.008182828792635185, -0.015368821353380203, -0.011010233748736435, -0.08127305280840674, -0.2942910192058683, 0.09778454668353796, -0.3087224339490444, 0.11221596142671413, -0.2477232250193671, 0.05121675249703691, -0.1870859865601838, -0.042308809543005546, -0.13782251246600843, 0.03143252483153376, 0.13927831121533368, -0.12834048935420572, 7.921927167153E-5, -0.0031531469151104257, -0.008378137213855026, 2.2218852667709734E-4, -0.0032944776305538046, -6.91595403298583E-4, -0.0015312807673486244, 0.0017943861756181368, 5.518535227421533E-4, -0.0013626274163044765, -0.002358094520531419, 2.2640072100757827E-4, 7.565646812993248E-4, -0.0010624544361212377, 0.004032713898742375, 0.0015335667397501683, -0.0014637051283108882, -0.0016898203793134954, -0.0025270422095107683, -0.02287463843615995, -0.0011800267243645291, 5.114074343552763E-4, 3.7941719637412893E-4, -0.004159929870313331, -7.078545829326938E-4, -2.373640301698325E-4, -4.2827085937891223E-4, -2.0261106244663933E-5, -9.91709442149389E-4, -4.34937350904967E-4, -0.0035747507298728386, -2.653425978132247E-4, -3.377689960905657E-4, -0.0015316419927290832, 7.63366053896782E-4, -0.0059140471502688524, -4.066729445296411E-4, -0.001009137105594076, 7.508059637347543E-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), r : DenseVector(17.112164170487944, -43.75536626607361, 6.0075862572860075, 26.473541074978343, -8.140841141430343, 55.94996588713876, -40.17302268958758, 6.760586658306416, 12.910578043331443, -3.4035841939508167, -5.973119368000646, -0.0, -0.014626802659259613, -21.290393313107444, 3.616989631505966, -0.2892120003960663, 12.948838083779336, 2.7108616934666427, 12.553782238943839, 14.679103286579178, -11.826755683059673, -19.102441666565504, 18.935534642638256, -4.617391511117298, 6.0555541295553486, -11.576584865212851, -18.359639660688497, -0.6422469622680698, 28.820637653371236, -4.438819490574425, -10.62227828626702, 17.00463968720795, -15.70166951054841, -3.464339906745521, -76.63233436536451, -19.102441666565504, 14.679103286579178, 1.4381626184380547, 77.31459422216122, -20.434789630918942, -13.133945739538504, 44.91710590223073, -6.101742291790032, -6.3709896967942505, -3.1789844260458393, 2.000429978105497, 8.313743435805405, -41.32863677670194, -5.616713292187825, 10.89165730281349, 63.986544689236155, 38.23181928521295, -8.37239537149086, -16.56824757662817, 25.528622194741146, -28.3268625464982, -20.100407664797697, -0.2813711138311965, -0.2203557300658474, -0.06599249836989682, 41.734343634807004, 18.12239702750415, -54.52957088658178, 14.473877901439835, -9.515974188778447, -12.587989393142486, 22.974014532613324, -3.645274850091192, -9.449568565277204, -6.2945597827689355, -5.887527239227751, 80.33190679275873, -82.63482269751074, -44.06958447548912, 41.76666857073759, -28.458664069724563, 26.1557481649735, -10.260347085629789, 2.391647666189858, -13.191590779090788, 12.589255427103552, 6.1681188666756555, 43.80115948062026, 0.37501943592561193, -2.525256233982555, -5.028227785433925, 0.29752112924465424, -2.217031828447361, -0.47334303464408917, -2.9275089116645328, 1.8313222647729823, 0.7110832279425642, -1.0072531250912227, -1.9901355558138316, 0.5379763211265106, 0.1743184467022313, -0.35456119841108497, 3.1737856918508234, 0.2408402752337513, -0.2626260508196664, -0.029593505562989897, -0.8393576807965036, -17.493234892767386, -1.2830268441010306, 0.422217127007352, 0.22345271641604209, -1.7814072687146978, -0.06379365179002228, -0.48896822141617713, -0.026976687637152247, 0.4984469648744928, -0.9225276432005984, -0.5980568452440141, -0.7685987263778851, -0.14225191416966648, -0.20735410052953268, -0.6030552136873079, 0.7344601288625209, -2.749182131311246, -0.37072556180654276, -0.8607292594410129, 0.4203877535461277, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0)
+17/07/10 16:52:32 INFO TronLR: calculating funcionValue.
+17/07/10 16:52:32 INFO spark.SparkContext: Starting job: foreach at Tron.scala:80
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Got job 7 (foreach at Tron.scala:80) with 1 output partitions
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Final stage: ResultStage 7 (foreach at Tron.scala:80)
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Submitting ResultStage 7 (MapPartitionsRDD[16] at map at Tron.scala:278), which has no missing parents
+17/07/10 16:52:32 INFO memory.MemoryStore: Block broadcast_8 stored as values in memory (estimated size 15.4 KB, free 13.2 GB)
+17/07/10 16:52:32 INFO memory.MemoryStore: Block broadcast_8_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:32 INFO storage.BlockManagerInfo: Added broadcast_8_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:32 INFO spark.SparkContext: Created broadcast 8 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 7 (MapPartitionsRDD[16] at map at Tron.scala:278)
+17/07/10 16:52:32 INFO cluster.YarnScheduler: Adding task set 7.0 with 1 tasks
+17/07/10 16:52:32 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 7.0 (TID 7, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:32 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 7 on executor id: 3 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:32 INFO storage.BlockManagerInfo: Added broadcast_8_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:45812 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:32 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 7.0 (TID 7) in 130 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:32 INFO cluster.YarnScheduler: Removed TaskSet 7.0, whose tasks have all completed, from pool 
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: ResultStage 7 (foreach at Tron.scala:80) finished in 0.131 s
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Job 7 finished: foreach at Tron.scala:80, took 0.138453 s
+17/07/10 16:52:32 INFO Tron:  Compute prediction alpha*snorm of the step.
+17/07/10 16:52:32 INFO Tron: Update the trust region bound according to the ratio of actual to predicted reduction. 
+17/07/10 16:52:32 INFO Tron: iter  1 act 1.309e+03 pre 1.160e+03 delta 1.327e+00 f 3.314e+03 |g| 3.124e+03 CG   2
+17/07/10 16:52:32 INFO TronLR: calculating gradient... (accross mapPartition)
+17/07/10 16:52:32 INFO spark.SparkContext: Starting job: reduce at Tron.scala:114
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Got job 8 (reduce at Tron.scala:114) with 1 output partitions
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Final stage: ResultStage 8 (reduce at Tron.scala:114)
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Submitting ResultStage 8 (MapPartitionsRDD[20] at mapPartitions at Tron.scala:102), which has no missing parents
+17/07/10 16:52:32 INFO memory.MemoryStore: Block broadcast_9 stored as values in memory (estimated size 15.5 KB, free 13.2 GB)
+17/07/10 16:52:32 INFO memory.MemoryStore: Block broadcast_9_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:32 INFO storage.BlockManagerInfo: Added broadcast_9_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:32 INFO spark.SparkContext: Created broadcast 9 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:32 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 8 (MapPartitionsRDD[20] at mapPartitions at Tron.scala:102)
+17/07/10 16:52:32 INFO cluster.YarnScheduler: Adding task set 8.0 with 1 tasks
+17/07/10 16:52:32 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 8.0 (TID 8, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:32 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 8 on executor id: 1 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:32 INFO storage.BlockManagerInfo: Added broadcast_9_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:33880 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:33 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 8.0 (TID 8) in 567 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:33 INFO cluster.YarnScheduler: Removed TaskSet 8.0, whose tasks have all completed, from pool 
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: ResultStage 8 (reduce at Tron.scala:114) finished in 0.567 s
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Job 8 finished: reduce at Tron.scala:114, took 0.573077 s
+17/07/10 16:52:33 INFO Tron: start cIter...
+17/07/10 16:52:33 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:33 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Got job 9 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Final stage: ResultStage 9 (reduce at Tron.scala:137)
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Submitting ResultStage 9 (MapPartitionsRDD[21] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:33 INFO memory.MemoryStore: Block broadcast_10 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:33 INFO memory.MemoryStore: Block broadcast_10_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:33 INFO storage.BlockManagerInfo: Added broadcast_10_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:33 INFO spark.SparkContext: Created broadcast 10 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:33 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 9 (MapPartitionsRDD[21] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:33 INFO cluster.YarnScheduler: Adding task set 9.0 with 1 tasks
+17/07/10 16:52:33 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 9.0 (TID 9, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:33 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 9 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:33 INFO storage.BlockManagerInfo: Added broadcast_10_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:33 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 24.6 KB, free: 10.5 GB)
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 9.0 (TID 9) in 1232 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Removed TaskSet 9.0, whose tasks have all completed, from pool 
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: ResultStage 9 (reduce at Tron.scala:137) finished in 1.233 s
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Job 9 finished: reduce at Tron.scala:137, took 1.238816 s
+17/07/10 16:52:34 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:34 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Got job 10 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Final stage: ResultStage 10 (reduce at Tron.scala:137)
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting ResultStage 10 (MapPartitionsRDD[22] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_11 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_11_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_11_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:34 INFO spark.SparkContext: Created broadcast 11 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 10 (MapPartitionsRDD[22] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Adding task set 10.0 with 1 tasks
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 10.0 (TID 10, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:34 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 10 on executor id: 3 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_11_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:45812 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 10.0 (TID 10) in 125 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Removed TaskSet 10.0, whose tasks have all completed, from pool 
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: ResultStage 10 (reduce at Tron.scala:137) finished in 0.126 s
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Job 10 finished: reduce at Tron.scala:137, took 0.132221 s
+17/07/10 16:52:34 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:34 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Got job 11 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Final stage: ResultStage 11 (reduce at Tron.scala:137)
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting ResultStage 11 (MapPartitionsRDD[23] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_12 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_12_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_12_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:34 INFO spark.SparkContext: Created broadcast 12 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 11 (MapPartitionsRDD[23] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Adding task set 11.0 with 1 tasks
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 11.0 (TID 11, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:34 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 11 on executor id: 5 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_12_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41166 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 11.0 (TID 11) in 187 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Removed TaskSet 11.0, whose tasks have all completed, from pool 
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: ResultStage 11 (reduce at Tron.scala:137) finished in 0.188 s
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Job 11 finished: reduce at Tron.scala:137, took 0.194709 s
+17/07/10 16:52:34 INFO Tron: cg reaches trust region boundary
+17/07/10 16:52:34 INFO Tron: cgIter : 3, s : DenseVector(-0.27197816904929506, -0.2250344627631203, 0.09260880879213984, 0.20968334573279956, 0.07711850091949385, 0.15693848564526866, -0.18740547838212918, 0.04409869763329836, 0.09162530315991252, -0.007428923124285797, -0.032339203339005404, 0.0, -1.8287289039013523E-4, -0.14979266179250705, 3.4467149607526806E-4, -0.008797296715973039, 0.05441532072306079, -0.013772010078639034, 0.039884248334068555, -0.01830966684283785, -0.08252137612953209, -0.09135178293666725, 0.11057143146877044, -0.02888523872041522, 0.05033418941432669, -0.06291947971929777, -0.09797185625215528, -0.013137954300520099, 0.1630496911767293, -0.024499668979911824, -0.06339815807689543, 0.1048801509005882, -0.08316864326468326, -0.020157862439550395, -0.447774999162546, -0.09135178293666725, -0.01830966684283785, 0.0214489506939115, 0.41838552188015765, 0.2543928645559059, -0.09292798742736987, -0.1983555175685549, -0.03866891784402695, -0.04320325326211377, -0.01187606936256368, 0.013036904540736466, 0.0563682024610884, -0.13468006053626164, -0.14967932568195869, 0.017547951230735277, 0.3897769624282814, 0.2042453025133193, -0.06315921787494005, -0.07663982292940358, 0.045404122189253535, -0.15340070515979498, -0.07163525619972941, -0.008481940820371752, 0.010229983926236447, -4.073139533981342E-4, 0.29313976121351815, -0.16838810705352628, -5.158415419290185E-4, -0.04303270134169525, -0.07191618137067327, -0.12688890627368055, 0.06391308815749103, -0.02149785021137854, -0.06006143181249882, -0.03401592898824467, -0.06593985351334962, 0.05276848703899886, -0.17037046340697845, -0.3649985698487552, 0.24739659348076937, -0.280365290701339, 0.16276331433335864, -0.2670488997858309, -0.016019213427692715, -0.03858931801008631, 0.09785830769266782, 0.10619714716295954, 0.13094297414054862, 0.0022397162966719146, -0.014857734207956275, -0.03015148536984399, 0.0021986931079225245, -0.01722711392347302, -0.0031281062436164016, -0.02100542215737481, 0.01201666939843607, 0.005139399353655341, -0.007036091930736019, -0.012161465581207545, 0.0034827250824923106, 0.0013722962462714393, -0.0013717729582860827, 0.02197741673150175, 0.004992078254687225, -8.482255486270279E-4, 7.876785394175423E-4, -0.0060454868492526605, -0.08748622075013229, -0.007018309743455102, 0.0032086763197793824, 0.0014832433147562813, -0.012587279961280753, -0.001033911901220955, -0.0026075382684285124, 0.00223785160941524, 0.0033007635517806836, -0.004897521358425373, -0.003948318361043887, -0.003354914637506836, 1.44117530893789E-4, -0.001205213144904726, -0.003825897733569111, 0.005349582918441644, -0.016497695978952696, -0.0022575576019633254, -0.0046970333476963975, 0.002736107043385558, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), r : DenseVector(-2.0357697064449884, -7.3355619173095565, -7.0033200494318635, -3.5697922550373846, 12.30487237088422, 8.885256321747107, -5.668126666657912, 0.4684886567374722, 9.957461487471019, -3.4206102321569465, -5.342732523436251, -0.0, 0.0927600150881654, -8.726452748712557, -2.172325279609376, -3.0569011717247037, 3.594488081455461, 2.7216195612515004, -41.02613579606431, 5.253584282731097, 3.3172885324632198, 19.12221476933805, 6.9381015728238555, -4.697940972064771, 5.132597252143098, -1.4473464549089874, -2.9580140921690274, 2.3168942925579596, -3.6213871197333702, -1.1126105921960836, 1.4775567360701691, 8.511337508414174, -3.7627747364756523, -1.0829367402691623, -3.251943054927523, 19.12221476933805, 5.253584282731097, 0.43465628007833823, -29.198083834559476, 11.646277331009266, -18.962887534017163, 8.983909421494673, -4.180315403965199, -6.5470040187251115, -0.2504595509736983, 1.6709081978366989, 5.848425037030487, 7.77041495423882, -2.782152099339752, 1.284341191766351, 6.784581816832784, -11.826897531186532, 1.3580277958798956, -0.5486841898125858, 2.8322161729200737, -8.150038460052162, -0.4166444190651797, -0.9172273508308728, 3.6452744985528835, -0.0019003732302631344, 17.363623450725612, 5.837338956993495, -1.7072665680032202, -10.226071927923016, -2.6101243964349803, -16.29707107269825, -0.5332256407853873, -0.1797341057220172, -7.119715784041405, -2.2069426595492705, 2.4000466327587553, -25.279739704832657, 17.640168147493554, -6.4965337884348076, -1.1430377689052698, -16.73547203798478, 9.0959004806457, -7.346770231502058, -2.9709224613457685, 8.410666611551955, 1.7825157317997915, -7.515061207843512, 5.047465068671752, 0.44636977629440167, -1.9484746896065295, -3.597643137054615, 1.0072811854188441, -2.580445484186814, -0.28723850714841337, -2.975419330669361, 1.678969216450611, 1.1315258112960451, -0.5619776987616418, -1.463215732623637, 0.5772659741600047, 0.20706456083760552, 0.2944572308097704, 3.2878522402985295, 1.7145873075821734, 0.14562201210294184, 0.5784678617228414, -0.42354303424203094, -2.1822952233378423, -0.5377529089304012, 0.6619133171166296, 0.10361991448586952, -1.0985547534962343, -0.09156170258175568, -0.3599280447137955, 0.4795509092034387, 0.7406117459127184, -0.3525293161477863, -0.49236719966770653, 0.6897159975452536, 0.25700940899496577, -0.241509776057436, -0.43226828881351703, 0.8339899876570904, -0.9475492396093865, -0.3429160720404782, -0.5058076556798969, 0.38245562077093576, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0)
+17/07/10 16:52:34 INFO TronLR: calculating funcionValue.
+17/07/10 16:52:34 INFO spark.SparkContext: Starting job: foreach at Tron.scala:80
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Got job 12 (foreach at Tron.scala:80) with 1 output partitions
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Final stage: ResultStage 12 (foreach at Tron.scala:80)
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting ResultStage 12 (MapPartitionsRDD[16] at map at Tron.scala:278), which has no missing parents
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_13 stored as values in memory (estimated size 15.4 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_13_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_13_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:34 INFO spark.SparkContext: Created broadcast 13 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 12 (MapPartitionsRDD[16] at map at Tron.scala:278)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Adding task set 12.0 with 1 tasks
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 12.0 (TID 12, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:34 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 12 on executor id: 6 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_13_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:33252 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 12.0 (TID 12) in 160 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Removed TaskSet 12.0, whose tasks have all completed, from pool 
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: ResultStage 12 (foreach at Tron.scala:80) finished in 0.161 s
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Job 12 finished: foreach at Tron.scala:80, took 0.167950 s
+17/07/10 16:52:34 INFO Tron:  Compute prediction alpha*snorm of the step.
+17/07/10 16:52:34 INFO Tron: Update the trust region bound according to the ratio of actual to predicted reduction. 
+17/07/10 16:52:34 INFO Tron: iter  2 act 3.031e+02 pre 2.570e+02 delta 1.668e+00 f 2.005e+03 |g| 7.025e+02 CG   3
+17/07/10 16:52:34 INFO TronLR: calculating gradient... (accross mapPartition)
+17/07/10 16:52:34 INFO spark.SparkContext: Starting job: reduce at Tron.scala:114
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Got job 13 (reduce at Tron.scala:114) with 1 output partitions
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Final stage: ResultStage 13 (reduce at Tron.scala:114)
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting ResultStage 13 (MapPartitionsRDD[24] at mapPartitions at Tron.scala:102), which has no missing parents
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_14 stored as values in memory (estimated size 15.5 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO memory.MemoryStore: Block broadcast_14_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:34 INFO spark.SparkContext: Created broadcast 14 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:34 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 13 (MapPartitionsRDD[24] at mapPartitions at Tron.scala:102)
+17/07/10 16:52:34 INFO cluster.YarnScheduler: Adding task set 13.0 with 1 tasks
+17/07/10 16:52:34 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 13.0 (TID 13, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:34 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 13 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:34 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 13.0 (TID 13) in 189 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 13.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 13 (reduce at Tron.scala:114) finished in 0.189 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 13 finished: reduce at Tron.scala:114, took 0.196849 s
+17/07/10 16:52:35 INFO Tron: start cIter...
+17/07/10 16:52:35 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:35 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Got job 14 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Final stage: ResultStage 14 (reduce at Tron.scala:137)
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting ResultStage 14 (MapPartitionsRDD[25] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_15 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_15_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:35 INFO spark.SparkContext: Created broadcast 15 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 14 (MapPartitionsRDD[25] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Adding task set 14.0 with 1 tasks
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 14.0 (TID 14, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:35 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 14 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 14.0 (TID 14) in 171 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 14.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 14 (reduce at Tron.scala:137) finished in 0.171 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 14 finished: reduce at Tron.scala:137, took 0.177833 s
+17/07/10 16:52:35 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:35 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Got job 15 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Final stage: ResultStage 15 (reduce at Tron.scala:137)
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting ResultStage 15 (MapPartitionsRDD[26] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_16 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_16_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_16_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:35 INFO spark.SparkContext: Created broadcast 16 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 15 (MapPartitionsRDD[26] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Adding task set 15.0 with 1 tasks
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 15.0 (TID 15, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:35 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 15 on executor id: 1 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_16_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:33880 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 15.0 (TID 15) in 166 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 15.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 15 (reduce at Tron.scala:137) finished in 0.167 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 15 finished: reduce at Tron.scala:137, took 0.173312 s
+17/07/10 16:52:35 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:35 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Got job 16 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Final stage: ResultStage 16 (reduce at Tron.scala:137)
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting ResultStage 16 (MapPartitionsRDD[27] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_17 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_17_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_17_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:35 INFO spark.SparkContext: Created broadcast 17 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 16 (MapPartitionsRDD[27] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Adding task set 16.0 with 1 tasks
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 16.0 (TID 16, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:35 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 16 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_17_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 16.0 (TID 16) in 115 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 16.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 16 (reduce at Tron.scala:137) finished in 0.115 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 16 finished: reduce at Tron.scala:137, took 0.120548 s
+17/07/10 16:52:35 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:35 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Got job 17 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Final stage: ResultStage 17 (reduce at Tron.scala:137)
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting ResultStage 17 (MapPartitionsRDD[28] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_18 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_18_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_18_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:35 INFO spark.SparkContext: Created broadcast 18 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 17 (MapPartitionsRDD[28] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Adding task set 17.0 with 1 tasks
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 17.0 (TID 17, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:35 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 17 on executor id: 5 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_18_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41166 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 17.0 (TID 17) in 120 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 17.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 17 (reduce at Tron.scala:137) finished in 0.121 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 17 finished: reduce at Tron.scala:137, took 0.126857 s
+17/07/10 16:52:35 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:35 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Got job 18 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Final stage: ResultStage 18 (reduce at Tron.scala:137)
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting ResultStage 18 (MapPartitionsRDD[29] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_19 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_19_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_19_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:35 INFO spark.SparkContext: Created broadcast 19 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 18 (MapPartitionsRDD[29] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Adding task set 18.0 with 1 tasks
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 18.0 (TID 18, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:35 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 18 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_19_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 18.0 (TID 18) in 111 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 18.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 18 (reduce at Tron.scala:137) finished in 0.112 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 18 finished: reduce at Tron.scala:137, took 0.116806 s
+17/07/10 16:52:35 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:35 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Got job 19 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Final stage: ResultStage 19 (reduce at Tron.scala:137)
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting ResultStage 19 (MapPartitionsRDD[30] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_20 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO memory.MemoryStore: Block broadcast_20_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_20_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:35 INFO spark.SparkContext: Created broadcast 20 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 19 (MapPartitionsRDD[30] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Adding task set 19.0 with 1 tasks
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 19.0 (TID 19, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6116 bytes)
+17/07/10 16:52:35 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 19 on executor id: 5 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:35 INFO storage.BlockManagerInfo: Added broadcast_20_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41166 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 19.0 (TID 19) in 127 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:35 INFO cluster.YarnScheduler: Removed TaskSet 19.0, whose tasks have all completed, from pool 
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: ResultStage 19 (reduce at Tron.scala:137) finished in 0.128 s
+17/07/10 16:52:35 INFO scheduler.DAGScheduler: Job 19 finished: reduce at Tron.scala:137, took 0.133257 s
+17/07/10 16:52:35 INFO Tron: cg reaches trust region boundary
+17/07/10 16:52:35 INFO Tron: cgIter : 6, s : DenseVector(-0.4918900473799698, -0.12268582897745381, 0.02931606233167351, 0.11009205356253676, 0.2569687289356151, 0.15076910704030477, -0.0988748809951344, 0.04960783282862083, 0.33705807165395646, -0.018797448675799362, -0.08053220351085881, 0.0, 2.1564628668506238E-4, -0.1557312455731103, -0.058236774758261334, -0.05340854601136014, 0.05388468330693328, -0.0047071484917972604, -0.3677013341789758, 0.009458030304772148, 0.003660471597505829, -0.009298011926368052, 0.2566364112070147, -0.1614556869345755, 0.17465539653992274, -0.08177514583635169, -0.14072760455500194, 0.044682672337806824, -0.03316414934603108, -0.05510450866910983, 8.69418579664339E-5, 0.3204711019892779, -0.13075646121321707, -0.04786715470222912, -0.407800789182631, -0.009298011926368052, 0.009458030304772148, 0.0131997096053472, 0.176242029671286, 0.2314453723639466, -0.25855507002106254, 0.017878283875207842, -0.10688698867904375, -0.16916120764473272, -0.003930168729995848, 0.07101074730807289, 0.21753985978355944, 0.04338071949926733, -0.2140067813894942, 0.1409393204152786, 0.23188085245747056, 0.08794861402196189, -0.053800082820202245, -0.06765943359288805, 0.20999080891472613, -0.3033796006656519, -0.06379297396958361, -0.038764594920497566, 0.14980833187291592, -8.545612657580726E-4, 0.5584255315484504, -0.22399989031539005, -0.19558179631261322, 0.08244540696027827, -0.16714717240674712, -0.2723411110015845, 0.054612757935303846, 0.05330112639182121, -0.265554636546823, -0.0781156202065961, 0.017557340898682817, -0.280111950954695, 0.06191291942708996, -0.1854388666825521, -0.032760164845044744, -0.32597837193572043, 0.10777934040812367, -0.3846526664584239, -0.03582898895935707, 0.03321765031714957, 0.12279769320992626, 0.046267280363104485, 0.1665846465589319, 0.017398113631986945, -0.07026144247629769, -0.1384372892096102, 0.055891953480826, -0.10219737901586928, -0.009399813508829697, -0.11839728095973322, 0.07771077068810299, 0.040442974668714445, -0.014856563470046281, -0.05209132524213948, 0.03232985761518286, 0.010428086152518518, 1.2443481761812566E-4, 0.13641899228193638, 0.07627307841641004, 0.010929640352275314, 0.028240486105264383, -0.01866613996164543, -0.08688569598359844, -0.018445412939735197, 0.03003841733739579, 0.014017195985826913, -0.053191223432427506, -0.001972412912457741, -0.01815974876819242, 0.039526849088529395, 0.028998967549279293, -0.010754444340335855, -0.017690306512495403, 0.015424686067504481, 0.011925926597271331, -0.009324142944898485, -0.014176936515750803, 0.0353808825286556, -0.05563782812249416, -0.012188737889656558, -0.02208205258466543, 0.01640377471939289, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), r : DenseVector(-0.6527362391408853, -3.0857142916226055, 2.6590378488548465, 3.4077072777512982, -2.1408615113177163, -0.3455810403923522, 2.889146527229836, 0.8016525922838814, 2.4749647276324476, 2.4322793082545773, 0.6286631406294618, -0.0, 0.012541779104107118, 2.04656930346325, 0.8868355707638289, 1.2647852296282558, -2.2780807319849004, -1.732676287345431, 1.0286026905717047, -4.7713392196826, 2.4259801896873343, 3.8773630505685364, 0.4918943164073165, -2.712821277501617, -0.3666319171994657, -0.23190394435663844, -0.43489311986215834, 1.7384613750595155, -3.729592925584597, -0.77550051090393, 1.630881197584328, 3.285597224974017, -0.5544180817258474, -0.7142459635108358, 3.084361141971762, 3.8773630505685364, -4.7713392196826, -3.0794531947010855, 1.0765013063684534, 2.1494185897840423, 4.3745400259679155, -7.043573371223147, -0.6119461519086954, -0.5907977256362572, 0.32752405209031965, 1.5822676654505619, 1.3143275228440607, -0.6248262961210751, 2.188308234653379, -0.22593101913161262, 1.5964075496908643, -0.751009261828462, 0.4844371546168348, 1.9613831030382418, 0.8537065141176088, -1.6038618573319903, 1.118833743267206, -0.5617654934505737, 3.155515119525658, -0.024399758251935674, 4.811212348692242, -0.4830876382478346, -0.4087139867727637, -8.587294539663839, -1.9448071585375653, 6.800124059054456, 0.9148045008792056, 2.4112802992773643, -4.425301891267501, -0.9492908075050823, 2.235940983140608, 6.73545126146414, -6.548018176939342, -2.81922980618726, 3.0066628907121835, 4.106359345990785, -3.918926261465832, 3.678231672554364, -0.5496129145380101, 1.0403397693636296, -1.3785713977157645, -2.6029540451393496, -0.508191488920027, 0.44153736091626883, -1.605392966386158, -2.4010648155970005, 1.5810038160823219, -2.0122350823867006, -0.1412392982546263, -2.6908805004599365, 1.9814858374233573, 1.0276996001117746, -0.011368085531115726, -0.8831816638008194, 0.9694360227403144, 0.2905511369622719, 0.03844699465832782, 3.2328402627543404, 2.0047418520331033, 0.5012752373490944, 0.8620267026424755, -0.4077401328961127, 1.2549062786864984, -0.19172824986732365, 0.8425467052801409, 0.40221416902302276, -0.9927353044469798, -0.023014720613647687, -0.39558043978040897, 0.9101283928246926, 0.8722806470072532, -0.150525409108621, -0.3197827421296087, 0.556133509301938, 0.265071986897971, -0.23379080727686818, -0.22629262187136237, 0.8727529770501059, -0.9109191416526926, -0.3734247942118172, -0.5303524732045856, 0.42506646350533367, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0)
+17/07/10 16:52:35 INFO TronLR: calculating funcionValue.
+17/07/10 16:52:36 INFO spark.SparkContext: Starting job: foreach at Tron.scala:80
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Got job 20 (foreach at Tron.scala:80) with 1 output partitions
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Final stage: ResultStage 20 (foreach at Tron.scala:80)
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting ResultStage 20 (MapPartitionsRDD[16] at map at Tron.scala:278), which has no missing parents
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_21 stored as values in memory (estimated size 15.4 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_21_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_21_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:36 INFO spark.SparkContext: Created broadcast 21 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 20 (MapPartitionsRDD[16] at map at Tron.scala:278)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Adding task set 20.0 with 1 tasks
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 20.0 (TID 20, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:36 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 20 on executor id: 8 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_21_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:35242 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 20.0 (TID 20) in 495 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Removed TaskSet 20.0, whose tasks have all completed, from pool 
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: ResultStage 20 (foreach at Tron.scala:80) finished in 0.495 s
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Job 20 finished: foreach at Tron.scala:80, took 0.502210 s
+17/07/10 16:52:36 INFO Tron:  Compute prediction alpha*snorm of the step.
+17/07/10 16:52:36 INFO Tron: Update the trust region bound according to the ratio of actual to predicted reduction. 
+17/07/10 16:52:36 INFO Tron: iter  3 act 1.041e+02 pre 8.911e+01 delta 2.008e+00 f 1.702e+03 |g| 2.364e+02 CG   6
+17/07/10 16:52:36 INFO TronLR: calculating gradient... (accross mapPartition)
+17/07/10 16:52:36 INFO spark.SparkContext: Starting job: reduce at Tron.scala:114
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Got job 21 (reduce at Tron.scala:114) with 1 output partitions
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Final stage: ResultStage 21 (reduce at Tron.scala:114)
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting ResultStage 21 (MapPartitionsRDD[31] at mapPartitions at Tron.scala:102), which has no missing parents
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_22 stored as values in memory (estimated size 15.5 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_22_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_22_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:36 INFO spark.SparkContext: Created broadcast 22 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 21 (MapPartitionsRDD[31] at mapPartitions at Tron.scala:102)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Adding task set 21.0 with 1 tasks
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 21.0 (TID 21, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:36 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 21 on executor id: 6 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_22_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:33252 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 21.0 (TID 21) in 198 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Removed TaskSet 21.0, whose tasks have all completed, from pool 
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: ResultStage 21 (reduce at Tron.scala:114) finished in 0.200 s
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Job 21 finished: reduce at Tron.scala:114, took 0.205913 s
+17/07/10 16:52:36 INFO Tron: start cIter...
+17/07/10 16:52:36 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:36 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Got job 22 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Final stage: ResultStage 22 (reduce at Tron.scala:137)
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting ResultStage 22 (MapPartitionsRDD[32] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_23 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_23_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_23_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:36 INFO spark.SparkContext: Created broadcast 23 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 22 (MapPartitionsRDD[32] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Adding task set 22.0 with 1 tasks
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 22.0 (TID 22, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:36 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 22 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_23_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 22.0 (TID 22) in 114 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Removed TaskSet 22.0, whose tasks have all completed, from pool 
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: ResultStage 22 (reduce at Tron.scala:137) finished in 0.114 s
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Job 22 finished: reduce at Tron.scala:137, took 0.119238 s
+17/07/10 16:52:36 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:36 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Got job 23 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Final stage: ResultStage 23 (reduce at Tron.scala:137)
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting ResultStage 23 (MapPartitionsRDD[33] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_24 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO memory.MemoryStore: Block broadcast_24_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_24_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:36 INFO spark.SparkContext: Created broadcast 24 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:36 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 23 (MapPartitionsRDD[33] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:36 INFO cluster.YarnScheduler: Adding task set 23.0 with 1 tasks
+17/07/10 16:52:36 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 23.0 (TID 23, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:36 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 23 on executor id: 7 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:36 INFO storage.BlockManagerInfo: Added broadcast_24_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41025 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 23.0 (TID 23) in 186 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 23.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 23 (reduce at Tron.scala:137) finished in 0.186 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 23 finished: reduce at Tron.scala:137, took 0.191194 s
+17/07/10 16:52:37 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 24 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 24 (reduce at Tron.scala:137)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 24 (MapPartitionsRDD[34] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_25 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_25_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_25_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 25 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 24 (MapPartitionsRDD[34] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 24.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 24.0 (TID 24, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 24 on executor id: 8 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_25_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:35242 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 24.0 (TID 24) in 230 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 24.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 24 (reduce at Tron.scala:137) finished in 0.231 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 24 finished: reduce at Tron.scala:137, took 0.234960 s
+17/07/10 16:52:37 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 25 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 25 (reduce at Tron.scala:137)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 25 (MapPartitionsRDD[35] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_26 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_26_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_26_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 26 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 25 (MapPartitionsRDD[35] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 25.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 25.0 (TID 25, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 25 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_26_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 25.0 (TID 25) in 114 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 25.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 25 (reduce at Tron.scala:137) finished in 0.115 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 25 finished: reduce at Tron.scala:137, took 0.120403 s
+17/07/10 16:52:37 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 26 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 26 (reduce at Tron.scala:137)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 26 (MapPartitionsRDD[36] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_27 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_27_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_27_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 27 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 26 (MapPartitionsRDD[36] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 26.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 26.0 (TID 26, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 26 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_27_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 26.0 (TID 26) in 130 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 26.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 26 (reduce at Tron.scala:137) finished in 0.131 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 26 finished: reduce at Tron.scala:137, took 0.136251 s
+17/07/10 16:52:37 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 27 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 27 (reduce at Tron.scala:137)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 27 (MapPartitionsRDD[37] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_28 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_28_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_28_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 28 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 27 (MapPartitionsRDD[37] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 27.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 27.0 (TID 27, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 27 on executor id: 1 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_28_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:33880 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 27.0 (TID 27) in 119 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 27.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 27 (reduce at Tron.scala:137) finished in 0.119 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 27 finished: reduce at Tron.scala:137, took 0.123522 s
+17/07/10 16:52:37 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 28 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 28 (reduce at Tron.scala:137)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 28 (MapPartitionsRDD[38] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_29 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_29_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_29_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 29 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 28 (MapPartitionsRDD[38] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 28.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 28.0 (TID 28, iZ2zeh3rmvn71widtik72kZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 28 on executor id: 7 hostname: iZ2zeh3rmvn71widtik72kZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_29_piece0 in memory on iZ2zeh3rmvn71widtik72kZ:41025 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 28.0 (TID 28) in 114 ms on iZ2zeh3rmvn71widtik72kZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 28.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 28 (reduce at Tron.scala:137) finished in 0.114 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 28 finished: reduce at Tron.scala:137, took 0.118563 s
+17/07/10 16:52:37 INFO TronLR: calculating hessianVectors... (accross mapPartition)
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: reduce at Tron.scala:137
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 29 (reduce at Tron.scala:137) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 29 (reduce at Tron.scala:137)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 29 (MapPartitionsRDD[39] at mapPartitions at Tron.scala:123), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_30 stored as values in memory (estimated size 17.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_30_piece0 stored as bytes in memory (estimated size 8.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_30_piece0 in memory on 10.85.125.175:46781 (size: 8.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 30 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 29 (MapPartitionsRDD[39] at mapPartitions at Tron.scala:123)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 29.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 29.0 (TID 29, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 29 on executor id: 6 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_30_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:33252 (size: 8.7 KB, free: 10.5 GB)
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 29.0 (TID 29) in 136 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Removed TaskSet 29.0, whose tasks have all completed, from pool 
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: ResultStage 29 (reduce at Tron.scala:137) finished in 0.136 s
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Job 29 finished: reduce at Tron.scala:137, took 0.140097 s
+17/07/10 16:52:37 INFO Tron: cg reaches trust region boundary
+17/07/10 16:52:37 INFO Tron: cgIter : 8, s : DenseVector(-0.42043527017047533, -0.03043570407642748, 0.047066589178308305, 0.08483123940774302, 0.04640921079036946, 0.1792288772319048, 0.23533053379718802, 0.16833881525630384, 0.3050995471358809, 0.17720460289832765, 0.05424814865919199, 0.0, 3.84431230403435E-5, -0.047761344497832356, -0.053904260515295156, -0.04238951455253354, -0.05521802801379355, -0.07329078729103392, -0.18151281872822783, -0.0636336167644448, 0.1737038346302582, -0.03533587078313052, 0.07571589281206144, -0.1960806864442268, 0.08476311624352756, -0.07917617128296882, -0.15406460890487048, 0.20803132009371478, -0.2307762693448921, -0.1570686880727489, 0.1511053541080532, 0.4500538168052427, -0.19810203011931513, -0.1201865091185053, -0.17575749866638216, -0.03533587078313052, -0.0636336167644448, -0.11131757020069748, 0.11348062154418725, 0.03443815509192737, -0.09215491349459048, -0.10290398102837169, -0.17428270902592236, -0.1680447827258972, -0.020935123012171715, 0.25131941932451296, 0.20655241021697976, 0.10334512711327096, -0.057536109221152466, 0.13795782071042692, 0.15066418099520232, 0.06803493246741882, 0.06584906775907984, 0.1250535164653152, 0.15010998336951498, -0.26562760197076346, 0.1417018159365885, -0.11230238654749745, 0.40736211491113494, -0.0017143472267271162, 0.40703263380403143, -0.3252120392599728, -0.053311611910670034, -0.01233892036336509, -0.37323887013799883, 0.08450487299747465, 0.13182311530683183, 0.23591666063105898, -0.6668587903251141, -0.13295082840571443, 0.15950590792244757, -0.21308081475246046, -0.059483120118048065, -0.19000329020736748, -0.08256064466312635, -0.09474182529225528, -0.17782210957824846, -0.13560429344058458, -0.05629551625875798, -0.031039454214165228, -0.017193713605298838, -0.03243095735167433, 0.07573129962100278, 0.0716252073929722, -0.256091170490113, -0.40653630467267904, 0.23636388095776933, -0.3279709627519636, -0.02149561066336053, -0.42220734806763327, 0.29812542917195717, 0.15377452702617753, -0.04379276584149026, -0.15407696737838164, 0.1493611790512947, 0.04174999492714228, -0.0018243637522717176, 0.4719911602502698, 0.3211649582890914, 0.08565470879381167, 0.13034551093049868, -0.0814398091038127, 0.04498456503153737, -0.04084700033335327, 0.1381269318134632, 0.054717102436455535, -0.17202949086019356, -0.0055678411507909835, -0.06428617726862854, 0.1448337858532838, 0.12478280637316128, -0.03179418909828541, -0.04762088207454536, 0.0780489678645005, 0.04453620434019037, -0.037251108772836786, -0.04390858606595942, 0.1404320458556405, -0.16983997344380916, -0.05238351192017483, -0.08612043606863472, 0.06700329731068838, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), r : DenseVector(2.185481832727686, 0.5249859616624326, -1.5493289557484804, -2.2721821999014975, 1.1088639918688281, 1.0726375672746558, -0.6217731847143625, 0.8856319781060688, -0.2568423004794796, 0.3424073271141864, 1.286706995628997, -0.0, 9.785378305414733E-4, -1.5386540319000475, -0.14589638783386272, 0.5646389751773642, 1.7484653280552258, -0.630733252889746, 1.5427983884347787, -0.6316310758689403, -0.3925212158512051, 1.0341334827767823, -1.3018703674085275, 0.9644889825823879, -1.0034087433916303, 5.517104961711497E-4, 0.14582590960836728, 0.7513431945543708, 1.9397123143087804, -0.6664637843396124, -0.23994977501215256, -1.3482963161163466, -0.3687196714564553, -0.4281724027077656, -1.1981060347082795, 1.0341334827767823, -0.6316310758689403, -0.03891976080923332, 0.832344019218697, -2.233822347810341, 2.7154786609578685, -1.9753685289103546, 0.010505359730089092, 0.3913242388832507, 0.03506171562182291, 1.0546415321364646, -0.6954262873757526, 0.5106679356916992, 1.0109392194041433, -1.1616707083270124, 1.8474921243991123, 1.2364022906490035, 0.5876619970779229, 0.2695398210259482, -1.1934135481878145, 1.3914903756327384, -0.2582192285006777, -0.3958349306794769, -0.4410325298053153, 1.718519255066559E-4, -3.634199296254499, 0.9814887566478336, 1.8704397279062022, 1.042573016100589, -0.23415162288209235, -0.028329950909186774, -0.04398545266213982, 0.6252264801587776, -0.7299384458647123, 0.17093763537811213, -0.02441958640111329, -0.33533736007402304, 0.33315799068284235, -0.2912929344973221, 0.28911356510623687, -1.8218032707905782, 1.81962390139942, -1.2845970537923952, -0.7409318738642605, 2.877057257764734, -0.46596045813712245, -0.38774724136201577, -0.822728315296619, 0.36323590495573554, -0.9835512054596209, -1.2378068981546617, 0.8301126206087581, -1.0200427031821637, -0.0887796863346546, -1.532848493246874, 1.277791175434962, 0.7264577951725665, -0.22688056481583158, -0.5859435732670557, 0.6880078477582803, 0.21905606825941723, -0.008158247094286614, 1.7229154343815432, 1.4254847228233545, 0.5236808909709223, 0.6684081674687546, -0.42739597906937143, 0.8241901795572283, -0.11345206183290349, 0.7457307915744064, 0.2214427650440642, -0.6480685118550856, -0.02064589526982341, -0.254823826455346, 0.5718439767846182, 0.6277093974437589, -0.1960064292551181, -0.2156411871305892, 0.42056118715542656, 0.18329680047556726, -0.19770362006854744, -0.23044682824092014, 0.71004705191186, -0.5574297373437149, -0.2599420829534333, -0.4533176668191235, 0.342904048384056, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0)
+17/07/10 16:52:37 INFO TronLR: calculating funcionValue.
+17/07/10 16:52:37 INFO spark.SparkContext: Starting job: foreach at Tron.scala:80
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Got job 30 (foreach at Tron.scala:80) with 1 output partitions
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 30 (foreach at Tron.scala:80)
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting ResultStage 30 (MapPartitionsRDD[16] at map at Tron.scala:278), which has no missing parents
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_31 stored as values in memory (estimated size 15.4 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO memory.MemoryStore: Block broadcast_31_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_31_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:37 INFO spark.SparkContext: Created broadcast 31 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 30 (MapPartitionsRDD[16] at map at Tron.scala:278)
+17/07/10 16:52:37 INFO cluster.YarnScheduler: Adding task set 30.0 with 1 tasks
+17/07/10 16:52:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 30.0 (TID 30, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6118 bytes)
+17/07/10 16:52:37 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 30 on executor id: 2 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:37 INFO storage.BlockManagerInfo: Added broadcast_31_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:46678 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:38 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 30.0 (TID 30) in 80 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:38 INFO cluster.YarnScheduler: Removed TaskSet 30.0, whose tasks have all completed, from pool 
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: ResultStage 30 (foreach at Tron.scala:80) finished in 0.080 s
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Job 30 finished: foreach at Tron.scala:80, took 0.084931 s
+17/07/10 16:52:38 INFO Tron:  Compute prediction alpha*snorm of the step.
+17/07/10 16:52:38 INFO Tron: Update the trust region bound according to the ratio of actual to predicted reduction. 
+17/07/10 16:52:38 INFO Tron: iter  4 act 2.812e+01 pre 2.534e+01 delta 2.322e+00 f 1.598e+03 |g| 8.580e+01 CG   8
+17/07/10 16:52:38 INFO TronLR: calculating gradient... (accross mapPartition)
+17/07/10 16:52:38 INFO spark.SparkContext: Starting job: reduce at Tron.scala:114
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Got job 31 (reduce at Tron.scala:114) with 1 output partitions
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Final stage: ResultStage 31 (reduce at Tron.scala:114)
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Parents of final stage: List()
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Missing parents: List()
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Submitting ResultStage 31 (MapPartitionsRDD[40] at mapPartitions at Tron.scala:102), which has no missing parents
+17/07/10 16:52:38 INFO memory.MemoryStore: Block broadcast_32 stored as values in memory (estimated size 15.5 KB, free 13.2 GB)
+17/07/10 16:52:38 INFO memory.MemoryStore: Block broadcast_32_piece0 stored as bytes in memory (estimated size 7.7 KB, free 13.2 GB)
+17/07/10 16:52:38 INFO storage.BlockManagerInfo: Added broadcast_32_piece0 in memory on 10.85.125.175:46781 (size: 7.7 KB, free: 13.2 GB)
+17/07/10 16:52:38 INFO spark.SparkContext: Created broadcast 32 from broadcast at DAGScheduler.scala:1012
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 31 (MapPartitionsRDD[40] at mapPartitions at Tron.scala:102)
+17/07/10 16:52:38 INFO cluster.YarnScheduler: Adding task set 31.0 with 1 tasks
+17/07/10 16:52:38 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 31.0 (TID 31, iZ2zeh3rmvn71widtik73gZ, partition 0, NODE_LOCAL, 6117 bytes)
+17/07/10 16:52:38 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Launching task 31 on executor id: 6 hostname: iZ2zeh3rmvn71widtik73gZ.
+17/07/10 16:52:38 INFO storage.BlockManagerInfo: Added broadcast_32_piece0 in memory on iZ2zeh3rmvn71widtik73gZ:33252 (size: 7.7 KB, free: 10.5 GB)
+17/07/10 16:52:38 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 31.0 (TID 31) in 123 ms on iZ2zeh3rmvn71widtik73gZ (1/1)
+17/07/10 16:52:38 INFO cluster.YarnScheduler: Removed TaskSet 31.0, whose tasks have all completed, from pool 
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: ResultStage 31 (reduce at Tron.scala:114) finished in 0.123 s
+17/07/10 16:52:38 INFO scheduler.DAGScheduler: Job 31 finished: reduce at Tron.scala:114, took 0.128562 s
+17/07/10 16:52:38 INFO Tron: EXIT: gnorm <= convTol*gnorm1
+17/07/10 16:52:38 WARN algorithm.WeiBoLogisticRegression: The input data was not directly cached, which may hurt performance if its parent RDDs are also uncached.
+17/07/10 16:52:38 INFO Train$: train: end.
+17/07/10 16:52:38 INFO Train$: mode: saving...
+17/07/10 16:52:38 INFO Train$: done.
+17/07/10 16:52:38 INFO spark.SparkContext: Invoking stop() from shutdown hook
+17/07/10 16:52:38 INFO server.ServerConnector: Stopped ServerConnector@16fb356{HTTP/1.1}{0.0.0.0:4040}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@29876704{/stages/stage/kill,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@455351c4{/api,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@19b30c92{/,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@5e77f0f4{/static,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@138fe6ec{/executors/threadDump/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@1b28f282{/executors/threadDump,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@4b21844c{/executors/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@363f6148{/executors,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@59aa20b3{/environment/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@1a69561c{/environment,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@552518c3{/storage/rdd/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@25f9407e{/storage/rdd,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@21ec5d87{/storage/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@1eba372c{/storage,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@2f2bf0e2{/stages/pool/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@3bd7f8dc{/stages/pool,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@6cea706c{/stages/stage/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@476aac9{/stages/stage,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@1b11ef33{/stages/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@54107f42{/stages,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@48c40605{/jobs/job/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@770d0ea6{/jobs/job,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@302fec27{/jobs/json,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO handler.ContextHandler: Stopped o.s.j.s.ServletContextHandler@60cf80e7{/jobs,null,UNAVAILABLE}
+17/07/10 16:52:38 INFO ui.SparkUI: Stopped Spark web UI at http://10.85.125.175:4040
+17/07/10 16:52:38 INFO cluster.YarnClientSchedulerBackend: Interrupting monitor thread
+17/07/10 16:52:38 INFO cluster.YarnClientSchedulerBackend: Shutting down all executors
+17/07/10 16:52:38 INFO cluster.YarnSchedulerBackend$YarnDriverEndpoint: Asking each executor to shut down
+17/07/10 16:52:38 INFO cluster.SchedulerExtensionServices: Stopping SchedulerExtensionServices
+(serviceOption=None,
+ services=List(),
+ started=false)
+17/07/10 16:52:38 INFO cluster.YarnClientSchedulerBackend: Stopped
+17/07/10 16:52:38 INFO spark.MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+17/07/10 16:52:38 INFO memory.MemoryStore: MemoryStore cleared
+17/07/10 16:52:38 INFO storage.BlockManager: BlockManager stopped
+17/07/10 16:52:38 INFO storage.BlockManagerMaster: BlockManagerMaster stopped
+17/07/10 16:52:38 INFO scheduler.OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+17/07/10 16:52:38 INFO spark.SparkContext: Successfully stopped SparkContext
+17/07/10 16:52:38 INFO util.ShutdownHookManager: Shutdown hook called
+17/07/10 16:52:38 INFO util.ShutdownHookManager: Deleting directory /tmp/spark-62da74b9-1ded-4aa7-9b98-ebd64db89c9f

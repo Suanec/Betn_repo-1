@@ -1,0 +1,273 @@
+<configuration>
+  <weiflow>
+    <node id="1" preid="-1">GenDataConf</node>
+    <node id="2" preid="-1">GenFeatureConf</node>
+    <node id="3" preid="-1">GenSparseLibsvm</node>
+    <node id="4" preid="-1">TrainingTronLR</node>
+    <node id="5" preid="-1">Test</node>
+    <node id="6" preid="-1">Predict</node>
+    <node id="7" preid="-1">TrainW2V</node>
+  </weiflow>
+  <nodes>
+    <node name="GenDataConf">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --num-executors 2
+          --executor-cores 20
+          --executor-memory 2g
+          --driver-memory 20g
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input1">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkDataMeta</className>
+        <dataPath>meta</dataPath>
+      </input>
+      <output name="output1">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkDataConf</className>
+        <dependency>input1</dependency>
+        <dataPath>data.conf</dataPath>
+        <fieldDelimiter>;</fieldDelimiter>
+      </output>
+    </node>
+    <node name="GenFeatureConf">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --num-executors 2
+          --executor-cores 20
+          --executor-memory 8g
+          --driver-memory 10g
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input2">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkDataConf</className>
+        <dataPath>data.conf</dataPath>
+      </input>
+      <output name="output2">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkFeatureConf</className>
+        <dependency>input2</dependency>
+        <dataPath>feature.conf</dataPath>
+      </output>
+    </node>
+    <node name="GenSparseLibsvm">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --files meta,data.conf,feature.conf,pipeline.xml,dataflow.jar
+          --num-executors 7
+          --executor-cores 10
+          --executor-memory 20g
+          --driver-memory 20g
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input3">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkText</className>
+        <dataPath>/user/suanec/dataflow/littleSample/1w</dataPath>
+        <metaPath>meta</metaPath>
+        <fieldDelimiter>\t</fieldDelimiter>
+      </input>
+      <process name="process3-1">
+        <className>com.weibo.datasys.engine.spark.process.ProcessSparkDataClean</className>
+        <dependency>input3</dependency>
+        <dataPath>data.conf</dataPath>
+      </process>
+      <process name="process3-2">
+        <className>com.weibo.datasys.engine.spark.process.ProcessSparkDataExtract</className>
+        <dependency>process3-1</dependency>
+        <dataPath>data.conf</dataPath>
+      </process>
+      <process name="process3-3">
+        <className>com.weibo.datasys.engine.spark.process.ProcessSparkFeatureMapping</className>
+        <dependency>process3-2</dependency>
+        <dataPath>feature.conf</dataPath>
+      </process>
+      <output name="output3">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkLibsvm</className>
+        <dependency>process3-3</dependency>
+        <dataPath>/user/suanec/dataflow/libsvm/testSample/1w-parquet</dataPath>
+        <format>parquet</format>
+      </output>
+    </node>
+    <node name="TrainingTronLR">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --executor-cores 4
+          --num-executors 60
+          --driver-memory 25G
+          --executor-memory 20G
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input4">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkLibsvm</className>
+        <dataPath>/user/suanec/dataflow/libsvm/testSample/1w-textBzip</dataPath>
+        <format>textWithBzip</format>
+      </input>
+      <output name="output4">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkWeiboLR.Train</className>
+        <dependency>input4</dependency>
+        <dataPath>/user/feed_weibo/a4a/tests_data/parquet/train</dataPath>
+	<haveIntercept>false</haveIntercept>
+        <modelVersion>20170710-2</modelVersion>
+        <modelPath>/home/suanec/ksp/dataflow/model/tron-mllib.0710-2</modelPath>
+	<regType>L2</regType>
+	<regParam>1.0</regParam>
+	<learningRateOrigin>1e-4</learningRateOrigin>
+	<learningRateConvTol>1e-12</learningRateConvTol>
+	<convTol>1e-12</convTol>
+	<maxIter>20</maxIter>
+	<numFeatures>240</numFeatures>
+	<featureSize>240</featureSize>
+      </output>
+    </node>
+    <node name="Test">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --executor-cores 4
+          --num-executors 60
+          --driver-memory 25G
+          --executor-memory 20G
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input5">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkLibsvm</className>
+        <dataPath>/user/feed_weibo/a4a/tests_data/parquet/test</dataPath>
+        <format>parquet</format>
+      </input>
+      <output name="output5">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkWeiboLR.Test</className>
+        <dependency>input5</dependency>
+        <modelPath>/home/suanec/ksp/dataflow/model/tron-mllib.0710-2</modelPath>
+        <DataFormat>parquet</DataFormat>
+        <FeatureSize>240</FeatureSize>
+        <dataPath>/user/feed_weibo/a4a/tests_data/parquet/test</dataPath>
+      </output>
+    </node>
+    <node name="Predict">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --executor-cores 4
+          --num-executors 10
+          --driver-memory 20G
+          --executor-memory 15G
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input6">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkLibsvm</className>
+        <dataPath>/user/feed_weibo/a4a/tests_data/parquet/test</dataPath>
+        <format>parquet</format>
+      </input>
+      <output name="output6">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkWeiboLR.Predict</className>
+        <dependency>input6</dependency>
+        <modelPath>/home/suanec/ksp/dataflow/model/tron-mllib.0710-2</modelPath>
+	<outputPath>/user/feed_weibo/a4a/tests_data/parquet/predict-0710</outputPath>
+        <DataFormat>parquet</DataFormat>
+        <Eta>0.0000001</Eta>
+        <IterationTimes>1</IterationTimes>
+        <BatchSize>1000</BatchSize>
+        <FeatureSize>60000</FeatureSize>
+        <GlintMasterHost>emr-worker-179.cluster-40569</GlintMasterHost>
+        <GlintTimeOut>600</GlintTimeOut>
+        <GlintServerCount>100</GlintServerCount>
+        <dataPath>/user/feed_weibo/a4a/tests_data/parquet/predict-0710</dataPath>
+      </output>
+    </node>
+     <node name="TrainW2V">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --executor-cores 4
+          --num-executors 60
+          --driver-memory 25G
+          --executor-memory 20G
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input7">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkCorpus</className>
+        <dataPath></dataPath>
+        <format>text</format>
+      </input>
+      <output name="output7">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkWord2Vec.Train</className>
+        <dependency>input4</dependency>
+        <dataPath></dataPath>
+        <stepSize></stepSize>
+        <window></window>
+        <vectorSize></vectorSize>
+        <numIterations></numIterations>
+        <minCount></minCount>
+        <numPartitions></numPartitions>
+        <seed></seed>
+        <modelVersion>20170711-1</modelVersion>
+        <modelPath></modelPath>
+      </output>
+    </node>
+  </nodes>
+</configuration>

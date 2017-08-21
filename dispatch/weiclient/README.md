@@ -1,10 +1,10 @@
-bin.sh							无需修改，任务启动依赖项。
-echoHello.sh					用户脚本任务中脚本文件，由用户自行配置，若无脚本任务则不需此文件。
-push.data.conf					data.conf文件，为spark任务中配置文件，由用户指定。
-push.feature.conf				feature.conf文件，spark任务中配置文件，由用户指定。
-push.meta						meta文件，spark任务中配置文件，由用户指定。
-README.md						本说明文件，介绍weiclient各文件含义。
-weiclient.sh					weiclient启动文件，当用户配置完成后，启动本脚本，即可提交任务到调度中心服务器。
-weiflow.sh						weiflow任务提交入口。需要用户指定配置文件名称、运行节点编号。提交到调度中心后，文件相对路径为./weiclient/
-weiflow.tar.gz					weiclient提交任务文件压缩包。
-weiflow-testShell.xml			weiflow任务中依赖的xml配置文件。weiflow.sh中指定配置文件应与之相对应。
+.
+./conf								weiclient配置目录。
+./conf/weiclient.conf				weiclient配置文件。weiclient.sh可由参数指定也可由配置文件指定，指定配置文件应与之相对应。
+./conf/weiflow-config.xml			weiflow任务中依赖的xml配置文件。weiflow.sh中指定配置文件应与之相对应。
+./lib								weiclient依赖文件，以及控制中心启动依赖所在目录。
+./lib/client.sh						weiclient工作脚本,weiclient核心脚本。
+./README.md							README说明文件。
+./user_custom_run_job.sh			用户自定义工作入口脚本，控制中心对作业进行调度后，由weiflow通过启动该脚本进行任务提交相关工作。
+./weiclient.sh						weiclient启动入口脚本。客户端提交至控制中心。
+./weiflow.sh						weiflow启动脚本。

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cmd="sh ./lib/client.sh -x ../weiclient -n enzhao -j control_center -d ./conf/weiclient.conf.template -v 0.3.0 -t tensorflow"
+echo $cmd
+$cmd

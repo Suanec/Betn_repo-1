@@ -1,15 +1,15 @@
 <configuration>
   <weiflow>
-    <node id="1" preid="-1">dlSubmit</node>
+    <node id="1" preid="-1">shellSubmit</node>
   </weiflow>
   <nodes>
-     <node name="dlSubmit">
+     <node name="shellSubmit">
       <env>
-        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
-        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+        <var>SPARK_HOME=$SPARK_HOME</var>
+        <var>SCALA_HOME=$SCALA_HOME</var>
       </env>
       <runtime name="com.weibo.datasys.engine.shell.node.NodeShellImpl">
-        <binPath>/bin/bash</binPath>
+        <binPath>bash</binPath>
       </runtime>
       <execute>
         <type>pipeline</type>
@@ -17,7 +17,7 @@
        <process name="process1">
         <className>com.weibo.datasys.engine.shell.process.ProcessShellCmd</className>
         <shell>echo 'hello world'</shell>
-        <script>chronos.sh</script>
+        <script>user_custom_run_job.sh</script>
       </process>
     </node>
    </nodes>

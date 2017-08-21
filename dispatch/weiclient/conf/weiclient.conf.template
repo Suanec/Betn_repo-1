@@ -1,0 +1,6 @@
+data_path=./lib/client.sh
+job_name=control_center
+user_name=enzhao
+cluster_type=spark
+cluster_version=2.0.2
+src_dir=../weiclient

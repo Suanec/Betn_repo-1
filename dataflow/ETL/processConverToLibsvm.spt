@@ -1,0 +1,182 @@
+
+import com.weibo.datasys.dataflow.classbase.process.ProcessSpark
+import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+
+object genLibsvm extends Serializable {
+  def convertToLibsvm(features : Array[Double]) : String = {
+    features.zipWithIndex.map{
+      pair =>
+        s"${pair._2 + 1}:${pair._1}"
+    }.mkString(" ")
+  }
+
+}
+var featureDim : Int = 0
+val classSimpleName: String = this.getClass.getSimpleName
+var fieldDelimiter : String = " "
+var hasDim : Boolean = true
+
+def transform(spark: SparkSession, df: Array[DataFlowType]): DataFlowType = {
+
+    val singleDataFrame: DataFrame = df.head match {
+      case df: WeiDataFrame => df.get
+    }
+    assert(singleDataFrame.isInstanceOf[DataFrame],
+      s"Class: ${classSimpleName} " +
+        s"requires either DataFrame or RDD, you need to check your implementation.\n")
+    val b_featureDim = spark.sparkContext.broadcast(featureDim)
+    val b_fieldDelimiter = spark.sparkContext.broadcast(fieldDelimiter)
+    val b_hasDim = spark.sparkContext.broadcast(hasDim)
+
+    import spark.implicits._
+    val libsvmDataFrame = singleDataFrame.rdd.mapPartitions{
+      case iter: Iterator[Row] =>
+        iter.map {
+          line =>
+            val (sample_id,libsvmLabel,featureDim,libsvmFeatures) = line.schema.size match {
+              case 1 =>
+                val splits = line.getString(0).split(fieldDelimiter)
+                val sample_id = splits.head
+                val label = splits(1)
+                val features = b_hasDim.value match {
+                  case false =>
+                    splits.splitAt(2)._2.map(_.toDouble)
+                  case true =>
+                    splits.splitAt(3)._2.map(_.toDouble)
+                }
+                val featureDim : Int = b_hasDim.value match {
+                  case false => features.size
+                  case true => splits(2).toInt
+                }
+                val libsvmFeatures = genLibsvm.convertToLibsvm(features)
+                (sample_id,label,featureDim,libsvmFeatures)
+              case 3 =>
+                val rawFeature = line.getString(2)
+                val sample_id = line.getString(0)
+                val label = line.getString(1)
+                val features = rawFeature.split(' ').map(_.toDouble)
+                val featureDim = features.size
+                val libsvmFeatures: String =
+                  genLibsvm.convertToLibsvm(features)
+                (sample_id,label,featureDim,libsvmFeatures)
+              case 4 =>
+                val rawFeature = line.getString(3)
+                val samle_id = line.getString(0)
+                val label = line.getAs[String]("label")
+                val featureDim = line.getAs[String]("dim").toInt
+                val libsvmFeatures: String =
+                  genLibsvm.convertToLibsvm(rawFeature.split(' ').map(_.toDouble))
+            }
+            (sample_id.toString, libsvmLabel.toString, featureDim.toString, libsvmFeatures.toString)
+          }
+    }.toDF("sample_id", "label", "dim", "features")
+    WeiDataFrame(libsvmDataFrame)
+  }
+
+val file = """
+414433387839946397221002285032 0 256 0.0 0.0 0.10225727 0.14086741 0.2819944 0.0 0.0 0.0 0.059345126 0.0 0.1588633 0.3153 0.0 0.0 0.0 0.0 0.0 0.37934047 0.034661055 0.0 0.035511613 0.3467805 0.02087909 0.0 0.14857598 0.0 0.0 0.0 0.0 0.0011575222 0.0 0.33347088 0.0 0.0 0.31786337 0.0 0.0 0.14912353 0.08731437 0.0 0.5076466 0.10645476 0.0 0.18974367 0.0 0.47710383 0.3130936 0.080788076 0.32881853 0.489699 0.0 0.0 0.0 0.4123259 0.04658714 0.0 0.30149493 0.0 0.0 0.068866014 0.0 5.8510527E-4 0.021350682 0.0 0.047942787 0.0 0.0 0.33379203 0.084925726 0.076435804 0.0 0.13332582 0.0 0.053258833 0.0 0.15944088 0.26588348 0.383781 0.0 0.03020233 0.07209194 0.0 0.40315387 0.0 0.0 0.0 0.023139656 0.0 0.16154675 0.030344352 0.0 0.33232504 0.006112635 0.009456128 0.05199048 0.0 0.06555 0.15546295 0.37303138 0.013801828 0.3272283 0.07988685 0.0 0.019862864 0.34803665 0.0 0.0 0.3261084 0.5745753 0.36621383 0.0 0.0 0.10243026 0.0 0.0 0.09452497 0.086772524 0.0 0.0 0.0 0.2904008 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.013101757 0.0 0.010319829 0.4053594 0.056705147 0.0 0.16370296 0.0 0.0 0.0 0.0 0.2974587 0.14164267 0.035323843 0.048336342 0.0 0.0 0.034063913 0.0 0.10994339 0.0 0.0 0.0 0.49520364 0.012889281 0.0 0.24192381 0.12200126 0.11233529 0.020537833 0.0 0.34716934 0.1408035 0.30175364 0.16181515 0.12548143 0.0 0.0 0.0 0.0 0.0 0.0 0.53071547 0.0 0.0 0.3762585 0.0 0.5093793 0.0 0.0 0.024422463 0.0 0.41003436 0.022258222 0.092198 0.0 0.03706205 0.0 0.0 0.0 0.0 0.3226806 0.06949765 0.047908157 0.0 0.076317415 0.08723438 0.28342512 0.0 0.14773823 0.03592547 0.0568493 0.110180005 0.0 0.0 0.012989223 0.0 0.09387176 0.38615662 0.0 0.0 0.0071460903 0.0 0.34897488 0.06364985 0.2821086 0.19851783 0.19680913 0.29922202 0.0 0.009468392 0.0016322136 0.11155781 0.0 0.30339816 0.123435214 0.17610006 0.39478913 0.0 0.32627615 0.0 0.0 0.0 0.0 0.0 0.038188178 0.0 0.0 0.0 0.32118535 0.0 0.008143142 0.0 0.018210687 0.044143885 0.0 0.0 0.0 0.18198001 0.038844958 0.0 0.4469177 0.0 0.0 0.010618776 0.0 0.058799192"""
+val iter = file.split('\n').filter(_.size > 1)
+val df = Array(WeiDataFrame(iter.toSeq.toDF))
+transform(spark,Array(WeiDataFrame(df)))
+
+
+res0.map{
+  line =>
+    val splits = line.getString(0).split(' ')
+    val sample_id = splits.head
+    val label = splits(1)
+    val dim = splits(2)
+    val features = splits.splitAt(3)._2.mkString(" ")
+    (sample_id,label,dim,features)
+}.saveAsTextFile("dataflow/bugFixed/lr_data_parsed")
+
+
+res0.map{
+  line =>
+    val splits = line.getString(0).split(' ')
+    val sample_id = splits.head
+    val label = splits(1)
+    val dim = splits(2)
+    val features = splits.splitAt(3)._2.mkString(" ")
+    (sample_id,label,dim,features)
+}.toDF("sample_id", "label", "dim", "features").map(_.toSeq.mkString("\t")).write.text("dataflow/bugFixed/lr_data_parsed")
+
+val paramMap: HashMap[String, String] = HashMap[String, String]()
+
+paramMap += "dataPath" -> "/user/suanec/dataflow/bugFix/lr_data"
+paramMap += "metaPath" -> "nn_1w.meta"
+paramMap += "numParittions" -> "0"
+paramMap += "format" -> "text"
+
+def createSchemaFromMetaString(schemaString: Array[String]): StructType = StructType(
+    schemaString.map {
+      case index_name_type: String =>
+        val metaPattern: Regex = "[0-9]+:([a-z0-9A-Z_]+):([a-zA-Z]+)".r
+        val metaPattern(fieldName, fieldType) = index_name_type
+//        val fieldName: String = index_name_type.split(":")(1)
+//        val fieldType: String = index_name_type.split(":")(2)
+        StructField(fieldName,
+          dataType = fieldType match {
+            case "int" => IntegerType
+            case "bigint" => LongType
+            case "double" => DoubleType
+            case "float" => FloatType
+            case "string" => StringType
+            // case "date" => DateType
+            case _ => StringType
+          },
+          nullable = true)
+    }
+  )
+
+  def createDataFrameFromNewSample(spark: SparkSession,
+                             dataPath: String,
+                             dataFieldDelimiter: String = " ",
+                             numPartitions: Int): DataFlowType = {
+    val lines = Array("0:sample_id:string", "1:label:string", "2:dim:string", "3:features:string")
+    val tableSchema: StructType = createSchemaFromMetaString(lines)
+    /// createSchemaFromMetaFile(metaPath)
+
+    // val isHdfsFile: Boolean = HdfsHelper.hdfsIsFile(dataPath) || HdfsHelper.hdfsIsDir(dataPath)
+    val isHdfsFile: Boolean = HdfsHelper.hdfsIsValid(dataPath)
+
+    val hadoopRDD = if (isHdfsFile) {
+      spark.sparkContext
+        .hadoopConfiguration
+        .set("mapreduce.input.fileinputformat.input.dir.recursive", "true")
+
+      numPartitions match {
+        case 0 =>
+          spark.sparkContext.textFile(dataPath)
+        case _ =>
+          spark.sparkContext.textFile(dataPath, numPartitions)
+      }
+    }
+    else {
+      print(s"\n[Warn] Data path ${dataPath} is a local file system path," +
+        s"trying to read its contents from local disk storage.\n\n")
+      val lines: Array[String] = Source.fromFile(dataPath).getLines.toArray
+      spark.sparkContext.parallelize(lines)
+    }
+
+    val splitsNum: Int = hadoopRDD.getNumPartitions
+    val tableRDD = hadoopRDD.mapPartitions{
+      case iterator =>
+
+        iterator.map {
+          case line: String =>
+            val p: Array[String] = line.split(dataFieldDelimiter, -1)
+            val sample_id: String = p(0)
+            val label: String = p(1)
+            val dim: String = p(2)
+            val features: String = p.drop(3).mkString(" ")
+            Row.fromSeq(Seq(sample_id, label, dim, features))
+        }
+    }
+
+    WeiDataFrame(spark.sqlContext.createDataFrame(tableRDD, tableSchema).coalesce(splitsNum))
+}
+
+
+

@@ -1,0 +1,6 @@
+dirs.map{
+  dir =>
+    val dir_files = "ls -1 ./" + dir !!
+    val file = dir_files.split('\n').filter(_.contains(".mp4")).head
+    s"mv ${dir}/${file} ${dir}/${file.split('?')}" !
+}

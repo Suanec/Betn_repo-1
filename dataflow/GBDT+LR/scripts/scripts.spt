@@ -1,0 +1,592 @@
+    validationTol : Double = 0.001
+    algo : String = _
+    impurity : String = _
+    maxDepth : Int = _
+    numClasses : Int = 2
+    maxBins : Int = 32
+    quantileCalculationStrategy = org.apache.spark.mllib.tree.configuration.QuantileStrategy.Sort
+    categoricalFeaturesInfo: Map[Int, Int] = Map[Int, Int]()
+    minInstancesPerNode: Int = 1
+    minInfoGain: Double = 0.0
+    maxMemoryInMB: Int = 256
+    subsamplingRate: Double = 1
+    useNodeIdCache: Boolean = false
+    checkpointInterval: Int = 10
+
+    // ======================DataFrameJoin===================//
+
+    spark.conf.set("spark.sql.crossJoin.enabled", "true")
+    t.joinWith(t1, t("sample_id") === t1("sample_id"))
+    row.getString(row.schema.fieldIndex("sample_id"))
+
+
+    // =====================libsvmJoin=======================//
+    import org.apache.spark.sql.types._
+    import org.apache.spark.sql._
+    val input = spark.read.json("/user/feed_weibo/warehouse/feed_sample_json_final/little/sample11437")
+    val Array(left,right,_ ) = input.randomSplit(Array(0.001,0.001,0.99))
+    val schema = input.schema
+    val leftSchema = StructType(schema.splitAt(3)._1 :+ s("sample_id"))
+    // val leftName = "c_expotime", "from", "fu_age", "sample_id"
+    val leftDataFrame =  left.select("c_expotime", "from", "fu_age", "sample_id")
+    val rightSchema = StructType(schema.splitAt(128)._2)
+    val rightDataFrame = right.select("m_u_uid","m_u_vtype","me_get_meta_time","sample_id","uid")
+    val leftJoinKey = "sample_id"
+    val rightJoinKey = "sample_id"
+    val joinedDF : Dataset[(Row,Row)] = leftDataFrame.joinWith(rightDataFrame, leftDataFrame(leftJoinKey) === rightDataFrame(rightJoinKey))
+
+    val leftNewSchema: Seq[StructField] = leftSchema.filter(_.name != leftJoinKey)
+    val leftNewSchemaIdx : Seq[Int] = leftNewSchema.map(field => leftSchema.fieldIndex(field.name))
+    val rightNewSchema: Seq[StructField] = rightSchema.filter(_.name != rightJoinKey)
+    val rightNewSchemaIdx : Seq[Int] = rightNewSchema.map(field => rightSchema.fieldIndex(field.name))
+    val newSchema = StructType((leftNewSchema ++ rightNewSchema))
+
+    val b_leftNewSchema = spark.sparkContext.broadcast(leftNewSchema)
+    val b_leftNewSchemaIdx = spark.sparkContext.broadcast(leftNewSchemaIdx)
+    val b_rightNewSchema = spark.sparkContext.broadcast(rightNewSchema)
+    val b_rightNewSchemaIdx = spark.sparkContext.broadcast(rightNewSchemaIdx)
+
+    import spark.implicits._
+    import org.apache.spark.rdd.RDD
+    val rstRdd : RDD[Row] = joinedDF.rdd.mapPartitions{
+      iter =>
+      iter.map{
+        rowPair =>
+        val leftRow = rowPair._1
+        val rightRow = rowPair._2
+        val leftSeq = b_leftNewSchemaIdx.value.map(i => leftRow.getString(i))
+        val rightSeq = b_rightNewSchemaIdx.value.map(i => rightRow.getString(i))
+        val rstSeq = leftSeq ++ rightSeq
+        Row.fromSeq(rstSeq)
+      }
+    }
+    val rstDS = spark.sqlContext.createDataFrame(rstRdd, newSchema)
+
+    // =====================outputMeta=======================//
+    val input = spark.read.json("/user/feed_weibo/warehouse/feed_sample_json_final/little/sample11437")
+    val Array(left,right,_ ) = input.randomSplit(Array(0.001,0.001,0.99))
+    val schema = input.schema
+    val metaArr = schema.indices.map{
+      i =>
+      val iFiled = schema(i)
+      val idx = i
+      val name = iFiled.name
+      val dataType = iFiled.dataType
+      s"$idx:$name:$dataType"
+    }
+    val metaStr = metaArr.mkString("\n")
+
+    // =====================outputDataConf=======================//
+    
+    import java.io.FileWriter
+    import scala.util.matching.Regex
+
+    def writeJsonLine(writer: java.io.FileWriter, index: String, name: String): Unit = {
+      val jsonString: String =
+      s"""{"index":"${index}","name":"${name}",""" +
+      """"maptype":"","operator":"","args":"",""" +
+      """"maxhint":"","havedefault":"","defaultvalue":"","drop":""}"""
+      writer.write(jsonString)
+      writer.write("\n\n")
+    }
+    
+    val jsonMeta = spark.read.text("file://" + ("pwd" !!).trim + "/json.meta")
+    val singleDataFrame: DataFrame = jsonMeta.toDF("metaLine")
+    val classSimpleName = "outputDataConf"
+    assert(singleDataFrame.isInstanceOf[DataFrame],
+      s"Class: ${classSimpleName} " +
+      s"requires either DataFrame or RDD, you need to check your implementation.\n")
+
+    val dataConfWriter = new FileWriter("json.data.conf", false)
+
+    val metaPattern: Regex = "([0-9]+):([a-z0-9A-Z_]+):[a-zA-Z]+".r
+    val sortedIndexName: Array[(Int, String)] = singleDataFrame.collect.map{
+      case r: Row =>
+      val line: String = r.getAs[String]("metaLine")
+      val metaPattern(index, name) = line
+      (index.toInt, name)
+      }.sortBy(_._1)
+
+      for (line <- sortedIndexName) {
+        writeJsonLine(dataConfWriter, line._1.toString, line._2)
+      }
+      dataConfWriter.flush
+      dataConfWriter.close
+
+      // =====================SampleJoin=======================//
+      import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+
+      val df = spark.read.parquet("/user/suanec/dataflow/littleSample/mds_feed_strategy_samples_with_sampleid_sample_mapped_1w")
+      val leftTable = df
+      val rightTable = df
+      leftTable.createOrReplaceTempView("leftTable")
+      rightTable.createOrReplaceTempView("rightTable")
+
+      val joinQuery: String = "select " +
+        "t1.sample_id as sample_id, " +
+        "t1.label as label, " +
+        "t1.dim + t2.dim as dim, " +
+        "t1.dim as dim1, " +
+        "t1.features as features1, " +
+        "t2.features as features2 " +
+        "from leftTable as t1 inner join rightTable as t2 " +
+        "on t1.sample_id = t2.sample_id"
+
+       def genOffsetFeature(features: String, dim: String): String = {
+          val indexAndValues: Array[(Long, String)] = features.split(" ").map{
+            case index_value: String =>
+              val splits = index_value.split(":")
+              var index: Long = 0L
+              var value: String = "0"
+              if(splits.size == 2) {
+                index = splits.head.toLong
+                value = splits.last
+              } else if(splits.size == 1) {
+                index = splits.head.toLong
+                value = "0"
+              } else {
+                throw new Exception("Error found in Sample Join, input format not match the libsvm or compacted libsvm!!")
+              }
+              (index, value)
+          }
+
+          val libsvmElems: Array[String] = indexAndValues.map{
+            case (index: Long, value: String) =>
+              val newIndex: String = (index + dim.toLong).toString
+              s"${newIndex}:${value}"
+          }
+
+          libsvmElems.mkString(" ")
+        }
+      import spark.implicits._
+      val concatDF = spark.sql(joinQuery).rdd.map{
+        case r: Row =>
+          val sample_id: String = r.getAs[String]("sample_id")
+          val label: String = r.getAs[Any]("label").toString
+          val dim: String = r.getAs[Any]("dim").toString
+          val features2: String =
+            genOffsetFeature(r.getAs[String]("features2"), r.getAs[String]("dim1"))
+          val newFeatures: String = r.getAs[String]("features1") + " " + features2
+          (sample_id, label, dim, newFeatures)
+      }.toDF("sample_id", "label", "dim", "features")
+
+      concatDF.write.parquet("/user/suanec/dataflow/littleSample/mds_feed_strategy_samples_with_sampleid_joined_1w")
+
+
+      // =====================genGBDTSample=======================//
+      /// @author : suanec_Betn
+      /// @version : 0.2
+      /// @data : 2016/10/24
+
+      import org.apache.spark.mllib.linalg._
+      import org.apache.spark.mllib.regression._
+
+
+
+      object readLibSVM extends Serializable {
+
+        /// single line libsvm to Sparse Vector Format
+        def parseLibSVMRecord(line: String): (Double, Array[Int], Array[Double]) = {
+          val items = line.split( ' ' )
+          val label = items.head.toDouble
+          val (indices, values) = items.tail.filter( _.nonEmpty ).map { item =>
+            val indexAndValue = item.split( ':' )
+            val index = indexAndValue( 0 ).toInt - 1 // Convert 1-based indices to 0-based.
+          val value = indexAndValue( 1 ).toDouble
+            (index, value)
+          }.unzip
+
+          // check if indices are one-based and in ascending order
+          var previous = -1
+          var i = 0
+          val indicesLength = indices.length
+          while (i < indicesLength) {
+            val current = indices( i )
+            require( current > previous, s"indices should be one-based and in ascending order;"
+              + " found current=$current, previous=$previous; line=\"$line\"" )
+            previous = current
+            i += 1
+          }
+          (label, indices.toArray, values.toArray)
+        }
+
+        /// single line libsvm to Sparse Vector Format
+        def parseLibSVMVector(line: String): (Array[Int], Array[Double]) = {
+          val items = line.split( ' ' )
+          val (indices, values) = items.filter( _.nonEmpty ).map { item =>
+            val indexAndValue = item.split( ':' )
+            val index = indexAndValue( 0 ).toInt - 1 // Convert 1-based indices to 0-based.
+          val value = indexAndValue( 1 ).toDouble
+            (index, value)
+          }.unzip
+
+          // check if indices are one-based and in ascending order
+          var previous = -1
+          var i = 0
+          val indicesLength = indices.length
+          while (i < indicesLength) {
+            val current = indices( i )
+            require( current > previous, s"indices should be one-based and in ascending order;"
+              + " found current=$current, previous=$previous; line=\"$line\"" )
+            previous = current
+            i += 1
+          }
+          (indices.toArray, values.toArray)
+        }
+
+        // get the libsvm dimision(the max indices)
+        def computeNumLibSVMFeatures(_iter: Iterator[(Double, Array[Int], Array[Double])]): Iterator[Int] = {
+          _iter.map { case (label, indices, values) =>
+            indices.lastOption.getOrElse( 0 )
+          }
+        }
+
+        // get the libsvm dimision(the max indices)
+        def computeNumFeatures(_iter: Iterator[(Array[Int], Array[Double])]): Iterator[Int] = {
+          _iter.map { case (indices, values) =>
+            indices.lastOption.getOrElse( 0 )
+          }
+        }
+
+        def parseLibSVMIter(iter: Iterator[String]): Iterator[(Double, Array[Int], Array[Double])] = {
+          iter
+            .filter( line => !(line.isEmpty || line.startsWith( "#" )) )
+            .map( x => parseLibSVMRecord( x.trim ) )
+        }
+
+        def parseLibSVMVecIter(iter: Iterator[String]): Iterator[(Array[Int], Array[Double])] = {
+          iter
+            .filter( line => !(line.isEmpty || line.startsWith( "#" )) )
+            .map( x => parseLibSVMVector( x.trim ) )
+        }
+
+      }
+      val df = spark.read.parquet("/user/suanec/dataflow/littleSample/mds_feed_strategy_samples_with_sampleid_sample-for-gbdt_1w")
+      val dim = df.head.getAs[String]("dim").toInt
+      val b_dim = spark.sparkContext.broadcast(dim)
+      val lpdf = df.select("label","features")
+      lpdf.mapPartitions{
+        iter =>
+          readLibSVM.parseLibSVMIter(iter.map(_.mkString(" "))).map{
+            line => 
+              LabeledPoint(
+                line._1, 
+                Vectors.sparse(
+                  b_dim.value, 
+                  line._2, 
+                  line._3
+                  ))
+          }
+      }
+      // =====================trainGBDT=======================//
+
+import com.weibo.datasys.common.Params
+import com.weibo.datasys.dataflow.classbase.output.OutputSpark
+import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+import com.weibo.datasys.engine.spark.output.Utils
+import org.apache.spark.mllib.tree.GradientBoostedTrees
+import org.apache.spark.mllib.tree.model._
+import org.apache.spark.rdd.RDD
+import org.apache.spark.mllib.tree.configuration.BoostingStrategy
+import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.slf4j.LoggerFactory
+import com.weibo.datasys.engine.spark.output.OutputSparkGBDT._
+
+import org.json4s.jackson._
+import org.json4s._
+import org.json4s.jackson.JsonMethods._
+
+  def genLabeledPoint(wbSamples : DataFrame
+                     ) : RDD[LabeledPoint] = {
+    ///  sample_id|label|dim|features
+    val spark = wbSamples.sparkSession
+    val dim = wbSamples.head.getAs[String]("dim").toInt
+    val b_dim = spark.sparkContext.broadcast(dim)
+    val lpdf = wbSamples.select("label","features")
+    lpdf.rdd.mapPartitions{
+      iter =>
+        readLibSVM.parseLibSVMIter(iter.map(_.mkString(" "))).map{
+          line =>
+            LabeledPoint(
+              line._1,
+              Vectors.sparse(
+                b_dim.value,
+                line._2,
+                line._3
+              ))
+        }/// iter map
+    }/// mapPartitions
+  }/// return RDD for mllib
+      val df = spark.read.parquet("/user/suanec/dataflow/littleSample/mds_feed_strategy_samples_with_sampleid_sample-for-gbdt_1w")
+        val rdd = genLabeledPoint(df)
+    val modelUtils = new GradientBoostedTreesModelUtil(model.algo,model.trees,model.treeWeights)
+
+  val lossFunc : String = "logistic"
+  var treeStrategy : String = ""
+  var validationTol : Double = 0.001
+  var algo : String = ""
+  val quantileCalculationStrategy = org.apache.spark.mllib.tree.configuration.QuantileStrategy.Sort
+  var categoricalFeaturesInfoStr : String = ""
+  var categoricalFeaturesInfo: collection.mutable.HashMap[Int, Int] = collection.mutable.HashMap[Int, Int]()
+  var minInstancesPerNode: Int = 1
+  var minInfoGain: Double = 0.0
+  var maxMemoryInMB: Int = 256
+  var subsamplingRate: Double = 1
+  var useNodeIdCache: Boolean = false
+  var checkpointInterval: Int = 10
+    val boostingStrategy : BoostingStrategy = BoostingStrategy.defaultParams("Classification")
+
+  var numTrees : Int = 15
+  var maxDepth : Int = 5
+  var learningRate : Double = 0.1
+    boostingStrategy.setNumIterations(numTrees.toInt)
+    boostingStrategy.setLearningRate(learningRate.toDouble)
+    boostingStrategy.treeStrategy.setNumClasses(2)
+    boostingStrategy.treeStrategy.setMaxDepth(maxDepth)
+    if(!categoricalFeaturesInfoStr.equals("")) {
+      val catFeatures: Array[(Int, Int)] = categoricalFeaturesInfoStr.split(",").map {
+        case kv: String =>
+          val key: Int = kv.split(":")(0).toInt
+          val value: Int = kv.split(":")(1).toInt
+          (key, value)
+      }
+      catFeatures.map{
+        pair =>
+          println(pair)
+          categoricalFeaturesInfo += pair
+      }
+    }
+    if(!categoricalFeaturesInfo.isEmpty) boostingStrategy.treeStrategy.setCategoricalFeaturesInfo(categoricalFeaturesInfo.toMap)
+        val model = GradientBoostedTrees.train(rdd, boostingStrategy)
+    val modelUtils = new GradientBoostedTreesModelUtil(model.algo,model.trees,model.treeWeights)
+    val dataPath = "/home/suanec/ksp/dataflow/model/gbdt/gbdt.model-shell"
+compact(render())
+      // =====================saveGBDT=======================//
+
+      import org.apache.spark.mllib.linalg._
+      import org.apache.spark.mllib.regression._
+      import org.apache.spark.broadcast.Broadcast
+      import com.weibo.datasys.common.Params
+      import com.weibo.datasys.dataflow.classbase.output.OutputSpark
+      import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+      import com.weibo.datasys.engine.spark.output.Utils
+      import org.apache.spark.mllib.tree.GradientBoostedTrees
+      import org.apache.spark.mllib.tree.model._
+      import org.apache.spark.rdd.RDD
+      import org.apache.spark.mllib.tree.configuration.BoostingStrategy
+      import org.apache.spark.sql.{DataFrame, SparkSession}
+      import org.slf4j.LoggerFactory
+      import com.weibo.datasys.engine.spark.output.OutputSparkGBDT._
+
+import org.json4s.JsonDSL._
+import org.json4s._
+import org.json4s.jackson.JsonMethods._
+import org.json4s.jackson.Serialization
+
+
+  def splitDataToJson(nodeSplit : Option[Split]) : org.json4s.JValue = nodeSplit match {
+    case None =>
+      System.out.println(nodeSplit.toString)
+      JNull
+    case Some(nodeSplit) =>
+    ("feature" -> nodeSplit.feature) ~
+      ("threshold" -> nodeSplit.threshold) ~
+      ("featureType" -> nodeSplit.featureType.id) ~
+      ("categories" -> nodeSplit.categories)
+  }
+
+  def treesJsonStringFromDecisionTreeNode (treeId:Int, node:Node, nodeId:Int) : (String, Int) = {
+    var treesJsonString: String = ""
+    var newNodeId = nodeId
+    implicit val formats = DefaultFormats
+
+    newNodeId += 1
+
+    val jsonStr: JsonAST.JObject = ("treeId" -> treeId) ~
+      ("nodeId" -> node.id) ~
+      ("predict.predict" -> node.predict.predict) ~
+      ("predict.prob" -> node.predict.prob) ~
+      ("predict" -> Extraction.decompose(node.predict)) ~
+      ("impurity" -> node.impurity) ~
+      ("isLeaf" -> node.isLeaf) ~
+      ("golbalId" -> newNodeId) ~
+//      ("split" -> Extraction.decompose(splitToSplitData(node.split))) ~
+      ("split" -> splitDataToJson(node.split)) ~
+      //("FEATURE_TYPE" -> node.split.get.featureType.toString) ~
+      //("FEATURE_TYPE" -> node.split.get.toString) ~
+      ("leftNodeId" -> (if(node.leftNode.isEmpty) {-1} else {node.leftNode.get.id})) ~
+      ("rightNodeId" -> (if(node.rightNode.isEmpty) {-1} else {node.rightNode.get.id})) ~
+      ("infoGain" -> (if(node.stats.isEmpty) {0} else {node.stats.get.gain}))
+    ("stats" -> Extraction.decompose(node.stats))
+    treesJsonString += compact(render(jsonStr))
+    treesJsonString += "\n"
+
+    if (node.leftNode.isDefined && !node.leftNode.isEmpty) {
+      val (tmpTreesJsonString, tmpNodeId) = treesJsonStringFromDecisionTreeNode(treeId, node.leftNode.get, newNodeId)
+      treesJsonString += tmpTreesJsonString
+      newNodeId = tmpNodeId
+    }
+
+    if (node.rightNode.isDefined && !node.rightNode.isEmpty) {
+      val (tmpTreesJsonString, tmpNodeId) = treesJsonStringFromDecisionTreeNode(treeId, node.rightNode.get, newNodeId)
+      treesJsonString += tmpTreesJsonString
+      newNodeId = tmpNodeId
+    }
+
+    (treesJsonString, newNodeId)
+  }
+
+  
+      // =====================predictGBDT=======================//
+
+
+      import org.apache.spark.mllib.linalg._
+      import org.apache.spark.mllib.regression._
+      import org.apache.spark.broadcast.Broadcast
+      import com.weibo.datasys.common.Params
+      import com.weibo.datasys.dataflow.classbase.output.OutputSpark
+      import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+      import com.weibo.datasys.engine.spark.output.Utils
+      import org.apache.spark.mllib.tree.GradientBoostedTrees
+      import org.apache.spark.mllib.tree.model._
+      import org.apache.spark.rdd.RDD
+      import org.apache.spark.mllib.tree.configuration.BoostingStrategy
+      import org.apache.spark.sql.{DataFrame, SparkSession}
+      import org.slf4j.LoggerFactory
+      import com.weibo.datasys.engine.spark.output.OutputSparkGBDT._
+
+import org.json4s.JsonDSL._
+import org.json4s._
+import org.json4s.jackson.JsonMethods._
+import org.json4s.jackson.Serialization
+
+      object readLibSVM extends Serializable {
+
+        /// single line libsvm to Sparse Vector Format
+        def parseLibSVMRecord(line: String): (Double, Array[Int], Array[Double]) = {
+          val items = line.split( ' ' )
+          val label = items.head.toDouble
+          val (indices, values) = items.tail.filter( _.nonEmpty ).map { item =>
+            val indexAndValue = item.split( ':' )
+            val index = indexAndValue( 0 ).toInt - 1 // Convert 1-based indices to 0-based.
+          val value = indexAndValue( 1 ).toDouble
+            (index, value)
+          }.unzip
+
+          // check if indices are one-based and in ascending order
+          var previous = -1
+          var i = 0
+          val indicesLength = indices.length
+          while (i < indicesLength) {
+            val current = indices( i )
+            require( current > previous, s"indices should be one-based and in ascending order;"
+              + " found current=$current, previous=$previous; line=\"$line\"" )
+            previous = current
+            i += 1
+          }
+          (label, indices.toArray, values.toArray)
+        }
+
+        /// single line libsvm to Sparse Vector Format
+        def parseLibSVMVector(line: String): (Array[Int], Array[Double]) = {
+          val items = line.split( ' ' )
+          val (indices, values) = items.filter( _.nonEmpty ).map { item =>
+            val indexAndValue = item.split( ':' )
+            val index = indexAndValue( 0 ).toInt - 1 // Convert 1-based indices to 0-based.
+          val value = indexAndValue( 1 ).toDouble
+            (index, value)
+          }.unzip
+
+          // check if indices are one-based and in ascending order
+          var previous = -1
+          var i = 0
+          val indicesLength = indices.length
+          while (i < indicesLength) {
+            val current = indices( i )
+            require( current > previous, s"indices should be one-based and in ascending order;"
+              + " found current=$current, previous=$previous; line=\"$line\"" )
+            previous = current
+            i += 1
+          }
+          (indices.toArray, values.toArray)
+        }
+
+        // get the libsvm dimision(the max indices)
+        def computeNumLibSVMFeatures(_iter: Iterator[(Double, Array[Int], Array[Double])]): Iterator[Int] = {
+          _iter.map { case (label, indices, values) =>
+            indices.lastOption.getOrElse( 0 )
+          }
+        }
+
+        // get the libsvm dimision(the max indices)
+        def computeNumFeatures(_iter: Iterator[(Array[Int], Array[Double])]): Iterator[Int] = {
+          _iter.map { case (indices, values) =>
+            indices.lastOption.getOrElse( 0 )
+          }
+        }
+
+        def parseLibSVMIter(iter: Iterator[String]): Iterator[(Double, Array[Int], Array[Double])] = {
+          iter
+            .filter( line => !(line.isEmpty || line.startsWith( "#" )) )
+            .map( x => parseLibSVMRecord( x.trim ) )
+        }
+
+        def parseLibSVMVecIter(iter: Iterator[String]): Iterator[(Array[Int], Array[Double])] = {
+          iter
+            .filter( line => !(line.isEmpty || line.startsWith( "#" )) )
+            .map( x => parseLibSVMVector( x.trim ) )
+        }
+      }
+      val df = spark.read.parquet("/user/suanec/dataflow/littleSample/mds_feed_strategy_samples_with_sampleid_sample-for-gbdt_1w")
+
+
+  def genLabeledPoint(wbSamples : DataFrame
+                     ) : RDD[LabeledPoint] = {
+    ///  sample_id|label|dim|features
+    val spark = wbSamples.sparkSession
+    val dim = wbSamples.head.getAs[String]("dim").toInt
+    val b_dim = spark.sparkContext.broadcast(dim)
+    val lpdf = wbSamples.select("label","features")
+    lpdf.rdd.mapPartitions{
+      iter =>
+        readLibSVM.parseLibSVMIter(iter.map(_.mkString(" "))).map{
+          line =>
+            LabeledPoint(
+              line._1,
+              Vectors.sparse(
+                b_dim.value,
+                line._2,
+                line._3
+              ))
+        }/// iter map
+    }/// mapPartitions
+  }/// return RDD for mllib
+  val testModelPath = "/home/suanec/ksp/dataflow/model/gbdt/gbdt.model-20170907"
+    val rdd = genLabeledPoint(df)
+    val model = TreeModelUtil.loadGradientBoostedTreesModelFromFile(spark,testModelPath)
+    val modelUtils = new GradientBoostedTreesModelUtil(model.algo,model.trees,model.treeWeights)
+    val  (mapLG, maxGlobalId) = TreeModelUtil.mapLocalNodeToGlobalId(testModelPath)
+    val b_modelUtils = spark.sparkContext.broadcast(modelUtils)
+    val b_maxGlobalId = spark.sparkContext.broadcast(maxGlobalId)
+    val b_mapLG = spark.sparkContext.broadcast(mapLG)
+    rdd.map{
+      lp =>
+        TreeModelUtil.gbdtLocalNodeIdToGlobalId(
+          b_modelUtils.value.predictByIds(lp.features),
+          b_mapLG.value ).mkString(":1.0 ") + ":1.0"
+        /// GradientBoostingDecisionTrees.leafIdFormatting(leafNodes)(weiboModel)(lrMaxIndex)
+    }
+val  (mapLG, maxGlobalId) = TreeModelUtil.gbdtLocalNodeIdToGlobalId(testModelPath)
+
+
+compact(render("split" -> render(("feature" -> ts.feature) ~ ("threshold" -> ts.threshold) ~ ("featureType" -> ts.featureType.id) ~ ("categories" -> ts.categories))))
+
+
+
+
+
+
+
+
+
+

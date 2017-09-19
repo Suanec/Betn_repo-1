@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<spark>
+		<property name="appname">wulei3 20170122: Weipark ML: GBDT</property>
+	</spark>
+
+	<pipeline> 
+		<stage name="ML training: GBDT"> 
+			<process id="1" preid="-1">Chi Square</process>
+			<process id="2" preid="-1">GBDT training</process>
+			<process id="3" preid="-1">GenFeatureConf</process>
+			<process id="4" preid="-1">GBDT plus LR training</process>
+			<process id="5" preid="-1">GBDT features check</process>
+			<process id="6" preid="-1">LR training</process>
+		</stage>
+	</pipeline>
+	<processes>
+		<process name="Chi Square">
+			<objectname>com.weibo.datasys.etl.ChiSquareCheck</objectname>
+			<args>
+				<arg name="table">mds_feed_strategy_feature_engineering_ranking_v13</arg>
+				<arg name="topK">15</arg>
+				<arg name="rawData">/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170209,/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170210,/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170211</arg>
+				<arg name="dataConf">mds_feed_strategy_feature_engineering_ranking_v13.data.conf</arg>
+				<arg name="whereStmt"></arg>
+				<arg name="fieldDelimiter"></arg>
+			</args>
+		</process>
+		<process name="GBDT training">
+			<objectname>com.weibo.datasys.algorithms.GradientBoostingDecisionTrees</objectname>
+			<args>
+			    <arg name="dataConf">feature_engine_log_feature_samples.data.conf</arg>
+				<arg name="dataFormat">hiveTable</arg>
+                <!--<arg name="trainPath">hdfs://ns1/user/weibo_bigdata_ds/warehouse/feature_engine_log_recomm_samples_text/dt=20170214,hdfs://ns1/user/weibo_bigdata_ds/warehouse/feature_engine_log_recomm_samples_text/dt=20170215,hdfs://ns1/user/weibo_bigdata_ds/warehouse/feature_engine_log_recomm_samples_text/dt=20170216,hdfs://ns1/user/weibo_bigdata_ds/warehouse/feature_engine_log_recomm_samples_text/dt=20170217</arg>-->
+                <arg name="trainPath">hdfs://ns1/user/weibo_bigdata_ds/warehouse/feature_engine_log_recomm_samples_text/dt=20170221</arg>
+                <arg name="predictPath"></arg>
+                <arg name="samplingRatio">1:10</arg>
+                <arg name="numTrees">50</arg>
+                <arg name="treeDepth">4</arg>
+                <arg name="categoryFeatures">2:2,3:2,4:2,5:2,8:2,9:2,10:2,11:2,12:2,13:2,14:2,15:2,17:5,18:10,23:2,24:2,25:2,26:2,27:2,28:2,29:2,70:6,71:5,128:2,131:8,132:6,133:5,149:2,152:8,153:7,154:8,155:12,156:5</arg>
+                <!--<arg name="categoryFeatures">0:24,1:3361,2:2,3:2,4:2,5:2,8:2,9:2,10:2,11:2,12:2,13:2,14:2,15:2,16:2,17:5,18:10,23:2,24:2,25:2,26:2,27:2,28:2,29:2,67:2,68:2,69:8,70:6,71:5,128:2,131:8,132:6,133:5,149:2,152:8,153:7,154:8,155:12,156:5</arg>-->
+				<arg name="learningRate">0.1</arg>
+				<arg name="modelPath">GBDT.model.1.6.6</arg>
+				<arg name="samplePath"></arg>
+				<arg name="fieldDelimiter"></arg>
+            </args>
+		</process>
+		<process name="GenFeatureConf">
+			<objectname>com.weibo.datasys.etl.GenFeatureConf</objectname>
+			<args>
+				<arg name="gbdtDataConf">gbdt.data.conf</arg>
+				<arg name="gbdtModel">GBDT.model.1.6.5</arg>
+				<arg name="table">mds_feed_strategy_feature_engineering_ranking_v13</arg>
+				<arg name="dataConf">mds_feed_strategy_feature_engineering_ranking_v13.data.conf</arg>
+				<arg name="featureConf">mds_feed_strategy_feature_engineering_ranking_v13.feature.conf</arg>
+				<arg name="where">dt=20170209 or dt=20170210 or dt=20170211 or dt=20170212</arg>
+			</args>
+		</process>
+		<process name="GBDT plus LR training">
+			<objectname>com.weibo.datasys.algorithms.LogisticRegressionWithGBDT</objectname>
+			<args>
+				<arg name="gbdtDataConf">gbdt.data.conf</arg>
+				<arg name="gbdtModel">GBDT.model.1.6.5</arg>
+				<arg name="lrDataConf">mds_feed_strategy_feature_engineering_ranking_v13.data.conf</arg>
+				<arg name="featureConf">mds_feed_strategy_feature_engineering_ranking_v13.feature.conf</arg>
+				<arg name="table">mds_feed_strategy_feature_engineering_ranking_v13</arg>
+				<arg name="trainPath">/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170209,/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170210,/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170211</arg>
+				<arg name="testPath">/user/weibo_bigdata_ds/warehouse/mds_feed_strategy_feature_engineering_ranking_v13/dt=20170212</arg>
+				<arg name="whereStmt"></arg>
+				<arg name="samplingRatio">1:10</arg>
+				<arg name="haveIntercept">true</arg>
+				<arg name="modelVersion">20170215.1.6.5</arg>
+				<arg name="modelPath">predict.model</arg>
+				<arg name="fieldDelimiter"></arg>
+				<arg name="testScores"></arg>
+			</args>
+		</process>
+		<process name="GBDT features check">
+			<objectname>com.weibo.datasys.etl.GBDTFeaturesCheck</objectname>
+			<args>
+				<arg name="gbdtDataConf">feature_engine_log_feature_samples.data.conf</arg>
+				<arg name="gbdtModel">GBDT.model.1.6.6</arg>
+			</args>
+		</process>
+		<process name="LR training">
+			<objectname>com.weibo.datasys.algorithms.LogisticRegressionWithDataFrame</objectname>
+			<args>
+				<arg name="path">/user/weibo_bigdata_ds/zhangtong1/libsvmfile/1.6.6.1/part-00075</arg>
+				<arg name="format">libsvm</arg>
+				<arg name="numFeatures">19108</arg>
+				<arg name="partitions">100</arg>
+				<arg name="maxIter">10</arg>
+				<arg name="regParam">0.3</arg>
+				<arg name="elasticNet">0.8</arg>
+			</args>
+		</process>
+	</processes>
+</configuration>

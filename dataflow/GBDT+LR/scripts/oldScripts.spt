@@ -1,0 +1,142 @@
+import com.weibo.datasys.common.ParseConfFiles
+import com.weibo.datasys.common.ParseConfFiles._
+import com.weibo.datasys.algorithms._
+import com.weibo.datasys.common.tree._
+import com.weibo.datasys.common.ConfSpecs
+import com.weibo.datasys.common.ConfSpecs._
+import com.weibo.datasys.common._
+
+
+import org.apache.spark.mllib.linalg._
+import org.apache.spark.mllib.regression._
+import org.apache.spark.ml.classification.LogisticRegression
+// import org.apache.spark.ml.feature.LabeledPoint
+// import org.apache.spark.ml.linalg.Vectors
+// import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
+import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.{Row, SparkSession}
+
+import org.apache.spark.mllib.tree.model.{GradientBoostedTreesModel, GradientBoostedTreesModelUtil}
+import org.apache.spark.mllib.tree.GradientBoostedTrees
+import org.apache.spark.mllib.tree.configuration.BoostingStrategy
+
+import scala.collection.mutable
+import scala.reflect.runtime._
+import scala.sys.process._
+
+
+val boostingStrategy = BoostingStrategy.defaultParams("Classification")
+boostingStrategy.numIterations = 3 // Note: Use more iterations in practice.
+boostingStrategy.treeStrategy.numClasses = 2
+boostingStrategy.treeStrategy.maxDepth = 5
+// Empty categoricalFeaturesInfo indicates all features are continuous.
+boostingStrategy.treeStrategy.categoricalFeaturesInfo = Map[Int, Int]()
+
+
+
+com.weibo.datasys.algorithms.GradientBoostingDecisionTrees
+com.weibo.datasys.etl.GenFeatureConf
+com.weibo.datasys.algorithms.LogisticRegressionWithGBDT 
+val wsp = "/home/suanec/ksp/dataflow/gbdt/gbdt+LR"
+val gdcf = wsp + "/gbdt.data.conf"
+val gmcf = wsp + "/GBDT.model.1.6.5"    
+val gfmcf = wsp + "/feature.conf"
+val fcf = wsp + "/gbdt.data.conf"
+val rawDataFile = wsp + "/forOnline/10-records.txt"
+val libDataFile = wsp + "/10-records.txt"
+val rawRdd = sc.textFile("file://" + rawDataFile)
+val libRdd = sc.textFile("file://" + libDataFile)
+import org.apache.commons.codec.digest.DigestUtils.md5Hex
+def md5 
+val ds = libRdd.map{
+  line => 
+    val splits = line.split('\t')
+    val label = splits.head.toInt
+    val features = splits.tail.mkString(" ")
+    val md5HexValue = md5Hex(features)
+    (label,features,md5HexValue)
+}.toDF("label","features","md5HexValue")
+
+val cleanedData = rawRdd.map(_.split('\t').map{
+    elem =>
+      elem.equals("\\N") match {
+        case true => "0"
+        case false => elem
+      }
+  }
+)
+
+val gdc = ParseConfFiles.loadDataConf(gdcf)
+val dcc = gdc.filter(_._1 != "gbdt1")
+val gfmc = ParseConfFiles.loadFeatureConf(gfmcf)
+val bgdc = sc.broadcast(gdc)
+val bdcc = sc.broadcast(dcc)
+val lp = cleanedData.map{
+  line =>
+    val ldcc = bdcc.value
+    val label = line(ldcc("label")._idx).toDouble
+    val aliveFeatures = ldcc.filter(x => !x._1.equals("label")).map(i => line(i._2._idx).toDouble).toArray
+    LabeledPoint(label, Vectors.dense(aliveFeatures))
+}
+val gm:GradientBoostedTreesModel = GradientBoostedTrees.train(lp, boostingStrategy)
+// val gm:GradientBoostedTreesModel = TreeModelUtil.loadGradientBoostedTreesModelFromFile(spark, gmcf)
+val gmu:GradientBoostedTreesModelUtil =
+      new GradientBoostedTreesModelUtil(gm.algo, gm.trees, gm.treeWeights)
+
+TreeModelUtil.mapLocalNodeToGlobalId(gmcf)
+
+
+val lrfeatures:string = DataMappor.SingleLineMappor(
+  spark, 
+  gdc, gfmc, 
+  ParseConfFiles.getColsID(gdc,gfmc),
+  ParseConfFiles.getParamList(gdc, table)
+  t)
+/** Generating GBDT features. */
+gmu.predictByIds(
+  Vectors.dense(
+    DataMappor.getLabelPointsForGBDT(spark, gdc, t)
+    )
+  )
+val lrMaxIndex:Int = fmc_b.value.values.map(_._2).toArray.flatten.map(_._subIdx).max
+val libsvmFeatures:String = GradientBoostingDecisionTrees.leafIdFormatting(leafNodes)(weiboModel)(lrMaxIndex)
+val features:String = lrFeatures + libsvmFeatures
+val lbString:String = splits(labelIndx).toInt + " " + features
+val sparseMaxIndex:Int = GradientBoostingDecisionTrees.gbdtTotalNodes(leafNodes)(weiboModel) +
+lrMaxIndex
+labelPointParser(lbString)(sparseMaxIndex)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

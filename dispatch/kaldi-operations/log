@@ -1,0 +1,8 @@
+rsync -vzrtopg --progress ./dlmodel.model 10.77.29.68::backup/data/dlmodel.model
+building file list ... 
+ 0 files...1 file to consider
+dlmodel.model
+        2219 100%    0.00kB/s    0:00:00        2219 100%    0.00kB/s    0:00:00 (xfer#1, to-check=0/1)
+
+sent 995 bytes  received 38 bytes  2066.00 bytes/sec
+total size is 2219  speedup is 2.15

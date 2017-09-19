@@ -1,0 +1,9 @@
+data_path= # ./lib/client.sh # 数据目录，可为空，为数据传输需求提供
+job_name=control_center # 作业名
+user_name=enzhao # 用户名
+cluster_type=spark # 任务所处集群类型
+cluster_version=2.0.2 # 集群版本
+src_dir=../weiclient # 客户端目录相对路径，也是控制中心任务隔离后工作目录
+
+srvIP=10.77.29.68
+command=null #start_storm.sh # storm 使用，提交任务脚本名称

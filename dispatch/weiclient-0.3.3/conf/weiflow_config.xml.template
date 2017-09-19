@@ -1,0 +1,24 @@
+<configuration>
+  <weiflow>
+    <node id="1" preid="-1">scriptSubmit</node>
+  </weiflow>
+  <nodes>
+     <node name="scriptSubmit">
+      <env>
+        <var>SPARK_HOME=$SPARK_HOME</var>
+        <var>SCALA_HOME=$SCALA_HOME</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.shell.node.NodeShellImpl">
+        <binPath>bash</binPath>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+       <process name="process1">
+        <className>com.weibo.datasys.engine.shell.process.ProcessShellCmd</className>
+        <shell>echo 'hello world'</shell>
+        <script>user_custom_run_job.sh</script>
+      </process>
+    </node>
+   </nodes>
+</configuration>

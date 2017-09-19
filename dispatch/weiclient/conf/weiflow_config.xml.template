@@ -1,9 +1,9 @@
 <configuration>
   <weiflow>
-    <node id="1" preid="-1">shellSubmit</node>
+    <node id="1" preid="-1">scriptSubmit</node>
   </weiflow>
   <nodes>
-     <node name="shellSubmit">
+     <node name="scriptSubmit">
       <env>
         <var>SPARK_HOME=$SPARK_HOME</var>
         <var>SCALA_HOME=$SCALA_HOME</var>

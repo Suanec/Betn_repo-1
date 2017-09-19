@@ -1,0 +1,91 @@
+import scala.collection._
+import scala.collection.mutable.HashMap
+import scala.reflect.runtime.universe
+import scala.reflect.runtime.universe.ClassSymbol
+import scala.sys.process._
+import scala.io.Source
+import scala.util.matching.Regex
+import scala.xml.XML._
+
+import com.weibo.datasys.engine.spark.node._
+import com.weibo.datasys.engine.spark.input.InputSparkLibsvm
+import com.weibo.datasys.common.filesystem.File2DataFrame
+import com.weibo.datasys.dataflow.classbase.input.InputSpark
+import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+import com.weibo.datasys.common.filesystem._
+
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql._
+import org.apache.spark.sql.{Row, SparkSession}
+import org.apache.spark.sql.types._
+
+
+def show(dp:Any) : Unit = dp match {
+  case dp : String => spark.read.parquet(dp).show
+  case dp : com.weibo.datasys.engine.spark.node.DataFlowType => 
+    dp.asInstanceOf[com.weibo.datasys.engine.spark.node.WeiDataFrame].get.show
+}
+
+def conf2Map(xmlConf : String) : Map[String, Map[String,String]] = {
+  val elems = scala.xml.XML.loadString(xmlConf)
+  val node = ((elems \ "nodes").head \ "node").head
+  val needType = Seq("input","output","process")
+  node.child.filter(x => needType.contains(x.label)).map{
+    x =>
+      val name = (x \@ "name") 
+      val params = x.child.collect{
+        case c : scala.xml.Node if(! c.child.isEmpty) =>
+            c.label -> c.text
+      }.toMap
+      name -> params
+  }.toMap
+}
+
+val conf = """
+<configuration>
+  <nodes>
+    <node name="DeepJoinSample">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>/usr/local/spark/bin/spark-submit</binPath>
+        <sparkArgs>
+          --master local
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+
+      <input name="input181">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkNewSample</className>
+        <dataPath>dataflow/bugFix/lr_data</dataPath>
+        <format>text</format>
+      </input>
+      <input name="input182">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkText</className>
+        <dataPath>dataflow/bugFix/ttt</dataPath>
+        <format>text</format>
+      </input>
+      <process name="process18-1">
+        <className>com.weibo.datasys.engine.spark.process.ProcessSparkRawFeatureToLibsvm</className>
+        <dependency>input182</dependency>
+      </process>
+      <process name="process18-2">
+        <className>com.weibo.datasys.engine.spark.process.ProcessSparkSampleJoin</className>
+        <dependency>input181,process18-1</dependency>
+      </process>
+      <output name="output18">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkWeiboSample</className>
+        <dependency>process18-2</dependency>
+        <dataPath>dataflow/bugFix/joined_result</dataPath>
+        <format>text</format>
+        <metaPath>deepctr.meta</metaPath>
+      </output>
+
+    </node>
+   </nodes>
+</configuration>
+"""

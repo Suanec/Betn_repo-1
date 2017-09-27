@@ -1,10 +1,31 @@
+# WORK_SPACE ALIASES
+CDD="cd /Users/enzhao/suanec//ksp/dataflow"
+CDO="cd /Users/enzhao/suanec/ksp/dockerTest"
+CFD="cd /Users/enzhao/suanec/weibo/betn_repo/dataflow/GBDT+LR/dataflow/framework"
+CKD="cd /Users/enzhao/suanec/ksp/dispatch/weiclient"
+D="cp /Users/enzhao/suanec/ksp/dataflow/framework/target/data-flow-2.0.0-SNAPSHOT-shade.jar ./"
+UP="sh -x /Users/enzhao/suanec/libs/envs/upload_dataflow_jar.sh"
+alias showckd='echo -e " CDD:$CDD \n CDO:$CDO \n CFD:$CFD \n CKD:$CKD \n D:$D \n UP:$UP"'
+alias cdd=$CDD
+alias cdo=$CDO
+alias cfd=$CFD
+alias ckd=$CKD
+alias d=$D
+alias up=$UP
+alias ckdconfig='vim /Users/enzhao/suanec/libs/envs/ckd.sh'
+alias ss='source ~/.bash_profile;source /Users/enzhao/suanec/libs/envs/ckd.sh'
 # EXPORTS
 export SCALA_HOME="/Users/enzhao/suanec/libs/scala-2.11.8"
 export SBT_HOME="/Users/enzhao/suanec/libs/sbt-0.13.15"
-export HADOOP_HOME=/Users/enzhao/suanec/libs/hadoop-2.7.3
-export SPARK_HOME=/Users/enzhao/suanec/libs/spark-2.0.2-bin-hadoop2.7
-export PATH=$PATH:$SCALA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$SBT_HOME/bin:
+export HADOOP_HOME="/Users/enzhao/suanec/libs/hadoop-2.7.3"
+export SPARK_HOME="/Users/enzhao/suanec/libs/spark-2.0.2-bin-hadoop2.7"
+export LUA_HOME="/Users/enzhao/suanec/libs/lua-5.3.4"
+export MVN_HOME="/Users/enzhao/suanec/libs/apache-maven-3.5.0"
+export PATH=$PATH:$SCALA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$SBT_HOME/bin:$LUA_HOME/src:$MVN_HOME/bin
 export ENV_HOME=/Users/enzhao/suanec/libs/envs
+#export HADOOP_CONF_DIR=/Users/enzhao/suanec/libs/envs/aliyun-125/etc/hadoop
+export HADOOP_CONF_DIR=/Users/enzhao/suanec/support/tars/EMR-118-conf
+export HADOOP_USER_NAME=feed_weibo
 
 
 
@@ -15,16 +36,20 @@ alias hadoop175="sh $ENV_HOME/hadoop@175.sh"
 alias root176="sh $ENV_HOME/Zroot@176.sh"
 alias hadoop176="sh $ENV_HOME/hadoop@176.sh"
 alias suanecg="sh $ENV_HOME/g-channel.sh"
+alias liaobog="sh $ENV_HOME/liaobo.sh"
+alias showg="sh $ENV_HOME/show-channel.sh"
 alias suaneclt="sh $ENV_HOME/LT1-channel.sh"
 alias suaneclt2="sh $ENV_HOME/LT2-channel.sh"
 alias suanecdx="sh $ENV_HOME/DX1-channel.sh"
 alias suanecdx2="sh $ENV_HOME/DX2-channel.sh"
+alias wser="sh $ENV_HOME/start_HTTPServer.sh"
+alias ip="sh $ENV_HOME/getIP.sh"
+alias c="clear"
 
 # Linux Alias
 alias ll="ls -ltah"
 alias lsz='ls -lSah'
 alias wsp="cd ~/suanec/ksp"
-alias ckd="cd ~/suanec/ksp/dataflow"
 alias ecp="cp -rvfp"
 alias ldir='ls -lh|grep ^d'
 alias h5='head -5'
@@ -32,8 +57,16 @@ alias h1='head -1'
 alias jj="jobs -l"
 alias tf="tail -f"
 alias lduh="du -d 1 -h"
+alias dush="du -sh ."
 alias rmr="rm -rvf"
 
+# hdfs Alias
+alias fsls="hadoop fs -ls "
+alias fsmv="hadoop fs -mv "
+alias fsrmr="hadoop fs -rm -r "
+alias fscat="hadoop fs -cat "
+alias fstail="hadoop fs -tail "
+alias fs="hadoop fs"
 
 # git ALIASES
 alias ga="git add"
@@ -76,7 +109,6 @@ export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
 #sets up theprompt color (currently a green similar to linux terminal)
-#this config can config the empty size before the cursor
-export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$ '
+export PS1='[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\]]$ '
 #enables colorfor iTerm
 export TERM=xterm-256color

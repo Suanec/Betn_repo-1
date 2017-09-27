@@ -378,10 +378,10 @@ compact(render())
       import org.slf4j.LoggerFactory
       import com.weibo.datasys.engine.spark.output.OutputSparkGBDT._
 
-import org.json4s.JsonDSL._
-import org.json4s._
-import org.json4s.jackson.JsonMethods._
-import org.json4s.jackson.Serialization
+      import org.json4s.JsonDSL._
+      import org.json4s._
+      import org.json4s.jackson.JsonMethods._
+      import org.json4s.jackson.Serialization
 
 
   def splitDataToJson(nodeSplit : Option[Split]) : org.json4s.JValue = nodeSplit match {
@@ -402,6 +402,7 @@ import org.json4s.jackson.Serialization
 
     newNodeId += 1
 
+    println(nodeId)
     val jsonStr: JsonAST.JObject = ("treeId" -> treeId) ~
       ("nodeId" -> node.id) ~
       ("predict.predict" -> node.predict.predict) ~
@@ -436,7 +437,7 @@ import org.json4s.jackson.Serialization
     (treesJsonString, newNodeId)
   }
 
-  
+
       // =====================predictGBDT=======================//
 
 

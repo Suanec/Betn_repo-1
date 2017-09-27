@@ -1,0 +1,89 @@
+import scala.collection._
+import scala.collection.mutable.HashMap
+import scala.reflect.runtime.universe
+import scala.reflect.runtime.universe.ClassSymbol
+import scala.sys.process._
+
+import com.weibo.datasys.engine.spark.node._
+import com.weibo.datasys.engine.spark.input.InputSparkLibsvm
+import com.weibo.datasys.common.filesystem.File2DataFrame
+import com.weibo.datasys.dataflow.classbase.input.InputSpark
+import com.weibo.datasys.engine.spark.node.{DataFlowType, WeiDataFrame}
+
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql._
+
+def show(dp:Any) : Unit = dp match {
+  case dp : String => spark.read.parquet(dp).show
+  case dp : com.weibo.datasys.engine.spark.node.DataFlowType => 
+    dp.asInstanceOf[com.weibo.datasys.engine.spark.node.WeiDataFrame].get.show
+}
+
+
+val ru = universe.runtimeMirror(getClass.getClassLoader)
+val paramMap: HashMap[String, String] = HashMap[String, String]()
+// m_expo_num_his
+
+
+val runnerName = "input13"
+paramMap += "className" -> "com.weibo.datasys.engine.spark.input.InputSparkText"
+paramMap += "dataPath" -> "/user/suanec/dataflow/littleSample/mds_feed_strategy_samples_with_sampleid-1w"
+paramMap += "metaPath" -> "nn.meta"
+paramMap += "numPartitions" -> "7"
+val pm = paramMap.toMap
+val instance = ru.reflectModule(
+  ru.staticModule(
+    paramMap("className")
+  )).instance
+val obj = instance.asInstanceOf[com.weibo.datasys.dataflow.classbase.input.InputSpark]
+obj.init(paramMap.toMap)
+val input13 = obj.read(spark)
+val input13DF = input13.asInstanceOf[WeiDataFrame].get
+input13DF.select("m_expo_num_his")
+
+
+val runnerName = "process13-1"
+paramMap += "className" -> "com.weibo.datasys.engine.spark.process.ProcessSparkDataClean"
+paramMap += "dependency" -> "input13"
+paramMap += "dataPath" -> "nn.test.data.conf"
+val pm = paramMap.toMap
+val instance = ru.reflectModule(
+  ru.staticModule(
+    paramMap("className")
+  )).instance
+val obj = instance.asInstanceOf[com.weibo.datasys.dataflow.classbase.process.ProcessSpark]
+obj.init(pm)
+val process131 = com.weibo.datasys.engine.spark.process.ProcessSparkDataClean.transform(spark,Array(input13.asInstanceOf[DataFlowType]))
+.asInstanceOf[WeiDataFrame].get.show
+process131.asInstanceOf[WeiDataFrame].get.select("m_expo_num_his")
+
+
+val runnerName = "process13-2"
+paramMap += "className" -> "com.weibo.datasys.engine.spark.process.ProcessSparkNewSampleExtract"
+paramMap += "dependency" -> "process13-1"
+paramMap += "dataPath" -> "nn.test.data.conf"
+val pm = paramMap.toMap
+com.weibo.datasys.engine.spark.process.ProcessSparkNewSampleExtract.init(pm)
+val process132 = com.weibo.datasys.engine.spark.process.ProcessSparkNewSampleExtract.transform(spark,Array(process131))
+.asInstanceOf[WeiDataFrame].get.show
+process132.asInstanceOf[WeiDataFrame].get.select("m_expo_num_his")
+
+
+val runnerName = "process13-3"
+paramMap += "className" -> "com.weibo.datasys.engine.spark.process.ProcessSparkWeiboSampleMapping"
+paramMap += "dependency" -> "process13-2"
+paramMap += "dataPath" -> "nn.test.feature.conf"
+val pm = paramMap.toMap
+com.weibo.datasys.engine.spark.process.ProcessSparkWeiboSampleMapping.init(pm)
+val process133 = com.weibo.datasys.engine.spark.process.ProcessSparkWeiboSampleMapping.transform(spark,Array(process132))
+.asInstanceOf[WeiDataFrame].get.show
+val (featureDefs, featureRanges) = FeatureConf.readFeatureConf(featureConfPath)
+
+
+
+
+// val runnerName = "output13"
+// paramMap += "className" -> "com.weibo.datasys.engine.spark.output.OutputSparkWeiboSample"
+// paramMap += "dependency" -> "process13-3"
+// paramMap += "dataPath" -> "/user/suanec/dataflow/testGBDT/mds_feed_strategy_samples_with_sampleid_sample-for-gbdt_1w-1"
+// paramMap += "metaPath" -> "nn_1w.meta"

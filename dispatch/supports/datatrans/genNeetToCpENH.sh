@@ -1,5 +1,5 @@
-TARGET_DIR="hdfs://10.87.49.220:8020/user/push_weibo/temp_cuiwei_push_log_singlegroup_distinct_dt"
-SOURCE_DIR="hdfs://ns1nn2.hadoop.data.sina.com.cn:8020/user/weibo_bigdata_dm/warehouse/temp_cuiwei_push_log_singlegroup_distinct_dt"
+TARGET_DIR="hdfs://istinct_dt"
+SOURCE_DIR="hdfs://_dt"
 ROOT_DIR="warehouse"
 DISTCP_CMD="hadoop distcp -m 100 -bandwidth 100 -update "
 IS_DROPPED=1

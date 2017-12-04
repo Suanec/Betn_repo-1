@@ -1,0 +1,45 @@
+{
+  "center_user_name": "baozhan", 
+  "center_user_password": "sha1-password", 
+
+  "cluster_dispatch_type": "mesos", 
+  "client_job_path": "tf-distribute", 
+  "cluster_name": "shishi", 
+  "cluster_info": {
+    "cert_conf": ""
+  },
+
+  "job_name": "yxdsb", 
+  "job_is_tools_valid": "0", 
+  "job_submit_command": "run.sh", 
+  "job_query_command": "query.sh", 
+  "job_log_command": "log.sh", 
+  "job_stop_command": "stop.sh", 
+
+  "job_common_ip_preference": "10.77.26.68", 
+  "job_common_submit_type": "tensorflow", 
+  "job_common_is_docker": "0", 
+  "job_common_is_gpu": "0", 
+  "job_common_is_distributed": "1", 
+  "job_common_user_name_preference": "feed_ml", 
+
+  "job_docker_image": "registry.api.weibo.com/weibo_rd_algorithmplatform/deepwide", 
+  "job_docker_tag": "vvv2", 
+
+  "job_tensorflow_gpu_num_pertask": "1", 
+
+  "job_tensorflow_worker_number": "2", 
+  "job_tensorflow_worker_list": ["10.87.218.178|0","10.87.218.212|1"], 
+  "job_tensorflow_ps_number": "1", 
+  "job_tensorflow_ps_list": ["10.87.218.178|0","10.87.218.212|1"], 
+  "job_tensorflow_worker_port": "2223", 
+  "job_tensorflow_ps_port": "2222", 
+
+  "job_user_log_path": "/work_dir/git_repo/train.log",
+  "job_user_source_type": "git",
+  "job_user_source_path": "ssh://git@10.13.1.213:2222/algorithm/ctr.git sb",
+  "job_user_sample_type": "hdfs",
+  "job_user_sample_path": "hdfs://10.87.49.220:8020/"
+
+}
+

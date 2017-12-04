@@ -1,0 +1,28 @@
+#########################
+# weiclient
+#########################
+client_job_path=tf-k8s # the client job path under sandbox/ different from submit types.
+center_user_name=core-user # 用户名，必填
+job_name=k8s-tf # 作业名，必填
+
+cluster_name=k8s # 集群名称, 用英文，必填
+cluster_dispatch_type=k8s # 任务所处集群类型，非必填； storm；yarn；mesos/chronos；k8s；
+
+job_common_submit_type=tensorflow # 任务所处集群类型，非必填； shell; storm；spark；hadoop；tensorflow；
+
+job_tensorflow_ps_number=1 # parameter-server 数量，非必填，tensorflow-cluster作业必填
+job_tensorflow_worker_number=2 # ps-worker 数量，非必填，tensorflow-cluster作业必填
+job_tensorflow_ps_port=2222 # ps 端口号，非必填，tensorflow-cluster作业必填
+
+
+#########################
+# k8s作业专用
+#########################
+job_user_log_path=/work_dir/git_repo/train.log
+job_user_conf_path=usr/usr.cmd
+job_user_source_type=git
+job_user_source_path=ssh://git@10.13.1.213:2222/algorithm/ctr.git sb
+job_user_sample_type=hdfs
+job_user_sample_path=hdfs://10.87.49.220:8020/
+
+

@@ -1,0 +1,24 @@
+#########################
+# weiclient-spark
+#########################
+center_user_name=core-user # 必填，用户名
+job_name=core-job # 必填，作业名
+# client_center_host_name=http://controlcenter.ds.sina.com.cn # 非必填，控制中心域名
+client_center_host_name=http://controlcenter.ds.sina.com.cn # 控制中心域名，非必填
+job_common_is_docker=0 # 必填，docker运行环境；0: local; 1: docker
+
+#########################
+# dataflow-parameters
+#########################
+job_common_submit_jar=_jar_path # 非必填，spark任务以来jar包，控制中心默认支持dataflow2.0版本。如有自定义模块，请通过本参数更新jar包。
+job_common_submit_xml=dataflow-pipeline.xml # 非必填， dataflow依赖配置文件，默认为weibox/spark-yarn下pipeline.xml，如有自定义，请修改本参数。
+job_common_submit_node_id=3 # 非必填， dataflow依赖node_id，默认为1，如有自定义，请修改本参数。
+job_common_resource=0
+
+#########################
+# weiclient-spark-custom
+#########################
+cluster_name=EMR # 必填，集群名称, 用英文
+client_job_path=spark-yarn # the client job path under weibox/ different from submit types.
+job_common_submit_type=spark # 任务提交类型，必填； shell; storm；spark；hadoop；tensorflow；
+cluster_dispatch_type=yarn # 任务所处集群调度类型，必填； storm；yarn；mesos/chronos；k8s；

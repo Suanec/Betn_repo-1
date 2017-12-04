@@ -1,0 +1,73 @@
+<configuration>
+  <weiflow>
+    <node id="1" preid="-1">dataTrans-weiclient</node>
+    <node id="1" preid="-1">docker-weiclient</node>
+    <node id="3" preid="-1">GenFeatureConf-weiclient</node>
+  </weiflow>
+  <nodes>
+    <node name="dataTrans-weiclient">
+      <env>
+        <var>SPARK_HOME=$SPARK_HOME</var>
+        <var>SCALA_HOME=$SCALA_HOME</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.shell.node.NodeShellImpl">
+        <binPath>bash</binPath>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <process name="process1">
+        <className>com.weibo.datasys.engine.shell.process.ProcessShellCmd</className>
+        <!--<shell>hadoop distcp hdfs://10.85.125.175:9000/user/weibo_bigdata_ds/spark-data /user/feed_weibo/controlCenter/dataTrans/shell-weiflow</shell>-->
+        <shell>java -jar data-manager-tools-0.1-SNAPSHOT.jar Hadoop2Hadoop "--ori_path hdfs://10.85.125.175:9000/user/weibo_bigdata_ds/spark-data --target_path /user/feed_weibo/controlCenter/dataTrans/client-jar-shell"</shell>
+        <!--<script>datatrans.sh</script>-->
+      </process>
+    </node>
+    <node name="docker-weiclient">
+      <env>
+        <var>SPARK_HOME=$SPARK_HOME</var>
+        <var>SCALA_HOME=$SCALA_HOME</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.shell.node.NodeShellImpl">
+        <binPath>bash</binPath>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <process name="process1">
+        <className>com.weibo.datasys.engine.shell.process.ProcessShellCmd</className>
+        <script>dockerrund.sh</script>
+      </process>
+    </node>
+    <node name="GenFeatureConf-weiclient">
+      <env>
+        <var>SPARK_HOME=/usr/local/spark2.1.0</var>
+        <var>SCALA_HOME=/usr/local/scala2.11.5</var>
+      </env>
+      <runtime name="com.weibo.datasys.engine.spark.node.NodeSparkImpl">
+        <binPath>spark-submit</binPath>
+        <sparkArgs>
+          --master yarn
+          --deploy-mode client
+          --num-executors 2
+          --executor-cores 10
+          --executor-memory 8g
+          --driver-memory 10g
+        </sparkArgs>
+      </runtime>
+      <execute>
+        <type>pipeline</type>
+      </execute>
+      <input name="input2">
+        <className>com.weibo.datasys.engine.spark.input.InputSparkDataConf</className>
+        <!--<dataPath>json.data.conf</dataPath>-->
+        <dataPath>nn.train.data.conf</dataPath>
+      </input>
+      <output name="output2">
+        <className>com.weibo.datasys.engine.spark.output.OutputSparkFeatureConf</className>
+        <dependency>input2</dependency>
+        <dataPath>nn.train.feature.conf</dataPath>
+      </output>
+    </node>
+   </nodes>
+</configuration>

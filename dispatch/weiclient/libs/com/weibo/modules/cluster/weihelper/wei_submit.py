@@ -138,6 +138,7 @@ def client_submit(_argvs):
 
     request_info_check(http_response_code, logger)
 
-
+def run(_args = []):
+    client_submit(_args)
 
 

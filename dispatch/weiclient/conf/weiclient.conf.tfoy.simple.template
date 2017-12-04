@@ -1,0 +1,16 @@
+#########################
+# weiclient-spark
+#########################
+# center_user_name=core-user # 必填，用户名
+center_user_name=core-user # 必填，用户名
+job_name=core-job # 必填，作业名
+job_common_is_docker=1 # 选填，是否在docker中运行
+client_center_host_name=http://controlcenter.ds.sina.com.cn # 控制中心域名，非必填
+
+#########################
+# weiclient-spark-custom
+#########################
+cluster_name=EMR # 必填，集群名称, 用英文
+client_job_path=toy-docker # the client job path under weibox/ different from submit types.
+job_common_submit_type=spark # 任务提交类型，必填； shell; storm；spark；hadoop；tensorflow；
+cluster_dispatch_type=yarn # 任务所处集群调度类型，必填； storm；yarn；mesos/chronos；k8s；

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+osname=$(uname)
+if [ "$osname" = "Linux" ]
+then
+    bin_dir=$( dirname $(readlink -f $0) )
+elif [ "$osname" = "Darwin" ]
+then
+    exec_file=$(readlink $0||echo $0)
+	bin_dir=$( dirname $exec_file )
+else
+	bin_dir=$( cd "$( dirname "$0" )" && pwd )
+fi
+
+clt_dir="${bin_dir}/.."
+
+function lowest_unused_fd() {
+    local FD=10
+	while [ -e /dev/fd/$FD ]; do
+		FD=$((FD+1))
+	done
+	echo $FD
+}
+
+#echo Date: `date +"%Y-%m-%d-%H-%M-%S"`
+echo Date: `date +"%Y/%m/%d-%H:%M:%S"`
+echo "OS Name: $osname"
+python ${clt_dir}/libs/client.py $*

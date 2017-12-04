@@ -1,0 +1,58 @@
+#data_path= #./lib/client.sh # 数据目录，可为空，为数据传输需求提供
+#src_dir=../weiclient-deepctr # 客户端目录相对路径，也是控制中心任务隔离后工作目录
+#sample_name=../weiclient-test/samples/* # 样本库名称，可为目录，非必填
+#model_name=train.model # 样本库名称，可为目录，非必填
+
+#########################
+# weiclient
+#########################
+client_job_path=tf-distribute #the client job path under sandbox/
+client_center_host_name=http://controlcenter.ds.sina.com.cn # 控制中心域名，非必填
+#client_center_host_name=http://10.236.21.14:8080 # 控制中心域名，非必填
+#client_center_host_name=http://10.236.11.119:8080 # 控制中心域名，非必填
+#client_center_host_name=http://10.77.29.69:8080 # 控制中心域名，非必填
+client_control_center_version=controlCenter-1.0.0 # 控制中心版本，非必填，可为空
+client_change_host=true # 控制中心域名是否从配置文件读取，非必填
+
+#########################
+# 控制中心
+#########################
+center_user_name=baozhan # 用户名，必填
+center_user_password=sha1-password # 用户名，必填
+
+#########################
+# 集群系统+
+#########################
+#cluster_name=bx-gpu-cluster-1 # 集群名称, 用英文，必填
+#cluster_name=EMR # 集群名称, 用英文，必填
+cluster_name=shishi # 集群名称, 用英文，必填
+cluster_dispatch_type=mesos # 任务所处集群类型，非必填； storm；yarn；mesos/chronos；k8s；
+
+#########################
+# 作业信息
+#########################
+job_name=tfdist # 作业名，必填
+job_command=run.sh #start_storm.sh # storm 使用，提交任务脚本名称，非必填
+job_stop_command=stop.sh #stop
+
+job_common_user_name_preference=feed_ml # 用户名，非必填
+job_common_submit_type=tensorflow # 任务所处集群类型，非必填； shell; storm；spark；hadoop；tensorflow；
+job_common_is_distributed=1 # 0: 单机；1：分布式
+job_common_is_gpu=0 # 0: 不使用gpu；1：使用gpu；
+job_common_is_docker=0 # docker运行环境；0: local; 1: docker，必填
+job_common_ip_preference=10.77.26.68 # 用户名，非必填
+
+#########################
+# Docker作业专用
+#########################
+job_docker_image=xxx # 作业运行镜像；非必填
+
+#########################
+# Tensorflow作业专用
+#########################
+job_tensorflow_gpu_num_pernode=1 # 使用的gpu编号，0，1，2,  非必填，tensorflow作业必填
+job_tensorflow_ps_number=1 # parameter-server 数量，非必填，tensorflow-cluster作业必填
+job_tensorflow_worker_number=2 # ps-worker 数量，非必填，tensorflow-cluster作业必填
+job_tensorflow_ps_port=2222 # ps 端口号，非必填，tensorflow-cluster作业必填
+job_tensorflow_worker_port=2223 # worker 端口号，非必填，tensorflow-cluster作业必填
+

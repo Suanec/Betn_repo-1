@@ -1,0 +1,23 @@
+data_path= #./lib/client.sh # 数据目录，可为空，为数据传输需求提供
+job_name=emptyJobname # 作业名，必填
+user_name=baozhan # 用户名，必填
+cluster_type=tensorflow_gpu # 任务所处集群类型，必填
+cluster_version=1.3.0 # 集群版本，必填
+cluster_name=北显训练集群 # 集群名称，必填
+src_dir=../weiclient-deepctr # 客户端目录相对路径，也是控制中心任务隔离后工作目录
+
+#host_name=http://controlcenter.ds.sina.com.cn # 控制中心域名，非必填
+#host_name=http://10.77.29.69:8080 # 控制中心域名，非必填
+host_name=http://10.236.21.14:8080 # 控制中心域名，非必填
+#control_center_version=
+change_host=True # 控制中心域名是否从配置文件读取，非必填
+command=start-deepctr.sh #start_storm.sh # storm 使用，提交任务脚本名称，非必填
+
+sample_name=../weiclient-test/samples/* # 样本库名称，可为目录，非必填
+model_name=train.model # 样本库名称，可为目录，非必填
+gpu=2 # 使用的gpu编号，0，1，2，非必填，tensorflow作业必填
+ps_number=2 # parameter-server 数量，非必填，tensorflow-cluster作业必填
+worker_number=2 # ps-worker 数量，非必填，tensorflow-cluster作业必填
+ps_port=2222 # ps 端口号，非必填，tensorflow-cluster作业必填
+worker_port=2223 # worker 端口号，非必填，tensorflow-cluster作业必填
+env=local # tensorflow 作业运行环境，可选docker，非必填，tensorflow作业必填

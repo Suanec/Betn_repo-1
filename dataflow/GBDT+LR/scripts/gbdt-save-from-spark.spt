@@ -1,0 +1,145 @@
+    def save(sc: SparkContext, path: String, model: TreeEnsembleModel, className: String): Unit = {
+      val spark = SparkSession.builder().sparkContext(sc).getOrCreate()
+
+      // SPARK-6120: We do a hacky check here so users understand why save() is failing
+      //             when they run the ML guide example.
+      // TODO: Fix this issue for real.
+      val memThreshold = 768
+      if (sc.isLocal) {
+        val driverMemory = sc.getConf.getOption("spark.driver.memory")
+          .orElse(Option(System.getenv("SPARK_DRIVER_MEMORY")))
+          .map(Utils.memoryStringToMb)
+          .getOrElse(Utils.DEFAULT_DRIVER_MEM_MB)
+        if (driverMemory <= memThreshold) {
+          logWarning(s"$className.save() was called, but it may fail because of too little" +
+            s" driver memory (${driverMemory}m)." +
+            s"  If failure occurs, try setting driver-memory ${memThreshold}m (or larger).")
+        }
+      } else {
+        if (sc.executorMemory <= memThreshold) {
+          logWarning(s"$className.save() was called, but it may fail because of too little" +
+            s" executor memory (${sc.executorMemory}m)." +
+            s"  If failure occurs try setting executor-memory ${memThreshold}m (or larger).")
+        }
+      }
+
+      // Create JSON metadata.
+      implicit val format = DefaultFormats
+      val ensembleMetadata = Metadata(model.algo.toString, model.trees(0).algo.toString,
+        model.combiningStrategy.toString, model.treeWeights)
+      val metadata = compact(render(
+        ("class" -> className) ~ ("version" -> thisFormatVersion) ~
+          ("metadata" -> Extraction.decompose(ensembleMetadata))))
+      sc.parallelize(Seq(metadata), 1).saveAsTextFile(Loader.metadataPath(path))
+
+      // Create Parquet data.
+      val dataRDD = sc.parallelize(model.trees.zipWithIndex).flatMap { case (tree, treeId) =>
+        subtreeIterator(tree.topNode).toSeq.map(node => NodeData(treeId, node))
+      }
+      spark.createDataFrame(dataRDD).write.parquet(Loader.dataPath(path))
+    }
+
+
+@transient
+def subtreeIterator(topNode : org.apache.spark.mllib.tree.model.Node) : Iterator[org.apache.spark.mllib.tree.model.Node] = {
+    Iterator.single(topNode) ++ topNode.leftNode.map(subtreeIterator).getOrElse(Iterator.empty) ++
+      topNode.rightNode.map(subtreeIterator).getOrElse(Iterator.empty)
+  }
+object FeatureType extends Enumeration {
+  type FeatureType = Value
+  val Continuous, Categorical = Value
+}
+import FeatureType._
+case class Split(
+    feature: Int,
+    threshold: Double,
+    featureType: Int,
+    categories: List[Double]) {
+
+  override def toString: String = {
+    s"Feature = $feature, threshold = $threshold, featureType = $featureType, " +
+      s"categories = $categories"
+  }
+}
+
+    case class SplitData(
+        feature: Int,
+        threshold: Double,
+        featureType: Int,
+        categories: Seq[Double]) {
+      def toSplit: Split = {
+        new Split(feature, threshold, featureType, categories.toList)
+      }
+    }
+
+    object SplitData {
+      def apply(s: org.apache.spark.mllib.tree.model.Split): SplitData = {
+        SplitData(s.feature, s.threshold, s.featureType.id, s.categories)
+      }
+
+      def apply(r: org.apache.spark.sql.Row): SplitData = {
+        SplitData(r.getInt(0), r.getDouble(1), r.getInt(2), r.getAs[Seq[Double]](3))
+      }
+    }
+
+class Predict  (
+     val predict: Double,
+     val prob: Double = 0.0) extends Serializable {
+
+  override def toString: String = s"$predict (prob = $prob)"
+
+  override def equals(other: Any): Boolean = {
+    other match {
+      case p: Predict => predict == p.predict && prob == p.prob
+      case _ => false
+    }
+  }
+
+  override def hashCode: Int = {
+    com.google.common.base.Objects.hashCode(predict: java.lang.Double, prob: java.lang.Double)
+  }
+}
+   case class PredictData(predict: Double, prob: Double) {
+      def toPredict: Predict = new Predict(predict, prob)
+    }
+
+    object PredictData {
+      def apply(p: org.apache.spark.mllib.tree.model.Predict): PredictData = PredictData(p.predict, p.prob)
+
+      def apply(r: org.apache.spark.sql.Row): PredictData = PredictData(r.getDouble(0), r.getDouble(1))
+    }
+    case class NodeData(
+        treeId: Int,
+        nodeId: Int,
+        predict: PredictData,
+        impurity: Double,
+        isLeaf: Boolean,
+        split: Option[SplitData],
+        leftNodeId: Option[Int],
+        rightNodeId: Option[Int],
+        infoGain: Option[Double])
+
+    object NodeData {
+      def apply(treeId: Int, n: org.apache.spark.mllib.tree.model.Node): NodeData = {
+        NodeData(treeId, n.id, PredictData(n.predict), n.impurity, n.isLeaf,
+          n.split.map(SplitData.apply), n.leftNode.map(_.id), n.rightNode.map(_.id),
+          n.stats.map(_.gain))
+      }
+
+      def apply(r:  org.apache.spark.sql.Row): NodeData = {
+        val split = if (r.isNullAt(5)) None else Some(SplitData(r.getStruct(5)))
+        val leftNodeId = if (r.isNullAt(6)) None else Some(r.getInt(6))
+        val rightNodeId = if (r.isNullAt(7)) None else Some(r.getInt(7))
+        val infoGain = if (r.isNullAt(8)) None else Some(r.getDouble(8))
+        NodeData(r.getInt(0), r.getInt(1), PredictData(r.getStruct(2)), r.getDouble(3),
+          r.getBoolean(4), split, leftNodeId, rightNodeId, infoGain)
+      }
+    }
+
+      val dataRDD = (model.trees.zipWithIndex).flatMap { case (tree, treeId) =>
+        subtreeIterator(tree.topNode).toSeq.map(node => NodeData(treeId, node))
+      }
+
+
+
+

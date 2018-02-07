@@ -41,11 +41,11 @@ object KMeansExample {
 
     // Cluster the data into two classes using KMeans
     val numClusters = (args.size > 2) match {
-        case true => args(2)
+        case true => args(2).toInt
         case false => 2
     }
     val numIterations = (args.size > 3) match {
-        case true => args(3)
+        case true => args(3).toInt
         case false => 20
     }
     val clusters = KMeans.train(parsedData, numClusters, numIterations)

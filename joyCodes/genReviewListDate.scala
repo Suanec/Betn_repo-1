@@ -85,7 +85,8 @@ object genReviewListDate extends App {
     }
     val strArr = dateArr.map{
       s =>
-        s"#### ${s}\n- [ ] \n- [ ] \n- [ ] \n"
+        // s"#### ${s}\n- [ ] \n- [ ] \n- [ ] \n"
+        s"#### ${s}\n-  \n-  \n-  \n"
     }
     s"${dateArr.head}-${dateArr.last}\n\n" + strArr.mkString("\n")
   }

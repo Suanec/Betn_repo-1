@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 import sys
 
-from libs.ref_load import *
+from com.weibo.reflection.libs import ref_load
 # args = ["algorithm","cluster","init"]
 def gen_module_name(_name = ""):
   _module_name = "modules."+_name + "." + _name + "_client"
